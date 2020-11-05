@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package Data;
+
+//玩家这局的行为
+message PlayerBehave{
+
+    int32 uid = 1;
+
+    int32 Expensize = 2;//多少经验
+
+    int32 KillNum = 3;//杀了多少人
+
+    int32 Occup = 4; //占点个数
+
+    int32 PlayGameNum = 5;//玩家连续玩了多少把游戏
+}
+
+//结束后玩家行为记录
+message OverGameMessage{
+    repeated PlayerBehave AllPlayerBehave = 1;
+
+}

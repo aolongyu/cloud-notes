@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package Data;
+
+// 开始游戏时服务端所需的全部信息
+message PlayerInfo {
+    int32 roomid = 1;
+    int32 uid = 2;
+    string username = 3;
+}
+
+message RoomPlayInfo {
+    repeated PlayerInfo AllPlayerInfo = 1;
+    int32 PlayerLen = 2;
+}
+
+message HeroPro{
+    int32 skill = 1;
+    int32 weapon =2;
+    int32 heroLv = 3;//英雄等级
+    int32 heroHp = 4;//英雄血量
+    int32 heroAtk = 5;//英雄攻击力
+    int32 heroSpe = 6;//英雄移速
+    int32 heroDef = 7;//英雄防御力
+    double heroVector = 8;//角度
+    int32 AttBehavior = 9;//攻击行为
+    int32 RunBehavior = 10;//移动行为
+    int32 HeroID = 11; //英雄ID
+
+}
+
+message CoordPro{
+    double x =1;
+    double y =2;
+}
+
+message MapResourcePro{
+    int32 roomid =1;
+    int32 id =2; //物品种类
+    CoordPro mapResourceCoord =3;
+}
+
+
+message PlayerPro{
+    PlayerInfo playerMsg = 1;
+    CoordPro playerCoord =2;
+    HeroPro playerHero =3;
+}
+
+//房主可根据自己的Uid更新房间信息。
+message PreloadPro {
+    repeated PlayerPro AllPlayer =2;
+    repeated MapResourcePro AllMapResource = 3;
+}
+//玩家初始化UI界面的protobuf
+message InitPlayerInfo{
+    int32 HeroId = 1;
+    int32 HeroLv = 2;
+    int32 HeroExp = 3;
+    int32 HeroSkill= 4;
+    int32 WeaponId = 5;
+    string UserName = 6;
+    int32 AccountLv = 7;
+    int32 AccountExp = 8;
+    int32   ChooseHeroId = 9;
+}
