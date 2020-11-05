@@ -1,0 +1,18 @@
+syntax="proto3"; //版本号
+
+package myhandler;  //包名
+
+option go_package = "";
+message Customer{ //消息，对应于Go的结构体
+  string user = 1;
+  string pass = 2;
+  string nickname = 3;
+}
+message HeroServer{
+  int32 id =1;
+  int32 uid = 2;
+  int32 hero_id = 3;
+  int32 hero_lv = 4;
+  int32 hero_exp = 5;
+  int32 hero_weapon = 6;
+}

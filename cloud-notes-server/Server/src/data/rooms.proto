@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package Data;
+message RoomPro{
+    int32 uid = 1;
+    int32 status = 2;
+    int32 nums = 3;
+}
+message Rooms{
+    int32 readys = 1;
+    int32 battles = 2;
+    int32 overs = 3;
+    repeated RoomPro room = 4;
+}
+message RoomChat{
+    int32 Roomid =1;
+    string chatdata = 2;
+}
