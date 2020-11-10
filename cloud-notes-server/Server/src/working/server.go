@@ -4,8 +4,6 @@ import (
 	"snet"
 	"shandle"
 )
-
-
 func main(){
 	s:= snet.NewServer()
 
