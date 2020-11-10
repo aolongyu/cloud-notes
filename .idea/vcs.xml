@@ -4,11 +4,13 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/fatih/color" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/go-sql-driver/mysql" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/golang/net" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/golang/protobuf" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/jessevdk/go-flags" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/jinzhu/gorm" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/jinzhu/inflection" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/uber/go-torch" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/golang.org/x/net/net" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/google.golang.org/protobuf" vcs="Git" />
   </component>
 </project>

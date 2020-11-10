@@ -97,11 +97,10 @@ func (c *Connection) StartReader() {
 	//defer Logs.Warn(c.GetAddr().String(), "的地址读端退出")
 	defer fmt.Println(c.GetAddr().String(), "的地址读端退出")
 	defer c.Stop()
-
+	pack := NewDataPack()
+	pack.Webconn(c)
 	for {
 		//读对象阻塞函数，创建一个拆包实例
-		pack := NewDataPack()
-
 		headData := make([]byte, pack.GetHendLen())
 
 		if _, err := io.ReadFull(c.GetTcpConnection(), headData); err != nil {
