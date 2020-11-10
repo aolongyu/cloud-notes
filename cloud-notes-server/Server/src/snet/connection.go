@@ -101,9 +101,9 @@ func (c *Connection) StartReader() {
 	pack.Webconn(c)
 	for {
 		//读对象阻塞函数，创建一个拆包实例
-		headData := make([]byte, pack.GetHendLen())
+		Data := make([]byte, 2048)
 
-		if _, err := io.ReadFull(c.GetTcpConnection(), headData); err != nil {
+		if _, err := io.ReadFull(c.GetTcpConnection(), Data); err != nil {
 			fmt.Println("读取数据时候失败", err)
 			//Logs.Error("读取数据时候失败", err)
 			if c.isClosed == true {
@@ -113,7 +113,8 @@ func (c *Connection) StartReader() {
 			c.ExitBuffChan <- true
 			break
 		}
-		msg, err := pack.Unpack(headData)
+		fmt.Println("发送的数据为:",string(Data))
+		msg, err := pack.Unpack(Data)
 		if err != nil {
 			fmt.Println("解包失败 error", err)
 			//Logs.Error("解包失败 error", err)
