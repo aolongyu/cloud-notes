@@ -1,6 +1,8 @@
 package snet
 
 import (
+	"bytes"
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"io"
@@ -227,7 +229,7 @@ func (c *Connection) SendMesg(msgId uint32, data []byte) error {
 
 		return errors.New("链接关闭，无法发送信息")
 	}
-
+	/*
 	//进行封包发送
 	pack := NewDataPack()
 	msg, err := pack.Pack(NewMsgPackage(msgId, data))
@@ -237,6 +239,28 @@ func (c *Connection) SendMesg(msgId uint32, data []byte) error {
 		return errors.New("[error]封包失败 ")
 	}
 	c.msgChan <- msg
+	return nil*/
+	if len(data) >= 2048 {
+		return errors.New("发送的包长大于2048")
+	}
+
+	length := len(data)
+	maskedData := make([]byte,length)
+	for i:=0;i<length ;i++{
+		maskedData[i] = data[i]
+	}
+	dataBuf := bytes.NewBuffer([]byte{})
+	if err := binary.Write(dataBuf,binary.BigEndian,[]byte{0x81});err!=nil{
+		return err
+	}
+	payLenByte := byte(0x00) | byte(length)
+	if err := binary.Write(dataBuf,binary.BigEndian,payLenByte);err!=nil{
+		return err
+	}
+	if err := binary.Write(dataBuf,binary.BigEndian,dataBuf);err!=nil{
+		return err
+	}
+	c.msgChan <- dataBuf.Bytes()
 	return nil
 }
 

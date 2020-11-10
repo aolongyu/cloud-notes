@@ -83,7 +83,8 @@ func (Msg *DataPack) Unpack(Data []byte)(isface.IMessage ,error) {
 func (this *DataPack)Webconn(c *Connection) {
 	strbuf := make([]byte,2048)
 	//读取Conn里面的值，最大包长限定2048，出错关闭这个连接
-	if _, err := io.ReadFull(c.GetTcpConnection(), strbuf); err != nil {
+	_,err := c.Conn.Read(strbuf)
+	if err != nil{
 		fmt.Println("Webfirstconn读取数据时候失败", err)
 		//Logs.Error("读取数据时候失败", err)
 		if c.isClosed == true {
@@ -149,3 +150,4 @@ func parseHandshake(content string)map[string]string{
 	}
 	return headers
 }
+
