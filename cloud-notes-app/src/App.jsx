@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  createSocket('ws://192.168.1.4:8999')
+  createSocket('ws://10.12.83.81:8999')
   setTimeout(() => {
     sendWSPush('hello')
   }, 500);

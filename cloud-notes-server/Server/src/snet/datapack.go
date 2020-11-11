@@ -115,11 +115,16 @@ func (Msg *DataPack) Unpack(data []byte)(isface.IMessage ,error) {
 	fmt.Println("拆包结果得到：",res)
 	return NewMsgPackage(404,data),nil
 }
+var Tempbuf = make([]byte,Settings.GlobalObject.MaxPacketSize)
 
 func (this *DataPack)Webconn(c *Connection) {
-	strbuf := make([]byte,Settings.GlobalObject.MaxPacketSize)
+
 	//读取Conn里面的值，最大包长限定2048，出错关闭这个连接
-	_,err := c.Conn.Read(strbuf)
+	nums,err := c.Conn.Read(Tempbuf)
+	strbuf := make([]byte,nums)
+	for i:=0;i<nums;i++{
+		strbuf[i] = Tempbuf[i]
+	}
 	if err != nil{
 		fmt.Println("Webfirstconn读取数据时候失败", err)
 		//Logs.Error("读取数据时候失败", err)
@@ -163,14 +168,13 @@ func (this *DataPack)Webconn(c *Connection) {
 		response = response + "Connection: Upgrade\r\n"
 		response = response + "Upgrade: websocket\r\n\r\n"
 
-		fmt.Println("response:",response)
+		fmt.Println("回应信息: ",response)
 
 		if length,err := c.Conn.Write([]byte(response));err != nil{
 			fmt.Println(err)
 		}else{
-			fmt.Println("Websocket Send Len:",length)
+			fmt.Println("Websocket 首次发送长度:",length)
 		}
-
 	}
 }
 

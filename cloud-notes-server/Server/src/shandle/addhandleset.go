@@ -57,7 +57,7 @@ const (
 	TIME_ROOM_BORAD      = 104 //告诉房间内玩家时间广播（发）
 	GAME_OVER_BORAD      = 105 //告诉房间内所有玩家游戏结束了（发）
 	JOIN_ROOM_BORAD_HERO = 106 //给所有人广播加入人的具体信息
-
+	TEST_HANDLE = 404
 )
 
 func AddHandleInit(s isface.IServer) {
@@ -82,4 +82,5 @@ func AddHandleInit(s isface.IServer) {
 	s.AddHandle(UPDATA_WPAPON,&UpdataWpapon{},"更新绑定武器",0)
 	s.AddHandle(UPDATA_HEROSKILL,&UpdataHeroSkill{},"更新玩家技能",0)
 	s.AddHandle(UPDATA_PASS, &UpdataPass{}, "更改密码", 0)
+	s.AddHandle(TEST_HANDLE,&Nofound{},"测试能否连接",0)
 }

@@ -124,7 +124,7 @@ export const sendWSPush = message => {
       'color: white; background: #5DAC81;',
       `向服务端发送message: ${message}`
     );
-    Socket.send(JSON.stringify(message))
+    Socket.send(message)
   } else if (Socket.readyState === 0) {
     connecting(message)
   }
@@ -147,10 +147,10 @@ const oncloseWS = () => {
  * @param {number} time 心跳间隔毫秒 默认5000
  * @param {string} ping 心跳名称 默认字符串ping
  */
-export const sendPing = (time = 5000, ping = 'ping') => {
+export const sendPing = (time = 5000, ping = 'pingaolyu') => {
   clearInterval(setIntervalWesocketPush)
-  Socket.send(ping)
+  //Socket.send(ping)
   setIntervalWesocketPush = setInterval(() => {
-    Socket.send(ping)
+    //Socket.send(ping)
   }, time)
 }
