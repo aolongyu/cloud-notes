@@ -43,18 +43,24 @@ let setIntervalWesocketPush = null
  * @param {string} url ws地址
  */
 export const createSocket = url => {
-  console.log(url)
   // Socket && Socket.close()
   if (!Socket) {
-    console.log('建立websocket连接');
+    console.log(
+      '%c%s',
+      'color: white; background: #5DAC81;',
+      `建立websocket连接:${url}`
+    );
     Socket = new WebSocket(url)
-    console.log(Socket)
     Socket.onopen = onopenWS
     Socket.onmessage = onmessageWS
     Socket.onerror = onerrorWS
     Socket.onclose = oncloseWS
   } else {
-    console.log('websocket已连接')
+    console.log(
+      '%c%s',
+      'color: white; background: #5DAC81;',
+      'websocket已连接'
+    )
   }
 }
 
@@ -67,7 +73,12 @@ const onopenWS = () => {
 const onerrorWS = () => {
   Socket.close()
   clearInterval(setIntervalWesocketPush)
-  console.log('连接失败重连中')
+  console.log(
+    '%c%s',
+    'color: white; background: orange;',
+    '连接失败重连中'
+  )
+  // console.log('连接失败重连中')
   if (Socket.readyState !== 3) {
     Socket = null
     createSocket()
@@ -76,6 +87,7 @@ const onerrorWS = () => {
 
 /**WS数据接收统一处理 */
 const onmessageWS = e => {
+  console.log(e)
   window.dispatchEvent(new CustomEvent('onmessageWS', {
     detail: {
       data: e.data
@@ -102,10 +114,16 @@ const connecting = message => {
  * @param {any} message 需要发送的数据
  */
 export const sendWSPush = message => {
+  console.log(Socket.readyState)
   if (Socket !== null && Socket.readyState === 3) {
     Socket.close()
     createSocket()
   } else if (Socket.readyState === 1) {
+    console.log(
+      '%c%s',
+      'color: white; background: #5DAC81;',
+      `向服务端发送message: ${message}`
+    );
     Socket.send(JSON.stringify(message))
   } else if (Socket.readyState === 0) {
     connecting(message)
