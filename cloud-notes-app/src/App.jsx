@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   // 192.168.1.4
-  createSocket('ws://192.168.1.4:8999')
+  createSocket('ws://localhost:8999')
   setTimeout(() => {
     sendWSPush('hello')
   }, 500);
