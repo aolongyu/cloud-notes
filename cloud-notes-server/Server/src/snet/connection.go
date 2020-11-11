@@ -1,14 +1,12 @@
 package snet
 
 import (
-	"bytes"
-	"encoding/binary"
+	"Settings"
 	"errors"
 	"fmt"
 	"io"
 	"isface"
 	"net"
-	"Settings"
 )
 
 //icconect的实现层
@@ -246,27 +244,10 @@ func (c *Connection) SendMesg(msgId uint32, data []byte) error {
 	}
 	c.msgChan <- msg
 	return nil*/
-	if int32(len(data)) >= int32(Settings.GlobalObject.MaxPacketSize) {
-		return errors.New("发送的包长大于2048")
-	}
-
-	length := len(data)
-	maskedData := make([]byte,length)
-	for i:=0;i<length ;i++{
-		maskedData[i] = data[i]
-	}
-	dataBuf := bytes.NewBuffer([]byte{})
-	if err := binary.Write(dataBuf,binary.BigEndian,[]byte{0x81});err!=nil{
-		return err
-	}
-	payLenByte := byte(0x00) | byte(length)
-	if err := binary.Write(dataBuf,binary.BigEndian,payLenByte);err!=nil{
-		return err
-	}
-	if err := binary.Write(dataBuf,binary.BigEndian,dataBuf);err!=nil{
-		return err
-	}
-	c.msgChan <- dataBuf.Bytes()
+	pack := NewDataPack()
+	msgChange := pack.Webpacksocket(data)
+	fmt.Println("发送消息",msgChange)
+	c.msgChan <- msgChange
 	return nil
 }
 
