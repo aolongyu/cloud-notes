@@ -93,7 +93,7 @@ func IsClosedch(ch <-chan interface{}) bool {
 	return false
 }
 
-var TempData = make([]byte, Settings.GlobalObject.MaxPacketSize)
+
 //读端，从客户端中读取消息
 func (c *Connection) StartReader() {
 	fmt.Println("id为", c.ConnId, "Ip：", c.GetAddr(), "的地址读端开启")
@@ -105,7 +105,7 @@ func (c *Connection) StartReader() {
 	pack.Webconn(c)
 	for {
 		//读对象阻塞函数，创建一个拆包实例
-
+		var TempData = make([]byte, Settings.GlobalObject.MaxPacketSize)
 		nums,err := c.Conn.Read(TempData)
 		Data:=make([]byte,nums)
 		for i:=0;i<nums;i++{

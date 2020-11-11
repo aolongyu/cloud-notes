@@ -115,11 +115,12 @@ func (Msg *DataPack) Unpack(data []byte)(isface.IMessage ,error) {
 	fmt.Println("拆包结果得到：",res)
 	return NewMsgPackage(404,data),nil
 }
-var Tempbuf = make([]byte,Settings.GlobalObject.MaxPacketSize)
+
 
 func (this *DataPack)Webconn(c *Connection) {
 
 	//读取Conn里面的值，最大包长限定2048，出错关闭这个连接
+	var Tempbuf = make([]byte,Settings.GlobalObject.MaxPacketSize)
 	nums,err := c.Conn.Read(Tempbuf)
 	strbuf := make([]byte,nums)
 	for i:=0;i<nums;i++{
