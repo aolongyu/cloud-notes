@@ -87,7 +87,7 @@ const onerrorWS = () => {
 
 /**WS数据接收统一处理 */
 const onmessageWS = e => {
-  console.log(e)
+  console.log('从服务端接收到: ', e)
   window.dispatchEvent(new CustomEvent('onmessageWS', {
     detail: {
       data: e.data
@@ -104,7 +104,7 @@ const connecting = message => {
     if (Socket.readyState === 0) {
       connecting(message)
     } else {
-      Socket.send(JSON.stringify(message))
+      Socket.send(message)
     }
   }, 1000)
 }
@@ -114,7 +114,7 @@ const connecting = message => {
  * @param {any} message 需要发送的数据
  */
 export const sendWSPush = message => {
-  console.log(Socket.readyState)
+  console.log('Socket.readyState: ', Socket.readyState)
   if (Socket !== null && Socket.readyState === 3) {
     Socket.close()
     createSocket()
@@ -135,7 +135,11 @@ export const sendWSPush = message => {
  */
 const oncloseWS = () => {
   clearInterval(setIntervalWesocketPush)
-  console.log('websocket已断开....正在尝试重连')
+  console.log(
+    '%c%s',
+    'color: white; background: red;',
+    'websocket已断开....正在尝试重连'
+  )
   if (Socket.readyState !== 2) {
     Socket = null
     createSocket()
