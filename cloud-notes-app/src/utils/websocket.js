@@ -45,11 +45,19 @@ let setIntervalWesocketPush = null
 export const createSocket = url => {
   // Socket && Socket.close()
   if (!Socket) {
-    console.log(
-      '%c%s',
-      'color: white; background: #5DAC81;',
-      `建立websocket连接:${url}`
-    );
+    if(url === undefined) {
+      console.log(
+        '%c%s',
+        'color: white; background: red;',
+        '服务器down了'
+      )
+    } else {
+      console.log(
+        '%c%s',
+        'color: white; background: #5DAC81;',
+        `建立websocket连接:${url}`
+      )
+    }
     Socket = new WebSocket(url)
     Socket.onopen = onopenWS
     Socket.onmessage = onmessageWS
@@ -153,8 +161,8 @@ const oncloseWS = () => {
  */
 export const sendPing = (time = 5000, ping = 'pingaolyu') => {
   clearInterval(setIntervalWesocketPush)
-  //Socket.send(ping)
+  // Socket.send(ping)
   setIntervalWesocketPush = setInterval(() => {
-    //Socket.send(ping)
+    Socket.send(ping)
   }, time)
 }
