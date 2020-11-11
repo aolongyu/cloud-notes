@@ -8,6 +8,7 @@ import (
 	"io"
 	"isface"
 	"net"
+	"Settings"
 )
 
 //icconect的实现层
@@ -103,19 +104,21 @@ func (c *Connection) StartReader() {
 	pack.Webconn(c)
 	for {
 		//读对象阻塞函数，创建一个拆包实例
-		Data := make([]byte, 2048)
-
-		if _, err := io.ReadFull(c.GetTcpConnection(), Data); err != nil {
-			fmt.Println("读取数据时候失败", err)
+		Data := make([]byte, Settings.GlobalObject.MaxPacketSize)
+		_,err := c.Conn.Read(Data)
+		if err != nil{
+			fmt.Println("Webfirstconn读取数据时候失败", err)
 			//Logs.Error("读取数据时候失败", err)
 			if c.isClosed == true {
-				break
+				return
 			}
 			c.isClosed = true
 			c.ExitBuffChan <- true
 			break
 		}
+
 		fmt.Println("发送的数据为:",string(Data))
+
 		msg, err := pack.Unpack(Data)
 		if err != nil {
 			fmt.Println("解包失败 error", err)
@@ -240,7 +243,7 @@ func (c *Connection) SendMesg(msgId uint32, data []byte) error {
 	}
 	c.msgChan <- msg
 	return nil*/
-	if len(data) >= 2048 {
+	if int32(len(data)) >= int32(Settings.GlobalObject.MaxPacketSize) {
 		return errors.New("发送的包长大于2048")
 	}
 

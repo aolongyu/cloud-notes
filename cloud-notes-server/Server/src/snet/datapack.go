@@ -2,15 +2,14 @@ package snet
 
 import (
 	"Settings"
+	"bytes"
 	"crypto/sha1"
 	"encoding/base64"
+	"encoding/binary"
 	"fmt"
+	_ "golang.org/x/net/websocket"
 	"io"
 	"isface"
-	"bytes"
-	"encoding/binary"
-	"errors"
-	_ "golang.org/x/net/websocket"
 	"strings"
 )
 
@@ -56,32 +55,69 @@ func (Msg *DataPack) Pack(msg isface.IMessage)([]byte , error){
 }
 
 //进行拆包,拆出数据段
-func (Msg *DataPack) Unpack(Data []byte)(isface.IMessage ,error) {
-	//创建一个ioReader
-	dataBuf := bytes.NewReader(Data)
+func (Msg *DataPack) Unpack(data []byte)(isface.IMessage ,error) {
+	en_bytes := []byte("")
+	cn_bytes := make([]int,0)
 
-	//创建解压信息的实例
-	msg := &Message{}
-
-	//解压出ID号长度4字节
-	if err:= binary.Read(dataBuf,binary.LittleEndian,&msg.Id); err != nil{
-		return nil,err
+	v := data[1]&0x7f
+	p:=0
+	res:=""
+	switch v {
+	case 0x7e:
+		p =4
+	case 0x7f:
+		p = 10
+	default:
+		p = 2
 	}
-	//解压DataLen，长度4字节
-	if err:= binary.Read(dataBuf,binary.LittleEndian,&msg.DataLen); err != nil{
-		return nil,err
+	mask := data[p:p+4]
+	data_tmp := data[p+4:]
+	nv :=""
+	nv_bytes :=[]byte("")
+	nv_len :=0
+
+	for k,v := range(data_tmp){
+
+		nv = string(int(v ^ mask[k%4]))
+		nv_bytes = []byte(nv)
+		nv_len = len(nv_bytes)
+		if nv_len == 1 {
+			en_bytes=BytesCombine(en_bytes,nv_bytes)
+		}else{
+			en_bytes=BytesCombine(en_bytes,[]byte("%s"))
+			cn_bytes = append(cn_bytes,int(v ^ mask[k%4]))
+		}
 	}
 
-	if msg.DataLen > Settings.GlobalObject.MaxPacketSize {
-		return nil,errors.New("数据包太大，无法接受")
-	}
+	//处理中文
+	cn_str := make([]interface{},0)
+	if len(cn_bytes) >2 {
 
-	//可以直接用链接ID，读取conn 通过包头长度获得该包的数据。
-	return msg,nil
+		clen := len(cn_bytes)
+		count := int(clen/3)
+
+		for i:=0;i<count;i++ {
+			mm := i*3
+			hh := make([]byte,3)
+			h1  := IntToBytes(cn_bytes[mm])
+			h2  := IntToBytes(cn_bytes[mm+1])
+			h3  := IntToBytes(cn_bytes[mm+2])
+			hh[0]=h1[0]
+			hh[1]=h2[0]
+			hh[2]=h3[0]
+			cn_str = append(cn_str, string(hh))
+		}
+		new := string(bytes.Replace(en_bytes,[]byte("%s%s%s"),[]byte("%s"),-1))
+		res = fmt.Sprintf(new,cn_str...)
+	}else{
+		res = string(en_bytes)
+	}
+	fmt.Println("拆包结果得到：",res)
+	return NewMsgPackage(404,data),nil
 }
 
 func (this *DataPack)Webconn(c *Connection) {
-	strbuf := make([]byte,2048)
+	strbuf := make([]byte,Settings.GlobalObject.MaxPacketSize)
 	//读取Conn里面的值，最大包长限定2048，出错关闭这个连接
 	_,err := c.Conn.Read(strbuf)
 	if err != nil{
@@ -137,6 +173,7 @@ func (this *DataPack)Webconn(c *Connection) {
 
 	}
 }
+
 func parseHandshake(content string)map[string]string{
 	headers := make(map[string]string,10)
 	lines := strings.Split(content,"\r\n")
@@ -151,3 +188,13 @@ func parseHandshake(content string)map[string]string{
 	return headers
 }
 
+func BytesCombine(pBytes ...[]byte) []byte {
+	return bytes.Join(pBytes, []byte(""))
+}
+
+func IntToBytes(n int) ([]byte) {
+	x := int32(n)
+	bytesBuffer := bytes.NewBuffer([]byte{})
+	binary.Write(bytesBuffer, binary.BigEndian, x)
+	return bytesBuffer.Bytes()
+}
