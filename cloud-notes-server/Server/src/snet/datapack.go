@@ -53,7 +53,38 @@ func (Msg *DataPack) Pack(msg isface.IMessage)([]byte , error){
 	}
 	return dataBuf.Bytes(),nil
 }
+func (this *DataPack) Webpacksocket(data []byte)([]byte){
+	length := len(data)
+	token := string(0x81)
+	if length < 126{
+		token+= string(length)
+	}
+	byteInt81 := IntToBytes(0x81)
+	b0 := byteInt81[0]
+	b1 := byte(0)
+	framePos := 0
+	fmt.Println("待发送报文长度为:",length)
 
+	switch {
+	case length >= 65535:
+		writeBuf := make([]byte,10)
+		writeBuf[framePos] = b0
+		writeBuf[framePos+1] = b1|127
+		binary.BigEndian.PutUint64(writeBuf[framePos+2:],uint64(length))
+		return BytesCombine(writeBuf,data)
+	case length > 125:
+		writeBuf := make([]byte,4)
+		writeBuf[framePos] = b0
+		writeBuf[framePos+1] = b1 | 126
+		binary.BigEndian.PutUint16(writeBuf[framePos+2:],uint16(length))
+		return BytesCombine(writeBuf,data)
+	default:
+		writeBuf := make([]byte,2)
+		writeBuf[framePos] = b0
+		writeBuf[framePos+1] = b1 | byte(length)
+		return BytesCombine(writeBuf,data)
+	}
+}
 //进行拆包,拆出数据段
 func (Msg *DataPack) Unpack(data []byte)(isface.IMessage ,error) {
 	en_bytes := []byte("")
