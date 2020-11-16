@@ -95,7 +95,12 @@ const onerrorWS = () => {
 
 /**WS数据接收统一处理 */
 const onmessageWS = e => {
-  console.log('从服务端接收到: ', e)
+  console.log(
+    '%c%s',
+    'color: white; background: #5DAC81;',
+    `向服务端发送message: ${'从服务端接收到: ' + e.data}`
+  )
+  console.log()
   window.dispatchEvent(new CustomEvent('onmessageWS', {
     detail: {
       data: e.data
@@ -118,6 +123,25 @@ const connecting = message => {
 }
 
 /**
+   * int 转 byte
+   * @param i 
+   */
+  function intToByte(i) {
+    var b = i & 0xFF;
+    var c = 0;
+    if (b >= 128) {
+        c = b % 128;
+        c = -1 * (128 - c);
+    } else {
+        c = b;
+    }
+    console.log('123->', c)
+    return c
+}
+
+
+
+/**
  * 发送数据
  * @param {any} message 需要发送的数据
  */
@@ -131,8 +155,9 @@ export const sendWSPush = message => {
       '%c%s',
       'color: white; background: #5DAC81;',
       `向服务端发送message: ${message}`
-    );
-    Socket.send(message)
+    )
+    console.log(intToByte(1)+JSON.stringify(message))
+    Socket.send(intToByte(1)+JSON.stringify(message))
   } else if (Socket.readyState === 0) {
     connecting(message)
   }
@@ -163,6 +188,6 @@ export const sendPing = (time = 5000, ping = 'pingaolyu') => {
   clearInterval(setIntervalWesocketPush)
   // Socket.send(ping)
   setIntervalWesocketPush = setInterval(() => {
-    Socket.send(ping)
+    Socket.send(JSON.stringify(ping))
   }, time)
 }
