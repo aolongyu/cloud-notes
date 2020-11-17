@@ -98,7 +98,7 @@ const onmessageWS = e => {
   console.log(
     '%c%s',
     'color: white; background: #5DAC81;',
-    `向服务端发送message: ${'从服务端接收到: ' + e.data}`
+    `${'从服务端接收到: ' + e.data}`
   )
   console.log()
   window.dispatchEvent(new CustomEvent('onmessageWS', {
@@ -122,23 +122,18 @@ const connecting = message => {
   }, 1000)
 }
 
-/**
-   * int 转 byte
-   * @param i 
-   */
-  function intToByte(i) {
-    var b = i & 0xFF;
-    var c = 0;
-    if (b >= 128) {
-        c = b % 128;
-        c = -1 * (128 - c);
-    } else {
-        c = b;
+const strTo10Length = (str) => {
+  let len = str.length
+  if(len > 0 && len <= 10) {
+    let addStr = ''
+    for(let i = len; i < 10; i++) {
+      addStr += ' '
     }
-    console.log('123->', c)
-    return c
+    console.log(str + addStr, (str + addStr).length)
+    return str + addStr
+  }
+  return
 }
-
 
 
 /**
@@ -154,10 +149,10 @@ export const sendWSPush = message => {
     console.log(
       '%c%s',
       'color: white; background: #5DAC81;',
-      `向服务端发送message: ${message}`
+      `向服务端发送message: ${strTo10Length('LOGIN')}`
     )
-    console.log(intToByte(1)+JSON.stringify(message))
-    Socket.send(intToByte(1)+JSON.stringify(message))
+    console.log(strTo10Length('LOGIN')+JSON.stringify(message))
+    Socket.send(strTo10Length('LOGIN')+JSON.stringify(message))
   } else if (Socket.readyState === 0) {
     connecting(message)
   }
