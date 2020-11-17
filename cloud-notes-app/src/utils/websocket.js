@@ -182,7 +182,7 @@ const oncloseWS = () => {
 export const sendPing = (time = 5000, ping = 'pingaolyu') => {
   clearInterval(setIntervalWesocketPush)
   // Socket.send(ping)
-  setIntervalWesocketPush = setInterval(() => {
-    Socket.send(JSON.stringify(ping))
-  }, time)
+  // setIntervalWesocketPush = setInterval(() => {
+  //   Socket.send(JSON.stringify(ping))
+  // }, time)
 }
