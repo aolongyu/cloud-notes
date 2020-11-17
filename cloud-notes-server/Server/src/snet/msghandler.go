@@ -7,12 +7,12 @@ import (
 	"Settings"
 	"fmt"
 	"isface"
-	"strconv"
+	//"strconv"
 )
 
 type MsgHandle struct {
 	//存放Handle的Map
-	HandleMap map[uint32]isface.IRouter
+	HandleMap map[string]isface.IRouter
 
 	//负责Worker取任务的消息队列
 	MessageQueue []chan isface.IRequest
@@ -25,7 +25,7 @@ type MsgHandle struct {
 
 func NewMsgHandle() *MsgHandle {
 	return &MsgHandle{
-		HandleMap:      make(map[uint32]isface.IRouter),
+		HandleMap:      make(map[string]isface.IRouter),
 		WorkerPoolSize: Settings.GlobalObject.WorkerPoolSize,
 		MessageQueue:   make([]chan isface.IRequest, Settings.GlobalObject.WorkerPoolSize),
 		IsRoomHandleMap:make(map[uint32]bool),
@@ -45,10 +45,10 @@ func (msgh *MsgHandle) DoMsgHandler(request isface.IRequest) {
 }
 
 //为msgHanler 添加处理逻辑的方法
-func (msgh *MsgHandle) AddRouter(msgId uint32, router isface.IRouter,detail string,value int32) {
+func (msgh *MsgHandle) AddRouter(msgId string, router isface.IRouter,detail string,value int32) {
 	//判断当前msgid是否绑定了处理方法
 	if _, ok := msgh.HandleMap[msgId]; ok {
-		panic("不能添加这个id的api了，更换一个 = :" + strconv.Itoa(int(msgId)))
+		panic("不能添加这个id的api了，更换一个 = :" + msgId)
 		//Logs.Error("不能添加这个id的api了，更换一个 = :"+ strconv.Itoa(int(msgId)))
 	}
 
@@ -56,13 +56,7 @@ func (msgh *MsgHandle) AddRouter(msgId uint32, router isface.IRouter,detail stri
 	msgh.HandleMap[msgId] = router
 	fmt.Println("添加api成功，id为", msgId,"添加内容为：",detail)
 	//Logs.Debug("添加api成功，id为",msgId,"添加内容为:",detail)
-	if value == 0{
-		//说明不是房间Handle
-		msgh.IsRoomHandleMap[msgId] = false
-	}else{
-		//说明是房间Handle
-		msgh.IsRoomHandleMap[msgId] = true
-	}
+
 }
 
 //启动一个Worker工作池（开启工作池的动作只能发生一次，一个框架只开一次）
@@ -103,21 +97,7 @@ func(msgh *MsgHandle) SendMsgToMesQueue(request isface.IRequest) {
 func(msgh *MsgHandle)ReturnChannel(request isface.IRequest) chan isface.IRequest{
 	//说明是房间方法，那么返回房间号的管道
 	ConnId := request.GetConnection().GetConnID()
-	if msgh.IsRoomHandleMap[request.GetMsgId()] {
-		//TODO 返回房间管道
-		romid := ConnMap[ConnId].Roomid
-		if _,ok := RoomMgr.AllRoom[romid];!ok{
-			fmt.Println(ConnMap[ConnId].Roomid,"不存在")
-			workid := int32(request.GetConnection().GetConnID()  ) % msgh.WorkerPoolSize
-			return msgh.MessageQueue[workid]
-		}
-		NowRoom := RoomMgr.GetRoom(int32(ConnMap[ConnId].Roomid))
-		return NowRoom.TaskQueue
-	}else{//说明不是房间方法，那么返回工作池id即可
-		workid := int32(ConnId ) % msgh.WorkerPoolSize
-		return msgh.MessageQueue[workid]
-	}
 	//如果忘记注册的话，还是返回工作池队列
-	workid := int32(request.GetConnection().GetConnID()  ) % msgh.WorkerPoolSize
+	workid := int32(ConnId) % msgh.WorkerPoolSize
 	return msgh.MessageQueue[workid]
 }

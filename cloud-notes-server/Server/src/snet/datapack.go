@@ -112,10 +112,11 @@ func (Msg *DataPack) Unpack(data []byte)(isface.IMessage ,error) {
 	}else{
 		res = string(en_bytes)
 	}
-	fmt.Println("拆包结果得到：",res)
-	return NewMsgPackage(404,data),nil
+	id := res[0:9]
+	allData := res[10:]
+	fmt.Println("拆包结果得到id：",id,"allData:",allData)
+	return NewMsgPackage(id,[]byte(allData)),nil
 }
-
 
 func (this *DataPack)Webconn(c *Connection) {
 
@@ -200,6 +201,54 @@ func BytesCombine(pBytes ...[]byte) []byte {
 func IntToBytes(n int) ([]byte) {
 	x := int32(n)
 	bytesBuffer := bytes.NewBuffer([]byte{})
-	binary.Write(bytesBuffer, binary.BigEndian, x)
+	binary.Write(bytesBuffer, binary.LittleEndian, x)
 	return bytesBuffer.Bytes()
+}
+
+func Headhandle(handle []byte) []byte{
+	head := make([]byte,10)
+	length := len(handle)
+	for i := 0;i<10;i++{
+		if i < length{
+			head[i] = handle[i]
+		}else{
+			head[i] = ' '
+		}
+	}
+	return head
+}
+
+//发送消息给客户端,添加消息头进去+尾部
+func (this *DataPack) Webpacksocket(handle []byte,data []byte)([]byte){
+	nowHandle := Headhandle(handle)
+	length := len(data) + len(nowHandle)
+	token := string(0x81)
+	if length < 126{
+		token+= string(length)
+	}
+	byteInt81 := IntToBytes(0x81)
+	b0 := byteInt81[0]
+	b1 := byte(0)
+	framePos := 0
+	fmt.Println("待发送报文长度为:",length)
+
+	switch {
+	case length > 65535:
+		writeBuf := make([]byte,10)
+		writeBuf[framePos] = b0
+		writeBuf[framePos+1] = b1|127
+		binary.BigEndian.PutUint64(writeBuf[framePos+2:],uint64(length))
+		return BytesCombine(writeBuf,data,nowHandle)
+	case length > 125:
+		writeBuf := make([]byte,4)
+		writeBuf[framePos] = b0
+		writeBuf[framePos+1] = b1 | 126
+		binary.BigEndian.PutUint16(writeBuf[framePos+2:],uint16(length))
+		return BytesCombine(writeBuf,data,nowHandle)
+	default:
+		writeBuf := make([]byte,2)
+		writeBuf[framePos] = b0
+		writeBuf[framePos+1] = b1 | byte(length)
+		return BytesCombine(writeBuf,data,nowHandle)
+	}
 }

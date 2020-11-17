@@ -8,7 +8,7 @@ type IMsgHandle interface {
 	DoMsgHandler(request IRequest) //执行方法
 
 	//为ID为msgID的编号，添加方法到router中，方法需要重写Router方法
-	AddRouter(msgId uint32,router IRouter,detail string,value int32)
+	AddRouter(msgId string,router IRouter,detail string,value int32)
 
 	//启动Worker工作池
 	StartWorkerPool()

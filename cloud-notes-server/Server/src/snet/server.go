@@ -51,7 +51,6 @@ func (s *Server) Start() {
 	//Logs.Debug("[START] Server启动,  服务器ip:", s.IPaddr, "  端口号为：", s.Port, "\n版本号:",
 	//	Settings.GlobalObject.Version, "  最大连接数:", Settings.GlobalObject.MaxConn, "  最大包长:", Settings.GlobalObject.MaxPacketSize)
 
-	NewRoomMannger()
 	//go Times()
 	//go func() {
 	//开启消息队列以及工作池
@@ -128,6 +127,6 @@ func (s *Server) Serve() {
 }
 
 //注册业务Handle
-func (s *Server) AddHandle(msgId uint32, router isface.IRouter, detail string, value int32) {
+func (s *Server) AddHandle(msgId string, router isface.IRouter, detail string, value int32) {
 	s.msgHandler.AddRouter(msgId, router, detail, value)
 }

@@ -9,13 +9,13 @@ type IMessage interface {
 	GetDataLen() uint32
 
 	//获取消息ID
-	GetMsgId() uint32
+	GetMsgId() string
 
 	//获取消息内容
 	GetData() []byte
 
 	//设置消息ID
-	SetMsgId(uint32)
+	SetMsgId(string)
 
 	//设置消息内容
 	SetData([]byte)

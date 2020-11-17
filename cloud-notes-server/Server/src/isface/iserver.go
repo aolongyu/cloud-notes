@@ -14,5 +14,5 @@ type IServer interface {
 	Serve()
 
 	//注册业务Handle , 消息ID，router ， 细节， 是否交给房间处理
-	AddHandle(msgId uint32,router IRouter,detail string,value int32)
+	AddHandle(msgId string,router IRouter,detail string,value int32)
 }

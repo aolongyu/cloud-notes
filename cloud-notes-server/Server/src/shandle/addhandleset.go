@@ -61,26 +61,5 @@ const (
 )
 
 func AddHandleInit(s isface.IServer) {
-	//不是房间方法，添加0，是房间方法添加1
-	s.AddHandle(CREAT_ROOM, &CreateRoom{}, "创建房间的方法", 0)
-	s.AddHandle(JOIN_ROOM, &JoinRoom{}, "加入房间的方法", 0)
-	s.AddHandle(LAND, &Landing{}, "登陆的方法", 0)
-	s.AddHandle(LAND_REGISTER, &LandingRegister{}, "注册的方法", 0)
-	s.AddHandle(FLASH_ROOM, &FlashRoom{}, "刷新房间的方法", 0)
-	s.AddHandle(START_GAME, &StartGame{}, "开始游戏的方法", 1)
-	s.AddHandle(GAME_START_PRO, &StartGamePro{}, "开始房间预处理的处理方法", 1)
-	s.AddHandle(UPDATA_MYSELF, &PlayerUpdataSelfInfo{}, "玩家刷新自己的信息的方法", 1)
-	s.AddHandle(Game_OVERDEAL, &GameStopHandle{}, "游戏结束的方法", 1)
-	s.AddHandle(EXIT_ROOM, &ExitRoom{}, "退出房间的方法", 0)
-	s.AddHandle(PLAYER_READY, &ReadyGame{}, "准备游戏的方法", 1)
-	s.AddHandle(405, &TestRun{}, "测试一下能不能玩的方法", 1)
-	s.AddHandle(INIT_PLAYERINFO, &InitUiScene{}, "初始化玩家信息的方法，登陆UI界面时候什么英雄碎片发送", 0)
-	s.AddHandle(CHAT_ROOM_BORAD, &Chatting{}, "聊天的方法", 1)
-	s.AddHandle(UPDATA_FEN, &UpdataRank{}, "对玩家进行积分排序", 1)
-	s.AddHandle(UPDATA_RESOUCE, &UpdateResource{}, "吃掉资源的方法", 1)
-	s.AddHandle(UPDATA_NICK_NAME, &UpdataNickName{}, "更改玩家昵称", 0)
-	s.AddHandle(UPDATA_WPAPON,&UpdataWpapon{},"更新绑定武器",0)
-	s.AddHandle(UPDATA_HEROSKILL,&UpdataHeroSkill{},"更新玩家技能",0)
-	s.AddHandle(UPDATA_PASS, &UpdataPass{}, "更改密码", 0)
-	s.AddHandle(TEST_HANDLE,&Nofound{},"测试能否连接",0)
+	//s.AddHandle(TEST_HANDLE,&Nofound{},"测试能否连接",0)
 }

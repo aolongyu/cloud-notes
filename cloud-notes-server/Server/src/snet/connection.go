@@ -1,14 +1,12 @@
 package snet
 
 import (
-	"bytes"
-	"encoding/binary"
+	"Settings"
 	"errors"
 	"fmt"
 	"io"
 	"isface"
 	"net"
-	"Settings"
 )
 
 //icconect的实现层
@@ -32,9 +30,6 @@ type Connection struct {
 
 	//无缓冲管道，用于读写分离
 	msgChan chan []byte
-
-	//RoomManger的信息
-	rom RoomMannger
 
 	//TODO 日后扩展缓冲队列把数据发送给channel下，交给工作池工作
 	//SendBufchan chan []byte
@@ -181,12 +176,6 @@ func (c *Connection) Stop() {
 	//如果连接已经关闭，那么就退出了
 	//回收资源
 
-	//如果有房间的话则执行该函数，对房间进行相应的操作
-	connOne := ConnMap[c.GetConnID()]
-	if connOne != nil {
-		connOne.DisConn()
-	}
-
 	//c.loginFromDisconn()
 
 	if c.isClosed == true {
@@ -229,7 +218,7 @@ func (c *Connection) GetAddr() net.Addr {
 }
 
 //服务器发送数据给客户端
-func (c *Connection) SendMesg(msgId uint32, data []byte) error {
+func (c *Connection) SendMesg(handle []byte, data []byte) error {
 	if c.isClosed == true {
 		//Logs.Error("链接关闭，无法发送信息")
 
@@ -246,27 +235,10 @@ func (c *Connection) SendMesg(msgId uint32, data []byte) error {
 	}
 	c.msgChan <- msg
 	return nil*/
-	if int32(len(data)) >= int32(Settings.GlobalObject.MaxPacketSize) {
-		return errors.New("发送的包长大于2048")
-	}
-
-	length := len(data)
-	maskedData := make([]byte,length)
-	for i:=0;i<length ;i++{
-		maskedData[i] = data[i]
-	}
-	dataBuf := bytes.NewBuffer([]byte{})
-	if err := binary.Write(dataBuf,binary.BigEndian,[]byte{0x81});err!=nil{
-		return err
-	}
-	payLenByte := byte(0x00) | byte(length)
-	if err := binary.Write(dataBuf,binary.BigEndian,payLenByte);err!=nil{
-		return err
-	}
-	if err := binary.Write(dataBuf,binary.BigEndian,dataBuf);err!=nil{
-		return err
-	}
-	c.msgChan <- dataBuf.Bytes()
+	pack := NewDataPack()
+	msgChange := pack.Webpacksocket(handle,data)
+	fmt.Println("发送消息",msgChange)
+	c.msgChan <- msgChange
 	return nil
 }
 

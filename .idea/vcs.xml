@@ -12,5 +12,8 @@
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/github.com/uber/go-torch" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/golang.org/x/net/net" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/google.golang.org/protobuf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/src/github.com/golang/protobuf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/src/github.com/google/go-cmp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cloud-notes-server/Server/src/src/google.golang.org/protobuf" vcs="Git" />
   </component>
 </project>

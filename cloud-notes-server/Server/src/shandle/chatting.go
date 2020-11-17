@@ -1,5 +1,6 @@
 package shandle
 
+/*
 import (
 	Data "data"
 	"fmt"
@@ -27,3 +28,4 @@ func (M *Chatting) Handle(request isface.IRequest) {
 
 	nowroom.BroadRoom(msg)
 }
+*/

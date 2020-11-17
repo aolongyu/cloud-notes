@@ -27,7 +27,7 @@ type IConnection interface {
 	GetAddr() net.Addr
 
 	//直接把服务器上面的信息发送给TCP客户端
-	SendMesg(nums uint32,data []byte) error
+	SendMesg(nums []byte,data []byte) error
 
 	////获取当前roomManager
 	//GetRoomManager() IRoomManger

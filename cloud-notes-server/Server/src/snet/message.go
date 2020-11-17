@@ -2,7 +2,7 @@ package snet
 
 type Message struct{
 	//消息ID
-	Id uint32
+	Id string
 
 	//消息长度
 	DataLen uint32
@@ -12,7 +12,7 @@ type Message struct{
 }
 
 //创建一个Message实例
-func NewMsgPackage(id uint32,data []byte) *Message{
+func NewMsgPackage(id string,data []byte) *Message{
 	return &Message{
 		Id:      id,
 		DataLen: uint32(len(data)),
@@ -26,7 +26,7 @@ func (ms *Message) GetDataLen() uint32{
 }
 
 //获取消息ID
-func (ms *Message) GetMsgId() uint32{
+func (ms *Message) GetMsgId() string{
 	return ms.Id
 }
 
@@ -36,7 +36,7 @@ func (ms *Message) GetData() []byte{
 }
 
 //设置消息ID
-func (ms *Message) SetMsgId(id uint32){
+func (ms *Message) SetMsgId(id string){
 	ms.Id = id
 }
 

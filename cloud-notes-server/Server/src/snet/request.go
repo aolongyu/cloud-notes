@@ -25,6 +25,6 @@ func (rs *Request) GetData() []byte{
 }
 
 //获取请求的消息ID
-func (rs *Request) GetMsgId()uint32 {
+func (rs *Request) GetMsgId()string {
 	return rs.msg.GetMsgId()
 }
