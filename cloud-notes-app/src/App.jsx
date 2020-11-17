@@ -7,7 +7,7 @@ function App() {
   // 192.168.1.4
   createSocket('ws://localhost:8999')
   setTimeout(() => {
-    sendWSPush('陈丹伟')
+    sendWSPush('LOGIN', '陈丹伟fuihsdfhdshfj')
   }, 100);
   
   return (

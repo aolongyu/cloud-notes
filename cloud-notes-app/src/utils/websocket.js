@@ -45,7 +45,7 @@ let setIntervalWesocketPush = null
 export const createSocket = url => {
   // Socket && Socket.close()
   if (!Socket) {
-    if(url === undefined) {
+    if (url === undefined) {
       console.log(
         '%c%s',
         'color: white; background: red;',
@@ -124,15 +124,15 @@ const connecting = message => {
 
 const strTo10Length = (str) => {
   let len = str.length
-  if(len > 0 && len <= 10) {
+  if (len > 0 && len <= 10) {
     let addStr = ''
-    for(let i = len; i < 10; i++) {
+    for (let i = len; i < 10; i++) {
       addStr += ' '
     }
     console.log(str + addStr, (str + addStr).length)
     return str + addStr
   }
-  return
+  return false
 }
 
 
@@ -140,8 +140,9 @@ const strTo10Length = (str) => {
  * 发送数据
  * @param {any} message 需要发送的数据
  */
-export const sendWSPush = message => {
-  console.log('Socket.readyState: ', Socket.readyState)
+export const sendWSPush = (type, message) => {
+  console.log(strTo10Length(type) + JSON.stringify(message))
+  // console.log('Socket.readyState: ', Socket.readyState)
   if (Socket !== null && Socket.readyState === 3) {
     Socket.close()
     createSocket()
@@ -149,10 +150,10 @@ export const sendWSPush = message => {
     console.log(
       '%c%s',
       'color: white; background: #5DAC81;',
-      `向服务端发送message: ${strTo10Length('LOGIN')}`
+      `向服务端发送message: ${strTo10Length(type) || strTo10Length(type) + JSON.stringify(message)}`
     )
-    console.log(strTo10Length('LOGIN')+JSON.stringify(message))
-    Socket.send(strTo10Length('LOGIN')+JSON.stringify(message))
+    console.log(strTo10Length(type) && strTo10Length(type) + JSON.stringify(message))
+    Socket.send(strTo10Length(type) && strTo10Length(type) + JSON.stringify(message))
   } else if (Socket.readyState === 0) {
     connecting(message)
   }
