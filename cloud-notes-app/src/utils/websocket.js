@@ -129,7 +129,7 @@ const strTo10Length = (str) => {
     for (let i = len; i < 10; i++) {
       addStr += ' '
     }
-    console.log(str + addStr, (str + addStr).length)
+    console.log('strTo10Length: ', str + addStr, (str + addStr).length)
     return str + addStr
   }
   return false
@@ -138,10 +138,11 @@ const strTo10Length = (str) => {
 
 /**
  * 发送数据
- * @param {any} message 需要发送的数据
+ * @param {string} type 需要发送的数据
+ * @param {JSON} message 需要发送的数据
  */
 export const sendWSPush = (type, message) => {
-  console.log(strTo10Length(type) + JSON.stringify(message))
+  console.log(JSON.stringify(type + message))
   // console.log('Socket.readyState: ', Socket.readyState)
   if (Socket !== null && Socket.readyState === 3) {
     Socket.close()
@@ -152,8 +153,8 @@ export const sendWSPush = (type, message) => {
       'color: white; background: #5DAC81;',
       `向服务端发送message: ${strTo10Length(type) || strTo10Length(type) + JSON.stringify(message)}`
     )
-    console.log(strTo10Length(type) && strTo10Length(type) + JSON.stringify(message))
-    Socket.send(strTo10Length(type) && strTo10Length(type) + JSON.stringify(message))
+    console.log(strTo10Length(type) && JSON.stringify(type + message))
+    Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type) + message))
   } else if (Socket.readyState === 0) {
     connecting(message)
   }

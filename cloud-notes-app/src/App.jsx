@@ -7,8 +7,8 @@ function App() {
   // 192.168.1.4
   createSocket('ws://localhost:8999')
   setTimeout(() => {
-    sendWSPush('LOGIN', '陈丹伟fuihsdfhdshfj')
-  }, 100);
+    sendWSPush('LOGIN', 'dsafdsffff陈丹伟fuihsdfhdshfj')
+  }, 1000);
   
   return (
     <div className="App">
