@@ -4,7 +4,6 @@ import (
 	"Settings"
 	"errors"
 	"fmt"
-	"io"
 	"isface"
 	"net"
 )
@@ -125,7 +124,7 @@ func (c *Connection) StartReader() {
 			c.ExitBuffChan <- true
 			break
 		}
-
+		/*
 		//根据Len读取data，放在msg.Data中
 		var data []byte
 		if msg.GetDataLen() > 0 {
@@ -140,6 +139,8 @@ func (c *Connection) StartReader() {
 		}
 
 		msg.SetData(data)
+
+		 */
 		//fmt.Println("获得消息",msg)
 		//得到当前客户端请求的Request数据
 		req := Request{

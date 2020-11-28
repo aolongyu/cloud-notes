@@ -36,7 +36,7 @@ func NewMsgHandle() *MsgHandle {
 func (msgh *MsgHandle) DoMsgHandler(request isface.IRequest) {
 	handler, ok := msgh.HandleMap[request.GetMsgId()]
 	if !ok {
-		fmt.Println("MsgId错误，id= ", request.GetMsgId(), "不存在")
+		fmt.Println("MsgId错误，id=!", request.GetMsgId(),"!不存在")
 		//Logs.Error("MsgId错误，id= ",request.GetMsgId(),"不存在")
 
 		return

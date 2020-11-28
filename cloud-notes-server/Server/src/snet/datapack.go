@@ -112,12 +112,15 @@ func (Msg *DataPack) Unpack(data []byte)(isface.IMessage ,error) {
 	}else{
 		res = string(en_bytes)
 	}
-	id := res[0:10]
-	allData := res[10:]
+	lendata := len(res)
+	id := res[1:11]
+
+	allData := res[11:lendata-1]
 	Type := string(id)
-	Type = strings.Trim(Type," ")
-	fmt.Println("拆包结果得到id：",Type,"长度为",len(id),"allData:",allData)
-	return NewMsgPackage(Type,[]byte(allData)),nil
+	jsonData := strings.Replace(allData,"\\","",-1)
+	Type = strings.Replace(Type," ","",-1)
+	fmt.Println("拆包结果得到id：!",Type,"!长度为",len(id),"allData:",jsonData)
+	return NewMsgPackage(Type,[]byte(jsonData)),nil
 }
 
 func (this *DataPack)Webconn(c *Connection) {
