@@ -2,6 +2,7 @@ package snet
 
 import (
 	"Settings"
+	"github.com/jinzhu/gorm"
 	"logA"
 
 	"fmt"
@@ -107,17 +108,17 @@ func (s *Server) Stop() {
 
 //开启服务器方法
 func (s *Server) Serve() {
-	//TODO要打开服务器的地方
-	//var err error
-	//defer SDB.Close()
-	//SDB, err = gorm.Open("mysql", "root:123456@tcp(172.20.80.42:3306)/server?charset=utf8")
-	//SDB.SingularTable(true)
-	//if err != nil {
-	//	fmt.Println("打开数据库失败")
-	//	println(err)
-	//	//Logs.Error("数据库来链接失败")
-	//}
-	//fmt.Println("打开数据库成功")
+	////TODO要打开服务器的地方
+	var err error
+	defer SDB.Close()
+	SDB, err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_userdb?charset=utf8")
+	SDB.SingularTable(true)
+	if err != nil {
+		fmt.Println("打开数据库失败")
+		println(err)
+		//Logs.Error("数据库来链接失败")
+	}
+	fmt.Println("打开数据库成功")
 	//Logs.Debug("数据库链接成功")
 	s.Start()
 	//ToDo 可以在这里添加一些其他方法，后期添加

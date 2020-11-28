@@ -112,10 +112,12 @@ func (Msg *DataPack) Unpack(data []byte)(isface.IMessage ,error) {
 	}else{
 		res = string(en_bytes)
 	}
-	id := res[0:9]
+	id := res[0:10]
 	allData := res[10:]
-	fmt.Println("拆包结果得到id：",id,"allData:",allData)
-	return NewMsgPackage(id,[]byte(allData)),nil
+	Type := string(id)
+	Type = strings.Trim(Type," ")
+	fmt.Println("拆包结果得到id：",Type,"长度为",len(id),"allData:",allData)
+	return NewMsgPackage(Type,[]byte(allData)),nil
 }
 
 func (this *DataPack)Webconn(c *Connection) {
