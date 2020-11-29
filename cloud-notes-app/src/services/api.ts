@@ -10,7 +10,13 @@ export async function queryList(data: any): Promise<any> {
 }
 
 export async function queryLogin(msg: any): Promise<any> {
-  console.log(msg)
-  await sendWSPush('login', msg)
-  return 
+  sendWSPush('login', msg)
+  return new Promise((resolve, reject) => {
+    addEventListener('onmessageWS', (e) => {
+      console.log(e.detail.data)
+      resolve(e.detail.data)
+    })
+  }).then((data) => {
+    window.cloud = data
+  })
 }
