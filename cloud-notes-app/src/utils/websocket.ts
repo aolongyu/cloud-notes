@@ -182,9 +182,9 @@ export const sendWSPush = (type: string, message: object | string | number) => {
     console.log(
       '%c%s',
       'color: white; background: #5DAC81;',
-      `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type) + message)}`
+      `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message))}`
     )
-    console.log(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
+    // console.log(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
     Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
   } else if (Socket.readyState === 0) {
     connecting(message)

@@ -40,7 +40,7 @@ const RegistPage: FC<PageProps> = ({ regist, dispatch }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.titleText}>regist</div>
+      <div className={styles.titleText}>注册</div>
       <div className={styles.registBox}>
         <input id='registName' className={styles.registName} placeholder='请输入用户名' type="text"/>
         <input id='registPassword1' className={styles.registPassword} placeholder='请输入密码' type="text"/>

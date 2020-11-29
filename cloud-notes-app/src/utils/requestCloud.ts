@@ -16,7 +16,7 @@ const requestCloud = function (type: string, msg: object) {
       resolve(e.detail.data)
     })
   }).then((data: any) => {
-    window.cloud = data.replace(/(^\s*)|(\s*$)/g, ""); 
+    window.cloud = JSON.stringify(data.replace(/(^\s*)|(\s*$)/g, "")); 
   })
 }
 
