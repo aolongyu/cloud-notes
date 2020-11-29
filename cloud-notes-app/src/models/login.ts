@@ -29,8 +29,8 @@ const LoginModel: LoginModelType = {
   effects: {
     *query({ payload }, { call, put }) {
       yield call(queryLogin, payload);
-      const data = window.cloud
-      if(data !== '0') {
+      const data = JSON.parse(window.cloud)
+      if(data.Status !== '0') {
         Toast.success('登录成功', 1)
         setTimeout(() => {
           router.replace('/')

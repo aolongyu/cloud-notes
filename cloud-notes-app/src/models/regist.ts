@@ -1,4 +1,5 @@
-import { Reducer } from 'redux';
+import { Reducer, router } from 'alita';
+import {Toast} from 'antd-mobile'
 import { query } from '@/services/api';
 import { Effect } from '@/models/connect';
 
@@ -26,8 +27,17 @@ const RegistModel: RegistModelType = {
 
   effects: {
     *query({ payload }, { call, put }) {
-      const data = yield call(query, payload);
+      yield call(query, payload);
+      const data = JSON.parse(window.cloud)
       console.log(data)
+      if(!String(data.Status) === '0') {
+        Toast.success('注册成功，请登录', 1)
+        setTimeout(() => {
+          router.replace('login')
+        }, 1000);
+      } else {
+        Toast.fail('注册失败', 1)
+      }
       yield put({
         type: 'save',
         payload: { name: data.text },

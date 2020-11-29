@@ -12,3 +12,7 @@ export async function queryList(data: any): Promise<any> {
 export async function queryLogin(msg: object): Promise<any> {
   return requestCloud('login', msg)
 }
+
+export async function queryRegist(msg: object): Promise<any> {
+  return requestCloud('regist', msg)
+}
