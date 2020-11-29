@@ -28,7 +28,7 @@ func(T Result) Handle(request isface.IRequest){
 
 	fmt.Println("读取数据库的信息",res)
 
-	if res.result == 0{
+	if res.Result == 0{
 		conn.SendMesg([]byte("regiack"),[]byte("ok"))
 	}else{
 		conn.SendMesg([]byte("regiack"),[]byte("no"))

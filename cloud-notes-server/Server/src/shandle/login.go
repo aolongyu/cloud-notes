@@ -15,7 +15,7 @@ type LoginUserJson struct{
 	Password string `json:"Password"`
 }
 type Result struct{
-	result int32
+	Result int `gorm:"column:Result"`
 }
 func(T Login) Handle(request isface.IRequest){
 	conn := request.GetConnection()
@@ -23,14 +23,14 @@ func(T Login) Handle(request isface.IRequest){
 
 	json.Unmarshal(request.GetData(),&Loginmessage)
 	//登录失败
-	res := Result{result:0}
+	res := Result{}
 	fmt.Println("Handle Login   传来的信息:姓名",Loginmessage.Name,"密码",Loginmessage.Password)
 
 	snet.SDB.Debug().Raw("call login(?,?)",Loginmessage.Name,Loginmessage.Password).Scan(&res)
 
 	fmt.Println("读取的数据库内容：",res)
 
-	if res.result > 0 {
+	if res.Result > 0 {
 		conn.SendMesg([]byte("loginack"), []byte("ok"))
 	}else{
 		conn.SendMesg([]byte("loginack"), []byte("no"))
