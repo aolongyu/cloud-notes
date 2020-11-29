@@ -101,12 +101,12 @@ const onmessageWS = e => {
     'color: white; background: #5DAC81;',
     `${'从服务端接收到: ' + e.data}`
   )
-  console.log()
   window.dispatchEvent(new CustomEvent('onmessageWS', {
     detail: {
       data: e.data
     }
   }))
+  return e.data
 }
 
 /**
@@ -143,7 +143,7 @@ const strTo10Length = (str) => {
  * @param {object} message 需要发送的数据
  */
 export const sendWSPush = (type, message) => {
-  console.log(JSON.stringify(type + message))
+  // console.log(JSON.stringify(type + message))
   // console.log('Socket.readyState: ', Socket.readyState)
   if (Socket !== null && Socket.readyState === 3) {
     Socket.close()
@@ -152,10 +152,10 @@ export const sendWSPush = (type, message) => {
     console.log(
       '%c%s',
       'color: white; background: #5DAC81;',
-      `向服务端发送message: ${strTo10Length(type) || strTo10Length(type) + JSON.stringify(message)}`
+      `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type) + message)}`
     )
-    console.log(strTo10Length(type) && JSON.stringify(type + message))
-    Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type) + message))
+    console.log(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
+    Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
   } else if (Socket.readyState === 0) {
     connecting(message)
   }
