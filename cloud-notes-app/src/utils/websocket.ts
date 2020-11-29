@@ -172,7 +172,7 @@ export const createSocket = (url = 'ws://localhost:8999') => {
  * @param {string} type 需要发送的数据
  * @param {object} message 需要发送的数据
  */
-export const sendWSPush = (type: string, message: string | number) => {
+export const sendWSPush = (type: string, message: object | string | number) => {
   // console.log(JSON.stringify(type + message))
   // console.log('Socket.readyState: ', Socket.readyState)
   if (Socket !== null && Socket.readyState === 3) {

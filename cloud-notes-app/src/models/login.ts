@@ -1,4 +1,5 @@
-import { Reducer } from 'alita';
+import { Reducer, router } from 'alita';
+import { Toast } from 'antd-mobile'
 import { queryLogin } from '@/services/api';
 import { Effect } from '@/models/connect';
 import { sendWSPush } from '@/utils/websocket';
@@ -27,11 +28,19 @@ const LoginModel: LoginModelType = {
 
   effects: {
     *query({ payload }, { call, put }) {
-      const data = yield call(queryLogin, payload);
-      console.log(window.cloud)
+      yield call(queryLogin, payload);
+      const data = window.cloud
+      if(data !== '0') {
+        Toast.success('登录成功', 1)
+        setTimeout(() => {
+          router.replace('/')
+        }, 1000);
+      } else {
+        Toast.fail('登录失败', 1)
+      }
       yield put({
         type: 'save',
-        payload: { name: window.cloud },
+        payload: { name: data },
       });
     },
   },
