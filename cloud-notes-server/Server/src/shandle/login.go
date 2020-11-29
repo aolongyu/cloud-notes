@@ -16,7 +16,7 @@ type LoginUserJson struct{
 }
 type Result struct{
 	Result int `gorm:"column:Result"`
-	Mark int `gorm:"column:Result"`
+	Mark int `gorm:"column:Mark"`
 }
 type Status struct{
 	Status string

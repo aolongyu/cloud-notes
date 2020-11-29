@@ -113,6 +113,9 @@ func (Msg *DataPack) Unpack(data []byte)(isface.IMessage ,error) {
 		res = string(en_bytes)
 	}
 	lendata := len(res)
+	if lendata < 11{
+		return NewMsgPackage("nil",[]byte("nil")),nil
+	}
 	id := res[1:11]
 
 	allData := res[11:lendata-1]

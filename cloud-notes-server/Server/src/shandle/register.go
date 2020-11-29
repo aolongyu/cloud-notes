@@ -16,7 +16,8 @@ type RegisterJson struct{
 	Password string `json:"Password"`
 }
 
-func(T Result) Handle(request isface.IRequest){
+func(T Register) Handle(request isface.IRequest){
+
 	conn := request.GetConnection()
 	RegisterMessage := RegisterJson{}
 	json.Unmarshal(request.GetData(),&RegisterMessage)
@@ -34,7 +35,7 @@ func(T Result) Handle(request isface.IRequest){
 		data,_ := json.Marshal(returnres)
 		conn.SendMesg([]byte(""), data)
 	}else{
-		returnres.Status = "1"
+		returnres.Status = "0"
 		data,_ := json.Marshal(returnres)
 		conn.SendMesg([]byte(""), data)
 	}
