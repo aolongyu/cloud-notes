@@ -28,11 +28,10 @@ const LoginModel: LoginModelType = {
   effects: {
     *query({ payload }, { call, put }) {
       const data = yield call(queryLogin, payload);
-      console.log(data)
-      
+      console.log(window.cloud)
       yield put({
         type: 'save',
-        payload: { name: 'test' },
+        payload: { name: window.cloud },
       });
     },
   },
