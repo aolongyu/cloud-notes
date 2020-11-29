@@ -30,7 +30,7 @@ const RegistModel: RegistModelType = {
       yield call(queryRegist, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
-      if(!String(data.Status) === '0') {
+      if(String(data.Status) !== '0') {
         Toast.success('注册成功，请登录', 1)
         setTimeout(() => {
           router.replace('login')
