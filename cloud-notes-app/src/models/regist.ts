@@ -1,6 +1,6 @@
 import { Reducer, router } from 'alita';
 import {Toast} from 'antd-mobile'
-import { query } from '@/services/api';
+import { queryRegist } from '@/services/api';
 import { Effect } from '@/models/connect';
 
 export interface RegistModelState {
@@ -27,7 +27,7 @@ const RegistModel: RegistModelType = {
 
   effects: {
     *query({ payload }, { call, put }) {
-      yield call(query, payload);
+      yield call(queryRegist, payload);
       const data = JSON.parse(window.cloud)
       console.log(data)
       if(!String(data.Status) === '0') {
