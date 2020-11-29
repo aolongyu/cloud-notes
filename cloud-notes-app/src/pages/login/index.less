@@ -1,2 +1,33 @@
-.center {
+.container {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(to right, rgb(75, 211, 245), rgb(0, 153, 255));
+  .titleBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .titleLogo {
+      width: 140px;
+      height: 140px;
+      margin-top: 60px;
+    }
+    .titleText {
+      margin-top: 20px;
+      color: rgb(255, 255, 255);
+      font-size: 50px;
+    }
+  }
+  .inputBox {
+    margin: 20px 50px auto 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 18px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+  }
 }

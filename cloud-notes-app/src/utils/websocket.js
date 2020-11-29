@@ -42,7 +42,8 @@ const setIntervalWesocketPush = null
  * 建立websocket连接
  * @param {string} url ws地址
  */
-export const createSocket = url => {
+
+export const createSocket = (url = 'ws://localhost:8999') => {
   // Socket && Socket.close()
   if (!Socket) {
     if (url === undefined) {
@@ -139,7 +140,7 @@ const strTo10Length = (str) => {
 /**
  * 发送数据
  * @param {string} type 需要发送的数据
- * @param {JSON} message 需要发送的数据
+ * @param {object} message 需要发送的数据
  */
 export const sendWSPush = (type, message) => {
   console.log(JSON.stringify(type + message))

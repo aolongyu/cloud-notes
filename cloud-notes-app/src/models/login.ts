@@ -1,6 +1,7 @@
-import { Reducer } from 'redux';
+import { Reducer } from 'alita';
 import { query } from '@/services/api';
 import { Effect } from '@/models/connect';
+import { sendWSPush } from '@/utils/websocket';
 
 export interface LoginModelState {
   name: string;
@@ -26,11 +27,15 @@ const LoginModel: LoginModelType = {
 
   effects: {
     *query({ payload }, { call, put }) {
-      const data = yield call(query, payload);
-      console.log(data)
+      // const data = yield call(query, payload);
+      // console.log(data)
+      
+      sendWSPush('login', 'qwe')
+
+      
       yield put({
         type: 'save',
-        payload: { name: data.text },
+        payload: { name: 'test' },
       });
     },
   },
