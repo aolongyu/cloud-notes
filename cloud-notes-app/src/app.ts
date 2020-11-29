@@ -46,7 +46,14 @@ const titleList: TitleListItem[] = [
     title: '设置',
   },
 ];
-const navList: NavBarListItem[] = [];
+const navList: NavBarListItem[] = [
+  {
+    pagePath: '/login',
+    navBar: {
+      hideNavBar: true,
+    },
+  },
+];
 const navBar: NavBarProps = {
   navList,
   fixed: true,
