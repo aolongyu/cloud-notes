@@ -30,6 +30,7 @@ const RegistModel: RegistModelType = {
       yield call(queryRegist, payload);
       const data = JSON.parse(window.cloud)
       console.log(data)
+      console.log(data.Status)
       if(!String(data.Status) === '0') {
         Toast.success('注册成功，请登录', 1)
         setTimeout(() => {
