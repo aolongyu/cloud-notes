@@ -27,9 +27,6 @@ const LoginPage: FC<PageProps> = ({ login, dispatch }) => {
   const handleClick = () => {
     const Name = document.getElementById('name').value
     const Password = document.getElementById('password').value
-    // console.log(Name, Password)
-    // const sendMsg = {Name, Password}
-    // sendWSPush('login', JSON.stringify(sendMsg))
     dispatch!({
       type: 'login/query',
       payload: {
@@ -46,9 +43,9 @@ const LoginPage: FC<PageProps> = ({ login, dispatch }) => {
         <span className={styles.titleText}>在线云笔记</span>
       </div>
       <div className={styles.inputBox}>
-        <input id='name' type="text" placeholder='请输入账号' /><br />
-        <input id='password' type="password" placeholder='请输入密码' /><br />
-        <input onClick={handleClick} type="button" value="登录" />
+        <input id='name' className={styles.name} type="text" placeholder='请输入账号' /><br />
+        <input id='password' className={styles.password} type="password" placeholder='请输入密码' /><br />
+        <input className={styles.submitBtn} onClick={handleClick} type="button" value="登录" />
       </div>
       <div className={styles.footer}>
         <span>Copyright ©2020 fjut 福建省福州市闽侯县学院路33号</span>

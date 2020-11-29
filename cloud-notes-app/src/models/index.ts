@@ -25,7 +25,7 @@ const IndexModel: IndexModelType = {
   effects: {
     *query({ payload }, { call, put }) {
       const data = yield call(query, payload);
-      console.log(data);
+      // console.log(data);
       yield put({
         type: 'save',
         payload: { name: data.text },
