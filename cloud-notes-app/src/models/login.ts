@@ -33,6 +33,7 @@ const LoginModel: LoginModelType = {
       console.log('从服务端获取对象：', data)
       if(data.Status !== '0') {
         Toast.success('登录成功', 1)
+        localStorage.setItem('userInfo', JSON.stringify(payload))
         setTimeout(() => {
           router.replace('/')
         }, 1000);
