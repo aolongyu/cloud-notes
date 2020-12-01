@@ -172,7 +172,7 @@ export const createSocket = (url = 'ws://localhost:8999') => {
  * @param {string} type 需要发送的数据
  * @param {object} message 需要发送的数据
  */
-export const sendWSPush = (type: string, message: string | number) => {
+export const sendWSPush = (type: string, message: object | string | number) => {
   // console.log(JSON.stringify(type + message))
   // console.log('Socket.readyState: ', Socket.readyState)
   if (Socket !== null && Socket.readyState === 3) {
@@ -182,9 +182,9 @@ export const sendWSPush = (type: string, message: string | number) => {
     console.log(
       '%c%s',
       'color: white; background: #5DAC81;',
-      `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type) + message)}`
+      `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message))}`
     )
-    console.log(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
+    // console.log(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
     Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
   } else if (Socket.readyState === 0) {
     connecting(message)

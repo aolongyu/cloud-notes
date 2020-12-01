@@ -2,27 +2,15 @@
   position: relative;
   height: 100vh;
   background: linear-gradient(to right, rgb(75, 211, 245), rgb(0, 153, 255));
+  text-align: center;
 
-  .titleBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    .titleLogo {
-      width: 140px;
-      height: 140px;
-      margin-top: 150px;
-    }
-
-    .titleText {
-      margin-top: 20px;
-      color: rgb(255, 255, 255);
-      font-size: 50px;
-    }
+  .titleText {
+    // margin-top: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
   }
 
-  .inputBox {
+  .registBox {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,47 +20,34 @@
     background-color: rgb(255, 255, 255);
     border-radius: 18px;
 
-    .name {
+    .registName {
       width: 400px;
       height: 50px;
       margin-top: 20px;
       border-bottom: 2px solid rgb(105, 105, 105);
     }
 
-    .name:focus {
+    .registName:focus {
       border-bottom: 4px solid rgb(0, 0, 0);
     }
 
-    .password {
+    .registPassword {
       width: 400px;
       height: 50px;
+      margin-top: 20px;
       border-bottom: 2px solid rgb(105, 105, 105);
     }
 
-    .password:focus {
+    .registPassword:focus {
       border-bottom: 4px solid rgb(0, 0, 0);
     }
 
-    .submitBtn {
+    .registSubmit {
       width: 400px;
       height: 60px;
       margin-top: 30px;
       background: linear-gradient(to right, rgb(75, 211, 245), rgb(0, 153, 255));
       border-radius: 30px;
     }
-    
-    .registText {
-      margin-top: 30px;
-      font-size: 19px;
-    }
-  }
-
-  .footer {
-    position: absolute;
-    bottom: 50px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    color: rgb(255, 255, 255);
   }
 }

@@ -16,7 +16,8 @@ type RegisterJson struct{
 	Password string `json:"Password"`
 }
 
-func(T Result) Handle(request isface.IRequest){
+func(T Register) Handle(request isface.IRequest){
+
 	conn := request.GetConnection()
 	RegisterMessage := RegisterJson{}
 	json.Unmarshal(request.GetData(),&RegisterMessage)
@@ -27,10 +28,15 @@ func(T Result) Handle(request isface.IRequest){
 	snet.SDB.Debug().Raw("call register(?,?)",RegisterMessage.Name,RegisterMessage.Password).Scan(&res)
 
 	fmt.Println("读取数据库的信息",res)
-
-	if res.result == 0{
-		conn.SendMesg([]byte("regiack"),[]byte("ok"))
+	returnres := Status{}
+	//注册成功
+	if res.Result == 0{
+		returnres.Status = "1"
+		data,_ := json.Marshal(returnres)
+		conn.SendMesg([]byte(""), data)
 	}else{
-		conn.SendMesg([]byte("regiack"),[]byte("no"))
+		returnres.Status = "0"
+		data,_ := json.Marshal(returnres)
+		conn.SendMesg([]byte(""), data)
 	}
 }

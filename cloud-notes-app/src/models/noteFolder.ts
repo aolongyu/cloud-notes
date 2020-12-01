@@ -1,23 +1,24 @@
+import { Reducer } from 'redux';
 import { query } from '@/services/api';
-import { Effect, Reducer } from 'alita';
+import { Effect } from '@/models/connect';
 
-export interface SettingsModelState {
+export interface NoteFolderModelState {
   name: string;
 }
 
-export interface SettingsModelType {
-  namespace: 'settings';
-  state: SettingsModelState;
+export interface NoteFolderModelType {
+  namespace: 'noteFolder';
+  state: NoteFolderModelState;
   effects: {
     query: Effect;
   };
   reducers: {
-    save: Reducer<SettingsModelState>;
+    save: Reducer<NoteFolderModelState>;
   };
 }
 
-const SettingsModel: SettingsModelType = {
-  namespace: 'settings',
+const NoteFolderModel: NoteFolderModelType = {
+  namespace: 'noteFolder',
 
   state: {
     name: '',
@@ -26,7 +27,7 @@ const SettingsModel: SettingsModelType = {
   effects: {
     *query({ payload }, { call, put }) {
       const data = yield call(query, payload);
-      // console.log(data);
+      console.log(data)
       yield put({
         type: 'save',
         payload: { name: data.text },
@@ -43,4 +44,4 @@ const SettingsModel: SettingsModelType = {
   },
 };
 
-export default SettingsModel;
+export default NoteFolderModel;

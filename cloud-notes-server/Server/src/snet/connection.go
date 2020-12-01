@@ -124,29 +124,13 @@ func (c *Connection) StartReader() {
 			c.ExitBuffChan <- true
 			break
 		}
-		/*
-		//根据Len读取data，放在msg.Data中
-		var data []byte
-		if msg.GetDataLen() > 0 {
-			data = make([]byte, msg.GetDataLen())
-			if _, err := io.ReadFull(c.GetTcpConnection(), data); err != nil {
-				fmt.Println("读取数据错误 :", err)
-				//Logs.Error("读取数据错误 :", err)
-				c.isClosed = true
-				c.ExitBuffChan <- true
-				break
-			}
-		}
 
-		msg.SetData(data)
-
-		 */
-		//fmt.Println("获得消息",msg)
-		//得到当前客户端请求的Request数据
 		req := Request{
 			conn: c,
 			msg:  msg,
 		}
+
+		//fmt.Println(string(msg.GetMsgId()),string(msg.GetData()))
 
 		c.MsgHandle.SendMsgToMesQueue(&req)
 		//这个链接来一个消息，单位时间消息数+1

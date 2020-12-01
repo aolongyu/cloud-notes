@@ -1,26 +1,25 @@
 import { Reducer, router } from 'alita';
-import { Toast } from 'antd-mobile'
-import { queryLogin } from '@/services/api';
+import {Toast} from 'antd-mobile'
+import { queryRegist } from '@/services/api';
 import { Effect } from '@/models/connect';
-import { sendWSPush } from '@/utils/websocket';
 
-export interface LoginModelState {
+export interface RegistModelState {
   name: string;
 }
 
-export interface LoginModelType {
-  namespace: 'login';
-  state: LoginModelState;
+export interface RegistModelType {
+  namespace: 'regist';
+  state: RegistModelState;
   effects: {
     query: Effect;
   };
   reducers: {
-    save: Reducer<LoginModelState>;
+    save: Reducer<RegistModelState>;
   };
 }
 
-const LoginModel: LoginModelType = {
-  namespace: 'login',
+const RegistModel: RegistModelType = {
+  namespace: 'regist',
 
   state: {
     name: '',
@@ -28,20 +27,20 @@ const LoginModel: LoginModelType = {
 
   effects: {
     *query({ payload }, { call, put }) {
-      yield call(queryLogin, payload);
+      yield call(queryRegist, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
-      if(data.Status !== '0') {
-        Toast.success('登录成功', 1)
+      if(String(data.Status) !== '0') {
+        Toast.success('注册成功，请登录', 1)
         setTimeout(() => {
-          router.replace('/')
+          router.replace('login')
         }, 1000);
       } else {
-        Toast.fail('登录失败', 1)
+        Toast.fail('注册失败', 1)
       }
       yield put({
         type: 'save',
-        payload: { name: data },
+        payload: { name: data.text },
       });
     },
   },
@@ -55,4 +54,4 @@ const LoginModel: LoginModelType = {
   },
 };
 
-export default LoginModel;
+export default RegistModel;
