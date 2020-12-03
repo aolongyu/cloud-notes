@@ -45,13 +45,17 @@ const titleList: TitleListItem[] = [
     pagePath: '/settings',
     title: '设置',
   },
+  {
+    pagePath: '/noteFolder',
+    title: '笔记文件夹',
+  },
 ];
 const navList: NavBarListItem[] = [
   {
     pagePath: '/login',
     navBar: {
       hideNavBar: true,
-    },
+    }
   },
 ];
 const navBar: NavBarProps = {
