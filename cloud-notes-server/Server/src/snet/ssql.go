@@ -6,8 +6,12 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-
+//登录数据库
 var SDB *gorm.DB
+//活动数据库
+var SDBactive *gorm.DB
+//笔记数据库
+var SDBNote *gorm.DB
 /*
 func InitDB() {
 	//构建连接："用户名:密码@tcp(IP:端口)/数据库?charset=utf8"

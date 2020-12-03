@@ -45,6 +45,7 @@ func NewServer() isface.IServer {
 	return s
 }
 
+
 //启动服务器
 func (s *Server) Start() {
 	fmt.Println("[START] Server启动,  服务器ip:", s.IPaddr, "  端口号为：", s.Port, "\n版本号:",
@@ -118,6 +119,23 @@ func (s *Server) Serve() {
 		println(err)
 		//Logs.Error("数据库来链接失败")
 	}
+	SDBactive,err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_activitydb?charset=utf8")
+	SDBactive.SingularTable(true)
+
+	if err != nil {
+		fmt.Println("打开数据库失败")
+		println(err)
+		//Logs.Error("数据库来链接失败")
+	}
+	SDBNote,err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_notedb?charset=utf8")
+	SDBNote.SingularTable(true)
+
+	if err != nil {
+		fmt.Println("打开数据库失败")
+		println(err)
+		//Logs.Error("数据库来链接失败")
+	}
+
 	fmt.Println("打开数据库成功")
 	//Logs.Debug("数据库链接成功")
 	s.Start()
