@@ -19,7 +19,7 @@ type Result struct{
 	Mark int `gorm:"column:Mark"`
 }
 type Status struct{
-	Status string
+	Status string  //返回的状态
 }
 func(T Login) Handle(request isface.IRequest){
 	conn := request.GetConnection()

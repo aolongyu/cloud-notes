@@ -14,7 +14,6 @@ func AddHandleInit(s isface.IServer) {
 	//s.AddHandle(TEST_HANDLE,&Nofound{},"测试能否连接",0)
 	s.AddHandle("login",&Login{},"登陆",0)
 	s.AddHandle("regist",&Register{},"注册",0)
-
 	s.AddHandle("getNList",&GetNlist{},"获取笔记本列表",0)
 	s.AddHandle("getNDetail",&GetNdetail{},"获取某个笔记详细信息",0)
 	s.AddHandle("CrNoBook",&CreateNoteBook{},"创建笔记本",0)
