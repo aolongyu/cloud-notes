@@ -7,18 +7,18 @@ import (
 	"snet"
 )
 
-type CloseUserByName struct {
+type CloseUserByid struct {
 	snet.BaseRouter
 }
 //用户id
-type CloseUserByNameJson struct{
+type CloseUserByidJson struct{
 	Uid int `json:"Uid"`
 }
 
 
-func(T CloseUserByName)Handle(request isface.IRequest){
+func(T CloseUserByid)Handle(request isface.IRequest){
 	conn:=request.GetConnection()
-	recvData := CloseUserByNameJson{}
+	recvData := CloseUserByidJson{}
 
 	json.Unmarshal(request.GetData(),&recvData)
 

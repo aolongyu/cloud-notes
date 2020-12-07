@@ -14,6 +14,10 @@ func AddHandleInit(s isface.IServer) {
 	//s.AddHandle(TEST_HANDLE,&Nofound{},"测试能否连接",0)
 	s.AddHandle("login",&Login{},"登陆",0)
 	s.AddHandle("regist",&Register{},"注册",0)
+	s.AddHandle("finduser",&FindUser{},"管理员查找用户",0)
+	s.AddHandle("closeuser",&CloseUserByid{},"封锁用户，根据ID",0)
+	s.AddHandle("deluser",&DeleteUserById{},"根据用户id删除用户",0)
+
 
 	s.AddHandle("getNList",&GetNlist{},"获取笔记本列表",0)
 	s.AddHandle("CrNoBook",&CreateNoteBook{},"创建笔记本",0)
