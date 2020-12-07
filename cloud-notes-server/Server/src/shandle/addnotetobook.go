@@ -10,7 +10,7 @@ import (
 type AddNoteToNoteBook struct{
 	snet.BaseRouter
 }
-
+//把笔记加入笔记本
 type AddJson struct{
 	//把笔记加入笔记本，笔记id，笔记本id
 	nid int `json:"nid"`

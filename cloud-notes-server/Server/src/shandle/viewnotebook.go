@@ -10,7 +10,7 @@ import (
 type ViewNote struct{
 	snet.BaseRouter
 }
-
+//Id号笔记Id
 type ViewNoteJson struct{
 	Id int `json:"id"`
 }

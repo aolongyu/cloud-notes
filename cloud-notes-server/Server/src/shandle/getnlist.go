@@ -12,7 +12,7 @@ type GetNlist struct{
 }
 
 type UserNameJson struct{
-	UserName string `json:"Name"`
+	Uid int `json:"Uid"`
 }
 
 
@@ -31,7 +31,7 @@ func(T GetNlist)Handle(request isface.IRequest){
 
 	fmt.Println("Handle GetNList 传来的信息：",UserName)
 	data := make([]NoteList,0)
-	snet.SDBNote.Debug().Raw("call user_notebook(?)",UserName.UserName).Scan(&data)
+	snet.SDBNote.Debug().Raw("call user_notebook(?)",UserName.Uid).Scan(&data)
 
 	Sendata,_ := json.Marshal(data)
 

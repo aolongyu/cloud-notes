@@ -13,12 +13,11 @@ type CreateNoteBook struct{
 //用户名，笔记本名，笔记本简介，笔记本类型
 //笔记本类型 0表示私有 1表示公开 2表示仅好友可见
 type CreateNoteBookJson struct {
-	Uname string `json:"Uname"`
+	Uid int `json:"Uid"`
 	NoteBookName string `json:"NoteBookName"`
 	NoteBookIntroduction string `json:"NoteBookIntroduction"`
 	NoteBookType string `json:"NoteBookType"`
 }
-
 
 func (T CreateNoteBook)Handle(request isface.IRequest){
 	conn := request.GetConnection()
@@ -28,7 +27,7 @@ func (T CreateNoteBook)Handle(request isface.IRequest){
 
 	fmt.Println("Handle CreateNoteBook 从客户端获得信息:",NoteJson)
 
-	Line := snet.SDBNote.Debug().Raw("call create_notebook(?,?,?,?)",NoteJson.Uname,NoteJson.NoteBookName,NoteJson.NoteBookIntroduction,NoteJson.NoteBookType).RowsAffected
+	Line := snet.SDBNote.Debug().Raw("call create_notebook(?,?,?,?)",NoteJson.Uid,NoteJson.NoteBookName,NoteJson.NoteBookIntroduction,NoteJson.NoteBookType).RowsAffected
 
 	returnres := Status{}
 
