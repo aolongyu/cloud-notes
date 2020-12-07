@@ -49,6 +49,10 @@ const titleList: TitleListItem[] = [
     pagePath: '/noteFolder',
     title: '笔记文件夹',
   },
+  {
+    pagePath: '/noteDetails',
+    title: '笔记详情',
+  },
 ];
 const navList: NavBarListItem[] = [
   {
@@ -76,11 +80,11 @@ const tabList: TabBarListItem[] = [
     badge: '',
   },
   {
-    pagePath: '/list',
-    text: '列表',
-    iconPath: ListGary,
-    selectedIconPath: ListBlue,
-    title: '列表',
+    pagePath: '/noteFolder',
+    text: '文件夹',
+    iconPath: SetGary,
+    selectedIconPath: SetBlue,
+    title: '笔记文件夹',
     iconSize: '',
     badge: '',
   },

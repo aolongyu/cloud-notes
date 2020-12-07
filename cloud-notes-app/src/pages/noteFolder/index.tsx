@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { NoteFolderModelState, ConnectProps, connect } from 'alita';
 import Card from '@/components/noteFolder/index'
+import NoMore from '@/components/noMore/index'
 import styles from './index.less';
 
 interface PageProps extends ConnectProps {
@@ -34,6 +35,22 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
   return (
     <div className={styles.container}>
       <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
+      {/* <Card cardName={data.Name} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} /> */}
+      <NoMore />
     </div>
   );
 };
