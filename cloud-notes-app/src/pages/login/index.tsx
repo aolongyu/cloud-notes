@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { LoginModelState, ConnectProps, connect, router } from 'alita';
-import { createSocket, sendWSPush } from '@/utils/websocket'
+import { createSocket } from '@/utils/websocket'
 import Logo from '@/assets/login/logo.png'
 import styles from './index.less';
 

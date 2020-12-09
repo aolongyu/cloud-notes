@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { NoteFolderModelState, ConnectProps, connect } from 'alita';
 import Card from '@/components/noteFolder/index'
 import NoMore from '@/components/noMore/index'
+import { createSocket } from '@/utils/websocket'
 import styles from './index.less';
 
 interface PageProps extends ConnectProps {
@@ -13,18 +14,19 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
   // const userInfo = JSON.parse(localStorage.getItem('userInfo'))
   // const Name = userInfo && userInfo.Name && 'cdw'
   // console.log(userInfo)
-  
+
   useEffect(() => {
-    dispatch!({
-      type: 'noteFolder/query',
-      payload: {
-        Name: 'cdw'
-      }
-    });
+    createSocket()
+
     return () => {
     };
   }, []);
-
+  dispatch!({
+    type: 'noteFolder/query',
+    payload: {
+      Name: 'cdw'
+    }
+  });
   const { data } = noteFolder;
   const test = { Id: 'Id', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }
   return (
