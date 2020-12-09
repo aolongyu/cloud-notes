@@ -15,8 +15,6 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
       type: 'noteFolder/query',
     });
     return () => {
-      // 这里写一些需要消除副作用的代码
-      // 如: 声明周期中写在 componentWillUnmount
     };
   }, []);
 
@@ -31,25 +29,15 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
     }
   });
   const { data } = noteFolder;
-  const test = {NoteName: 'noteName', NoteIntro: 'noteIntro', NoteModifyTime: 'noteModifyTime'}
+  const test = {Id: 'Id', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp'}
   return (
     <div className={styles.container}>
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      <Card cardName={test.NoteName} cardIntro={test.NoteIntro} cardModifyTime={test.NoteModifyTime} />
-      {/* <Card cardName={data.Name} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} /> */}
+      <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
+      <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
+      <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
+
+      --------------------上面是假数据---------------
+      <Card cardName={data.Name} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} />
       <NoMore />
     </div>
   );

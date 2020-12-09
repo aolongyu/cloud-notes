@@ -5,6 +5,7 @@ import {
   NavBarListItem,
   TabBarProps,
   TabBarListItem,
+  history
 } from 'alita';
 
 import HomeGary from './assets/demoIcon/home.png';
@@ -52,6 +53,10 @@ const titleList: TitleListItem[] = [
   {
     pagePath: '/noteDetails',
     title: '笔记详情',
+  },
+  {
+    pagePath: '/noteList',
+    title: '笔记列表',
   },
 ];
 const navList: NavBarListItem[] = [
@@ -113,3 +118,5 @@ export const mobileLayout = {
   tabBar,
   titleList,
 };
+
+history.replace('/')
