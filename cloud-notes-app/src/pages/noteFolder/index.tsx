@@ -9,17 +9,9 @@ interface PageProps extends ConnectProps {
 }
 
 const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
-  // 这里发起了初始化请求
-  useEffect(() => {
-    dispatch!({
-      type: 'noteFolder/query',
-    });
-    return () => {
-    };
-  }, []);
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-  const Name = userInfo.Name
+  const Name = userInfo && userInfo.Name && 'cdw'
   console.log(userInfo)
 
   dispatch!({
@@ -37,7 +29,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
       <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
 
       --------------------上面是假数据---------------
-      <Card cardName={data.Name} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} />
+      {/* <Card cardName={data.Nasme} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} /> */}
       <NoMore />
     </div>
   );

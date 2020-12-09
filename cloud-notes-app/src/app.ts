@@ -119,4 +119,8 @@ export const mobileLayout = {
   titleList,
 };
 
-history.replace('/')
+if(localStorage.getItem('userInfo')) {
+  history.replace('/')
+} else {
+  history.replace('/login')
+}
