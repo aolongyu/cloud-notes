@@ -10,18 +10,23 @@ interface PageProps extends ConnectProps {
 
 const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
 
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-  const Name = userInfo && userInfo.Name && 'cdw'
-  console.log(userInfo)
+  // const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  // const Name = userInfo && userInfo.Name && 'cdw'
+  // console.log(userInfo)
+  
+  useEffect(() => {
+    dispatch!({
+      type: 'noteFolder/query',
+      payload: {
+        Name: 'cdw'
+      }
+    });
+    return () => {
+    };
+  }, []);
 
-  dispatch!({
-    type: 'noteFolder/query',
-    payload: {
-      Name
-    }
-  });
   const { data } = noteFolder;
-  const test = {Id: 'Id', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp'}
+  const test = { Id: 'Id', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }
   return (
     <div className={styles.container}>
       <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
@@ -29,7 +34,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
       <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
 
       --------------------上面是假数据---------------
-      {/* <Card cardName={data.Nasme} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} /> */}
+      {/* <Card cardName={data.Name} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} /> */}
       <NoMore />
     </div>
   );
