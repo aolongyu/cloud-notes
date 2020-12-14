@@ -28,3 +28,7 @@ export async function queryNoteDetails(msg: object): Promise<any> {
 export async function queryNoteList(msg: object): Promise<any> {
   return requestCloud('getNList', msg)
 }
+
+export async function queryCreateNote(msg: object): Promise<any> {
+  return requestCloud('CrNoBook', msg)
+}

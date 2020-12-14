@@ -17,7 +17,6 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
 
   useEffect(() => {
     createSocket()
-
     return () => {
     };
   }, []);
@@ -28,7 +27,9 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
     }
   });
   const { data } = noteFolder;
+
   const test = { Id: 'Id', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }
+  
   return (
     <div className={styles.container}>
       <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />

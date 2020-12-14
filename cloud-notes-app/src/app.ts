@@ -58,6 +58,10 @@ const titleList: TitleListItem[] = [
     pagePath: '/noteList',
     title: '笔记列表',
   },
+  {
+    pagePath: '/createNote',
+    title: '创建笔记',
+  },
 ];
 const navList: NavBarListItem[] = [
   {
@@ -119,8 +123,8 @@ export const mobileLayout = {
   titleList,
 };
 
-if(localStorage.getItem('userInfo')) {
-  history.replace('/')
-} else {
-  history.replace('/login')
-}
+// if(localStorage.getItem('userInfo')) {
+//   history.replace('/')
+// } else {
+//   history.replace('/login')
+// }

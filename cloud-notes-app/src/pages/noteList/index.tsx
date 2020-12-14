@@ -10,14 +10,15 @@ interface PageProps extends ConnectProps {
 
 const NoteListPage: FC<PageProps> = ({ noteList, dispatch }) => {
   // 这里发起了初始化请求
-  useEffect(() => {
-    dispatch!({
-      type: 'noteList/query',
-    });
-    return () => {
-    };
-  }, []);
+  // useEffect(() => {
+  //   createSocket()
 
+  //   return () => {
+  //   };
+  // }, []);
+  dispatch!({
+    type: 'noteList/query',
+  });
   const { data } = noteList;
 
   const test = { Id: '1232id', Name: 'nama', Introduction: 'intorintorintorintorintorintorintorintorintorintorintor', Text: 'text', ThumbsUp: 'up' }
@@ -30,7 +31,7 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch }) => {
 
       --------------------上面是假数据---------------
       {
-        data.map((item: any) => <NoteBox Id={item.Id} Name={item.Name} Introduction={item.Introduction} Text={item.Text} ThumbsUp={item.ThumbsUp} />)
+        // data.map((item: any) => <NoteBox Id={item.Id} Name={item.Name} Introduction={item.Introduction} Text={item.Text} ThumbsUp={item.ThumbsUp} />)
       }
       <NoMore text='没有更多了' />
     </div>
