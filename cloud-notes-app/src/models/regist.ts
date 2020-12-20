@@ -1,4 +1,4 @@
-import { Reducer, router } from 'alita';
+import { Reducer, history } from 'alita';
 import {Toast} from 'antd-mobile'
 import { queryRegist } from '@/services/api';
 import { Effect } from '@/models/connect';
@@ -33,7 +33,7 @@ const RegistModel: RegistModelType = {
       if(String(data.Status) !== '0') {
         Toast.success('注册成功，请登录', 1)
         setTimeout(() => {
-          router.replace('login')
+          history.replace('login')
         }, 1000);
       } else {
         Toast.fail('注册失败', 1)

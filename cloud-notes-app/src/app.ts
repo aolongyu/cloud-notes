@@ -5,6 +5,7 @@ import {
   NavBarListItem,
   TabBarProps,
   TabBarListItem,
+  history
 } from 'alita';
 
 import HomeGary from './assets/demoIcon/home.png';
@@ -45,13 +46,33 @@ const titleList: TitleListItem[] = [
     pagePath: '/settings',
     title: '设置',
   },
+  {
+    pagePath: '/noteFolder',
+    title: '笔记文件夹',
+  },
+  {
+    pagePath: '/noteDetails',
+    title: '笔记详情',
+  },
+  {
+    pagePath: '/noteList',
+    title: '笔记列表',
+  },
+  {
+    pagePath: '/createNote',
+    title: '创建笔记',
+  },
+  {
+    pagePath: '/admin',
+    title: '管理',
+  },
 ];
 const navList: NavBarListItem[] = [
   {
     pagePath: '/login',
     navBar: {
       hideNavBar: true,
-    },
+    }
   },
 ];
 const navBar: NavBarProps = {
@@ -72,11 +93,11 @@ const tabList: TabBarListItem[] = [
     badge: '',
   },
   {
-    pagePath: '/list',
-    text: '列表',
-    iconPath: ListGary,
-    selectedIconPath: ListBlue,
-    title: '列表',
+    pagePath: '/noteFolder',
+    text: '文件夹',
+    iconPath: SetGary,
+    selectedIconPath: SetBlue,
+    title: '笔记文件夹',
     iconSize: '',
     badge: '',
   },
@@ -105,3 +126,9 @@ export const mobileLayout = {
   tabBar,
   titleList,
 };
+
+if(localStorage.getItem('userInfo')) {
+  history.replace('/')
+} else {
+  history.replace('/login')
+}

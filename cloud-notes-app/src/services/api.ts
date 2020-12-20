@@ -16,3 +16,27 @@ export async function queryLogin(msg: object): Promise<any> {
 export async function queryRegist(msg: object): Promise<any> {
   return requestCloud('regist', msg)
 }
+
+export async function queryFolder(msg: object): Promise<any> {
+  return requestCloud('getFolder', msg)
+}
+
+export async function queryNoteDetails(msg: object): Promise<any> {
+  return requestCloud('getNDetail', msg)
+}
+
+export async function queryNoteList(msg: object): Promise<any> {
+  return requestCloud('getNList', msg)
+}
+
+export async function queryCreateNote(msg: object): Promise<any> {
+  return requestCloud('CrNoBook', msg)
+}
+
+export async function queryUser(msg: object): Promise<any> {
+  return requestCloud('finduser', msg)
+}
+
+export async function queryCloseuser(msg: object): Promise<any> {
+  return requestCloud('closeuser', msg)
+}

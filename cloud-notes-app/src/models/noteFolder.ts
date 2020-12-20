@@ -1,5 +1,5 @@
-import { Reducer } from 'redux';
-import { query } from '@/services/api';
+import { Reducer } from 'alita';
+import { queryFolder } from '@/services/api';
 import { Effect } from '@/models/connect';
 
 export interface NoteFolderModelState {
@@ -26,11 +26,13 @@ const NoteFolderModel: NoteFolderModelType = {
 
   effects: {
     *query({ payload }, { call, put }) {
-      const data = yield call(query, payload);
-      console.log(data)
+      yield call(queryFolder, payload);
+      const data = JSON.parse(JSON.parse(window.cloud))
+      console.log('从服务端获取对象：', data)
+
       yield put({
         type: 'save',
-        payload: { name: data.text },
+        payload: { data },
       });
     },
   },

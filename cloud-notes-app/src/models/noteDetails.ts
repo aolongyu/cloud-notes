@@ -1,5 +1,5 @@
-import { Reducer } from 'redux';
-import { query } from '@/services/api';
+import { Reducer } from 'alita';
+import { queryNoteDetails } from '@/services/api';
 import { Effect } from '@/models/connect';
 
 export interface NoteDetailsModelState {
@@ -26,11 +26,12 @@ const NoteDetailsModel: NoteDetailsModelType = {
 
   effects: {
     *query({ payload }, { call, put }) {
-      const data = yield call(query, payload);
-      console.log(data)
+      yield call(queryNoteDetails, payload);
+      const data = JSON.parse(JSON.parse(window.cloud))
+      console.log('从服务端获取对象：', data)
       yield put({
         type: 'save',
-        payload: { name: data.text },
+        payload: { data },
       });
     },
   },

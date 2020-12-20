@@ -1,2 +1,28 @@
-.center {
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+
+  .line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+
+    .right {
+      color: rgb(150, 150, 150);
+      font-size: 40px;
+    }
+  }
+
+  .exitBtn {
+    position: absolute;
+    bottom: 200px;
+    width: 400px;
+    height: 60px;
+    margin-top: 30px;
+    background: linear-gradient(to right, rgb(75, 211, 245), rgb(0, 153, 255));
+    border-radius: 30px;
+  }
 }

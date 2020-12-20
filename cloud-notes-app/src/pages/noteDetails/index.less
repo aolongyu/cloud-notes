@@ -1,2 +1,69 @@
-.center {
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px;
+  padding: 20px 20px;
+  background-color: rgb(216, 253, 253);
+  border-radius: 15px;
+  box-shadow: 10px 10px 10px rgb(134, 134, 134);
+
+  .noteTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .noteName {
+      font-size: 50px;
+    }
+  }
+
+  .noteInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .mainText {
+    margin-top: 30px;
+
+    .text {
+      width: 100%;
+      height: 50px;
+      word-wrap: break-word;
+    }
+  }
+
+  .rightFloat {
+    position: fixed;
+    right: 10px;
+    bottom: 200px;
+
+    .edit {
+      width: 70px;
+      height: 70px;
+      background-color: rgb(170, 235, 255);
+      background-image: url(../../assets/noteDetail/edit.png);
+      background-repeat: no-repeat;
+      background-position: 10px 10px;
+      background-size: 50px 50px;
+      border-radius: 10px;
+      box-shadow: 10px 10px 10px rgb(134, 134, 134);
+    }
+
+    .share {
+      width: 70px;
+      height: 70px;
+      margin-top: 20px;
+      background-color: rgb(170, 235, 255);
+      background-image: url(../../assets/noteDetail/share.png);
+      background-repeat: no-repeat;
+      background-position: 10px 10px;
+      background-size: 50px 50px;
+      border-radius: 10px;
+      box-shadow: 10px 10px 10px rgb(134, 134, 134);
+    }
+  }
 }

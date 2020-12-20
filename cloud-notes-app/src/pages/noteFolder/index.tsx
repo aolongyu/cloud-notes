@@ -1,5 +1,9 @@
 import React, { FC, useEffect } from 'react';
 import { NoteFolderModelState, ConnectProps, connect } from 'alita';
+import { SearchBar, Card, WingBlank, WhiteSpace } from 'antd-mobile';
+import { FolderOpenTwoTone } from '@ant-design/icons'
+import NoMore from '@/components/noMore/index'
+import { createSocket } from '@/utils/websocket'
 import styles from './index.less';
 
 interface PageProps extends ConnectProps {
@@ -7,19 +11,63 @@ interface PageProps extends ConnectProps {
 }
 
 const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
-  // 这里发起了初始化请求
+
+  // const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  // const Name = userInfo && userInfo.Name && 'cdw'
+  // console.log(userInfo)
+
   useEffect(() => {
-    dispatch!({
-      type: 'noteFolder/query',
-    });
+    createSocket()
     return () => {
-      // 这里写一些需要消除副作用的代码
-      // 如: 声明周期中写在 componentWillUnmount
     };
   }, []);
-  // 注意，上面这里写空数组，表示初始化，如果需要监听某个字段变化再发起请求，可以在这里写明
-  const { name } = noteFolder;
-  return <div className={styles.center}>Hello {name}</div>;
+  dispatch!({
+    type: 'noteFolder/query',
+    payload: {
+      Name: 'cdw'
+    }
+  });
+  const { data } = noteFolder;
+
+  const handleSearch = (msg: string) => {
+    console.log(msg)
+  }
+
+  const test = [{ Id: 'Id', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }]
+
+  return (
+    <div className={styles.container}>
+      <SearchBar placeholder="查找笔记本" maxLength={15} onCancel={(val) => { handleSearch(val) }} cancelText="查找" />
+      {
+        test.map(item => (
+          <div className={styles.card}>
+            <WingBlank size="lg">
+              <WhiteSpace size="lg" />
+              <Card>
+                <Card.Header
+                  title={item.Name}
+                  thumb={<FolderOpenTwoTone />}
+                  extra={<span>{item.ThumbsUp}</span>}
+                />
+                <Card.Body>
+                  <div>{item.Introduction}</div>
+                </Card.Body>
+                {/* <Card.Footer content="footer content" extra={<div>extra footer content</div>} /> */}
+              </Card>
+              <WhiteSpace size="lg" />
+            </WingBlank>
+          </div>
+        ))
+      }
+      {/* <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
+      <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
+      <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} /> */}
+
+      --------------------上面是假数据---------------
+      {/* <Card cardName={data.Name} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} /> */}
+      <NoMore />
+    </div>
+  );
 };
 
-export default connect(({ noteFolder }:{ noteFolder: NoteFolderModelState; }) => ({ noteFolder }))(NoteFolderPage);
+export default connect(({ noteFolder }: { noteFolder: NoteFolderModelState; }) => ({ noteFolder }))(NoteFolderPage);

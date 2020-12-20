@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { LoginModelState, ConnectProps, connect, router } from 'alita';
-import { createSocket, sendWSPush } from '@/utils/websocket'
+import { createSocket } from '@/utils/websocket'
 import Logo from '@/assets/login/logo.png'
 import styles from './index.less';
 
@@ -12,12 +12,9 @@ const LoginPage: FC<PageProps> = ({ login, dispatch }) => {
   // 这里发起了初始化请求
   useEffect(() => {
     createSocket()
-    
-    
     return () => {
     };
   }, []);
-  // 注意，上面这里写空数组，表示初始化，如果需要监听某个字段变化再发起请求，可以在这里写明
   const { name } = login;
 
   console.log(name)
