@@ -6,7 +6,7 @@ import (
 	"isface"
 	"snet"
 )
-
+//
 type AddNoteToNoteBook struct{
 	snet.BaseRouter
 }

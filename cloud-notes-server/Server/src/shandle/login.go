@@ -16,7 +16,7 @@ type LoginUserJson struct{
 }
 type Result struct{
 	Result int `gorm:"column:Result"`
-	Mark int `gorm:"column:Mark"`
+	//Mark int `gorm:"column:Mark"`
 }
 type Status struct{
 	Status string  //返回的状态
@@ -36,9 +36,9 @@ func(T Login) Handle(request isface.IRequest){
 	returnres := Status{}
 	//登录成功
 	if res.Result > 0 {
-		if res.Mark == 1{
+		if res.Result == 1{
 			returnres.Status = "1"
-		}else if res.Mark == 2{
+		}else if res.Result == 2{
 			returnres.Status = "2"
 		}
 		data,_ := json.Marshal(returnres)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/go-sql-driver/mysql"
@@ -26,5 +27,9 @@ func main(){
 	fmt.Println("打开数据库成功")
 	data := make([]customer_login,0)
 	SDB1.Debug().Raw("SELECT * FROM customer_login;").Scan(&data)
-	fmt.Println(data)
+	for k,v := range data {
+		fmt.Println(k,v)
+	}
+	SendData,_ := json.Marshal(data)
+	fmt.Println(string(SendData))
 }
