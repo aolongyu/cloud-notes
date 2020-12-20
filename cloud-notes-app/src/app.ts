@@ -127,8 +127,8 @@ export const mobileLayout = {
   titleList,
 };
 
-// if(localStorage.getItem('userInfo')) {
-//   history.replace('/')
-// } else {
-//   history.replace('/login')
-// }
+if(localStorage.getItem('userInfo')) {
+  history.replace('/')
+} else {
+  history.replace('/login')
+}

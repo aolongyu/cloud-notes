@@ -31,15 +31,15 @@ const LoginModel: LoginModelType = {
       yield call(queryLogin, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
-      // if(data.Status !== '0') {
+      if(data.Status !== '0') {
         Toast.success('登录成功', 1)
         localStorage.setItem('userInfo', JSON.stringify(payload))
         setTimeout(() => {
           history.replace('/')
         }, 1000);
-      // } else {
-      //   Toast.fail('登录失败', 1)
-      // }
+      } else {
+        Toast.fail('登录失败', 1)
+      }
       yield put({
         type: 'save',
         payload: { name: data },
