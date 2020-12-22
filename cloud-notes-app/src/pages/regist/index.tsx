@@ -19,19 +19,17 @@ const RegistPage: FC<PageProps> = ({ regist, dispatch }) => {
     };
   }, []);
 
-  const { data } = regist
+  const { name } = regist
 
-  console.log(data)
+  console.log(name)
 
-  if (data) {
-    if (String(data) === '1') {
-      Toast.success('注册成功，请登录', 1)
-      setTimeout(() => {
-        history.replace('login')
-      }, 1000);
-    } else {
-      Toast.fail('注册失败', 1)
-    }
+  if (String(name) === '1') {
+    Toast.success('注册成功，请登录', 1)
+    setTimeout(() => {
+      history.replace('login')
+    }, 1000);
+  } else if(String(name) === '0') {
+    Toast.fail('注册失败', 1)
   }
 
   const handleClick = () => {

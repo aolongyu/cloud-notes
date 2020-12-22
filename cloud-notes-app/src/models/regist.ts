@@ -33,7 +33,7 @@ const RegistModel: RegistModelType = {
       
       yield put({
         type: 'save',
-        payload: { data: data && data.Status },
+        payload: { name: data.Status },
       });
     },
   },
