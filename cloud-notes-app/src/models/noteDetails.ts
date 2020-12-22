@@ -10,7 +10,7 @@ export interface NoteDetailsModelType {
   namespace: 'noteDetails';
   state: NoteDetailsModelState;
   effects: {
-    query: Effect;
+    queryNoteDetails: Effect;
   };
   reducers: {
     save: Reducer<NoteDetailsModelState>;
@@ -25,7 +25,7 @@ const NoteDetailsModel: NoteDetailsModelType = {
   },
 
   effects: {
-    *query({ payload }, { call, put }) {
+    *queryNoteDetails({ payload }, { call, put }) {
       yield call(queryNoteDetails, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)

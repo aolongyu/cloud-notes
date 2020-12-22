@@ -7,10 +7,13 @@ interface PageProps extends ConnectProps {
   noteDetails: NoteDetailsModelState;
 }
 
-const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch }) => {
+const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => {
+  const { NoteBookId } = location.query
+  // console.log(NoteBookId)
   dispatch!({
-    type: 'noteDetails/query',
+    type: 'noteDetails/queryNoteDetails',
   });
+
   const { data } = noteDetails;
 
   const test = {

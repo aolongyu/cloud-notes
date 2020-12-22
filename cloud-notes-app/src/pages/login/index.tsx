@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { LoginModelState, ConnectProps, connect, router } from 'alita';
+import { LoginModelState, ConnectProps, connect, router, history } from 'alita';
 import { createSocket } from '@/utils/websocket'
 import Logo from '@/assets/login/logo.png'
 import styles from './index.less';
@@ -18,6 +18,16 @@ const LoginPage: FC<PageProps> = ({ login, dispatch }) => {
   const { name } = login;
 
   console.log(name)
+  if(name === '1') {
+    setTimeout(() => {
+      history.replace('/')
+    }, 1000)
+  } else if(name === '2') {
+    setTimeout(() => {
+      history.replace('/admin')
+    }, 1000)
+    
+  }
 
   // return <div className={styles.center}>Hello {name}</div>;
 

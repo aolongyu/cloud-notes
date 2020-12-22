@@ -1,6 +1,11 @@
-import React, { FC, useEffect } from 'react';
-import { IndexModelState, ConnectProps, connect } from 'alita';
+import React, { FC, useEffect, useState } from 'react';
+import { IndexModelState, ConnectProps, connect, history } from 'alita';
+import { Modal, List, Button, WhiteSpace, WingBlank, Icon } from 'antd-mobile';
+import { createSocket } from '@/utils/websocket'
+
 import styles from './index.less';
+
+const prompt = Modal.prompt;
 
 interface PageProps extends ConnectProps {
   index: IndexModelState;
@@ -9,17 +14,103 @@ interface PageProps extends ConnectProps {
 const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
   // 这里发起了初始化请求
   useEffect(() => {
-    dispatch!({
-      type: 'index/query',
-    });
-    return () => {
+    createSocket()
+    // dispatch!({
+    //   type: 'index/query',
+    // });
+    // return () => {
       // 这里写一些需要消除副作用的代码
       // 如: 声明周期中写在 componentWillUnmount
-    };
+  //   };
   }, []);
-  // 注意，上面这里写空数组，表示初始化，如果需要监听某个字段变化再发起请求，可以在这里写明
-  const { name } = index;
-  return <div className={styles.center}>Hello {name}</div>;
+
+  const [visible, setVisible] = useState(false)
+  const [visible2, setVisible2] = useState(false)
+
+  // const { name } = index;
+
+  const handle1 = () => {
+    setVisible(true)
+  }
+
+  const handle2 = () => {
+    setVisible2(true)
+  }
+
+  const handleSubmit1 = () => {
+    const Uid = '16' || JSON.parse(localStorage.getItem('userInfo')).Id
+    const NoteName = document.getElementById('input0').value
+    const NoteIntroduction = document.getElementById('input1').value
+    const NoteType = document.getElementById('input2').value
+    const NoteText = 'text'
+
+    dispatch!({
+      type: 'index/queryCrNote',
+      payload: {
+        Uid,
+        NoteName,
+        NoteIntroduction,
+        NoteType,
+        NoteText
+      }
+    });
+  }
+
+  const handleSubmit2 = () => {
+    const Uid = '16' || JSON.parse(localStorage.getItem('userInfo')).Id
+    const NoteBookName = document.getElementById('input5').value
+    const NoteBookIntroduction = document.getElementById('input6').value
+    const NoteBookType = document.getElementById('input7').value
+
+    dispatch!({
+      type: 'index/queryCrNoBook',
+      payload: {
+        Uid,
+        NoteBookName,
+        NoteBookIntroduction,
+        NoteBookType,
+      }
+    });
+  }
+
+  return (
+    <div className={styles.container}>
+      <Modal
+        popup
+        visible={visible}
+        onClose={() => { setVisible(false) }}
+        animationType="slide-down"
+        closable
+      >
+        <List renderHeader={() => <div>输入笔记基本信息</div>} className="popup-list">
+          {['笔记名称', '笔记类型', '笔记说明'].map((i, index) => (
+            <List.Item key={index}>{i} <input id={`input${index}`} className={styles.input} type="text" /></List.Item>
+          ))}
+          <List.Item>
+            <Button type="primary" onClick={handleSubmit1}>创建笔记</Button>
+          </List.Item>
+        </List>
+      </Modal>
+      <Modal
+        popup
+        visible={visible2}
+        onClose={() => { setVisible2(false) }}
+        animationType="slide-down"
+        closable
+      >
+        <List renderHeader={() => <div>输入笔记本信息</div>} className="popup-list">
+          {['笔记本名称', '笔记本类型', '笔记本说明'].map((i, index) => (
+            <List.Item key={index}>{i} <input id={`input${index + 5}`} className={styles.input} type="text" /></List.Item>
+          ))}
+          <List.Item>
+            <Button type="primary" onClick={handleSubmit2}>创建笔记本</Button>
+          </List.Item>
+        </List>
+      </Modal>
+      <input onClick={handle1} className={styles.input1} type="button" value="新建笔记" />
+      <input onClick={handle2} className={styles.input2} type="button" value="新建笔记本" />
+    </div>
+  );
 };
 
 export default connect(({ index }: { index: IndexModelState }) => ({ index }))(IndexPage);

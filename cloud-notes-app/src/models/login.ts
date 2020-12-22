@@ -34,15 +34,12 @@ const LoginModel: LoginModelType = {
       if(data.Status !== '0') {
         Toast.success('登录成功', 1)
         localStorage.setItem('userInfo', JSON.stringify(payload))
-        setTimeout(() => {
-          history.replace('/')
-        }, 1000);
       } else {
         Toast.fail('登录失败', 1)
       }
       yield put({
         type: 'save',
-        payload: { name: data },
+        payload: { name: data.Status },
       });
     },
   },

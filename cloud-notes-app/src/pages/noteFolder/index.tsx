@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { NoteFolderModelState, ConnectProps, connect } from 'alita';
+import { NoteFolderModelState, ConnectProps, connect, router } from 'alita';
 import { SearchBar, Card, WingBlank, WhiteSpace } from 'antd-mobile';
 import { FolderOpenTwoTone } from '@ant-design/icons'
 import NoMore from '@/components/noMore/index'
@@ -12,8 +12,8 @@ interface PageProps extends ConnectProps {
 
 const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
 
-  // const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-  // const Name = userInfo && userInfo.Name && 'cdw'
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  const Name = userInfo && userInfo.Name && 'cdw'
   // console.log(userInfo)
 
   useEffect(() => {
@@ -24,13 +24,23 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
   dispatch!({
     type: 'noteFolder/query',
     payload: {
-      Name: 'cdw'
+      Name
     }
   });
-  const { data } = noteFolder;
+
+  // const { data } = noteFolder;
 
   const handleSearch = (msg: string) => {
     console.log(msg)
+  }
+
+  const handle = (NoteBookId: any) => {
+    router.push({
+      pathname: '/noteDetails',
+      query: {
+        NoteBookId,
+      },
+    });
   }
 
   const test = [{ Id: 'Id', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }]
@@ -40,7 +50,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
       <SearchBar placeholder="查找笔记本" maxLength={15} onCancel={(val) => { handleSearch(val) }} cancelText="查找" />
       {
         test.map(item => (
-          <div className={styles.card}>
+          <div key={item.Id} className={styles.card} onClick={() => {handle(item.Id)}}>
             <WingBlank size="lg">
               <WhiteSpace size="lg" />
               <Card>

@@ -40,3 +40,15 @@ export async function queryUser(msg: object): Promise<any> {
 export async function queryCloseuser(msg: object): Promise<any> {
   return requestCloud('closeuser', msg)
 }
+
+export async function queryCrNote(msg: object): Promise<any> {
+  return requestCloud('CrNote', msg)
+}
+
+export async function queryCrNoBook(msg: object): Promise<any> {
+  return requestCloud('CrNoBook', msg)
+}
+
+// export async function queryCrNoBook(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
