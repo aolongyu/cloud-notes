@@ -21,6 +21,10 @@ type Result struct{
 type Status struct{
 	Status string  //返回的状态
 }
+type LoginStatus struct{
+	Status string
+	Uid string
+}
 func(T Login) Handle(request isface.IRequest){
 	conn := request.GetConnection()
 	Loginmessage := LoginUserJson{}
@@ -33,7 +37,10 @@ func(T Login) Handle(request isface.IRequest){
 	snet.SDB.Debug().Raw("call login(?,?)",Loginmessage.Name,Loginmessage.Password).Scan(&res)
 
 	fmt.Println("读取的数据库内容：",res)
-	returnres := Status{}
+	returnres := LoginStatus{
+		Status: "0",
+		Uid:    "111",
+	}
 	//登录成功
 	if res.Result > 0 {
 		if res.Result == 1{

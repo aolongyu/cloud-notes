@@ -21,7 +21,7 @@ func(T DeleteUserById)Handle(request isface.IRequest){
 
 	Data := Status{}
 
-	Line := snet.SDB.Debug().Raw("call delete_user(?)",recvData.Id).RowsAffected
+	Line := snet.SDB.Debug().Exec("call delete_user(?)",recvData.Id).RowsAffected
 
 	if Line > 0{
 		Data.Status = "1"

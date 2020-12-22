@@ -39,7 +39,7 @@ func(T FindUser)Handle(request isface.IRequest){
 
 	Data := make([]FindUserGorm,0)
 
-	snet.SDB.Debug().Raw("call find(?,?,?,?)",recvData.PageNo,recvData.PageSize,recvData.I,recvData.Sx).Scan(&Data)
+	snet.SDB.Debug().Exec("call find(?,?,?,?)",recvData.PageNo,recvData.PageSize,recvData.I,recvData.Sx).Scan(&Data)
 
 	SendData,_ := json.Marshal(Data)
 
