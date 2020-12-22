@@ -18,15 +18,15 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
     };
   }, []);
   // 注意，上面这里写空数组，表示初始化，如果需要监听某个字段变化再发起请求，可以在这里写明
-  // const { data } = admin;
+  const { data } = admin;
 
-  const test = [
-    { Customer_id: 'Customer1', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' },
-    { Customer_id: 'Customer2', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' },
-    { Customer_id: 'Customer3', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' },
-    { Customer_id: 'Customer4', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' },
-    { Customer_id: 'Customer5', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' }
-  ]
+  // const test = [
+  //   { Customer_id: 'Customer1', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' },
+  //   { Customer_id: 'Customer2', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' },
+  //   { Customer_id: 'Customer3', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' },
+  //   { Customer_id: 'Customer4', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' },
+  //   { Customer_id: 'Customer5', LoginName: 'LoginName', Password: 'Password', UserStats: 'UserStats', ModifiedTime: 'ModifiedTime', CustomerLogincol: 'CustomerLogincol' }
+  // ]
 
   const tabs = [
     { title: '文章管理' },
@@ -66,7 +66,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
       <div className={styles.div3}>
           <SearchBar placeholder="查找用户" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
-          test.map(item => (
+          data && data.map((item: any) => (
             <div key={item.Customer_id} className={styles.box}>
               <WhiteSpace size="lg" />
               <Card className={styles.card}>

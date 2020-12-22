@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
-import { RegistModelState, ConnectProps, connect } from 'alita';
+import { RegistModelState, ConnectProps, connect, history } from 'alita';
 import { Toast } from 'antd-mobile'
+import { createSocket } from '@/utils/websocket'
 import styles from './index.less';
 
 interface PageProps extends ConnectProps {
@@ -8,6 +9,30 @@ interface PageProps extends ConnectProps {
 }
 
 const RegistPage: FC<PageProps> = ({ regist, dispatch }) => {
+
+  useEffect(() => {
+    createSocket()
+    dispatch!({
+      type: 'noteList/query',
+    });
+    return () => {
+    };
+  }, []);
+
+  const { data } = regist
+
+  console.log(data)
+
+  if (data) {
+    if (String(data) === '1') {
+      Toast.success('注册成功，请登录', 1)
+      setTimeout(() => {
+        history.replace('login')
+      }, 1000);
+    } else {
+      Toast.fail('注册失败', 1)
+    }
+  }
 
   const handleClick = () => {
     const Name = document.getElementById('registName').value

@@ -12,6 +12,9 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
   // console.log(NoteBookId)
   dispatch!({
     type: 'noteDetails/queryNoteDetails',
+    payload: {
+      
+    }
   });
 
   const { data } = noteDetails;
