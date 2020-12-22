@@ -27,8 +27,8 @@ func (T CreateNoteBook)Handle(request isface.IRequest){
 
 	fmt.Println("Handle CreateNoteBook 从客户端获得信息:",NoteJson)
 
-	Line := snet.SDBNote.Debug().Raw("call create_notebook(?,?,?,?)",NoteJson.Uid,NoteJson.NoteBookName,NoteJson.NoteBookIntroduction,NoteJson.NoteBookType).RowsAffected
-
+	Line := snet.SDBNote.Debug().Exec("call create_notebook(?,?,?,?)",NoteJson.Uid,NoteJson.NoteBookName,NoteJson.NoteBookIntroduction,NoteJson.NoteBookType).RowsAffected
+	fmt.Println("Line : ",Line)
 	returnres := Status{}
 
 	if Line > 0{

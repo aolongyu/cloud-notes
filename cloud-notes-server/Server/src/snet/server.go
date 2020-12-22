@@ -119,6 +119,7 @@ func (s *Server) Serve() {
 		println(err)
 		//Logs.Error("数据库来链接失败")
 	}
+	fmt.Println("打开UserDb成功 :  ",SDB)
 	SDBactive,err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_activitydb?charset=utf8")
 	SDBactive.SingularTable(true)
 
@@ -127,6 +128,7 @@ func (s *Server) Serve() {
 		println(err)
 		//Logs.Error("数据库来链接失败")
 	}
+	fmt.Println("打开Active成功:  ",SDBactive)
 	SDBNote,err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_notedb?charset=utf8")
 	SDBNote.SingularTable(true)
 
@@ -136,7 +138,8 @@ func (s *Server) Serve() {
 		//Logs.Error("数据库来链接失败")
 	}
 
-	fmt.Println("打开数据库成功")
+	fmt.Println("打开NoteDb成功:  ",SDBNote)
+	//SDBNote.Debug().Exec("create_note(?,?,?,?,?)",123,"123","123",1111,"wocao")
 	//Logs.Debug("数据库链接成功")
 	s.Start()
 	//ToDo 可以在这里添加一些其他方法，后期添加

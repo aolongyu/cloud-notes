@@ -25,7 +25,7 @@ func(T AddNoteToNoteBook)Handle(request isface.IRequest){
 
 	fmt.Println("Handle Addnotetobook 传来的信息：",AddMessage)
 
-	Line := snet.SDBNote.Debug().Raw("call add_to_book(?,?)",AddMessage.bid,AddMessage.nid).RowsAffected
+	Line := snet.SDBNote.Debug().Exec("call add_to_book(?,?)",AddMessage.bid,AddMessage.nid).RowsAffected
 
 	returnres := Status{}
 	if(Line > 0){
