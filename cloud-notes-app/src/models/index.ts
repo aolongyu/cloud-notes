@@ -1,4 +1,4 @@
-import { Effect, Reducer } from 'alita';
+import { Effect, Reducer, history } from 'alita';
 import { queryCrNote, queryCrNoBook } from '@/services/api';
 export interface IndexModelState {
   name: string;

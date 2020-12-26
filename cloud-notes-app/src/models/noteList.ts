@@ -25,7 +25,7 @@ const NoteListModel: NoteListModelType = {
   },
 
   effects: {
-    *query({ payload }, { call, put }) {
+    *queryNoteList({ payload }, { call, put }) {
       yield call(queryNoteList, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
