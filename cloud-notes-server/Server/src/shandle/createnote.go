@@ -28,7 +28,7 @@ func (T CreateNote) Handle(request isface.IRequest){
 
 	fmt.Println("Handle createnote 传来的信息：",CreateNoteMesg)
 
-	Line := snet.SDBNote.Debug().Exec("create_note(?,?,?,?,?)",CreateNoteMesg.Uid,CreateNoteMesg.NoteName,CreateNoteMesg.NoteIntroduction,CreateNoteMesg.NodeType,CreateNoteMesg.NodeText).RowsAffected
+	Line := snet.SDBNote.Debug().Exec("call create_note(?,?,?,?,?)",CreateNoteMesg.Uid,CreateNoteMesg.NoteName,CreateNoteMesg.NoteIntroduction,CreateNoteMesg.NodeType,CreateNoteMesg.NodeText).RowsAffected
 
 	res := Status{}
 	if Line > 0{
