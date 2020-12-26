@@ -15,8 +15,8 @@ type LoginUserJson struct{
 	Password string `json:"Password"`
 }
 type Result struct{
-	Result int `gorm:"column:@result"`
-	Id string `gorm:"column:@id"`
+	Result int `gorm:"column:result"`
+	Id string `gorm:"column:id"`
 }
 type Status struct{
 	Status string  //返回的状态
