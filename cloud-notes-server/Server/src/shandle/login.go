@@ -45,10 +45,12 @@ func(T Login) Handle(request isface.IRequest){
 	if res.Result > 0 {
 		if res.Result == 1{
 			returnres.Status = "1"
+			returnres.Uid = string(res.Id)
 		}else if res.Result == 2{
 			returnres.Status = "2"
+			returnres.Uid = string(res.Id)
 		}
-		returnres.Uid = string(res.Id)
+
 		data,_ := json.Marshal(returnres)
 		conn.SendMesg([]byte(""), data)
 	}else{//登录失败.+封禁+无此用户
