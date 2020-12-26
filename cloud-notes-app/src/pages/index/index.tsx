@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { IndexModelState, ConnectProps, connect, history } from 'alita';
-import { Modal, List, Button, WhiteSpace, WingBlank, Icon } from 'antd-mobile';
+import { Modal, List, Button, WhiteSpace, WingBlank, Icon, Toast } from 'antd-mobile';
 import { createSocket } from '@/utils/websocket'
 
 import styles from './index.less';
@@ -15,13 +15,6 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
   // 这里发起了初始化请求
   useEffect(() => {
     createSocket()
-    // dispatch!({
-    //   type: 'index/query',
-    // });
-    // return () => {
-      // 这里写一些需要消除副作用的代码
-      // 如: 声明周期中写在 componentWillUnmount
-  //   };
   }, []);
 
   const [visible, setVisible] = useState(false)
@@ -54,13 +47,15 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
         NoteText
       }
     });
+
+    setVisible(false)
   }
 
   const handleSubmit2 = () => {
-    const Uid = '16' || JSON.parse(localStorage.getItem('userInfo')).Id
+    const Uid = JSON.parse(localStorage.getItem('userInfo')).Uid
     const NoteBookName = document.getElementById('input5').value
-    const NoteBookIntroduction = document.getElementById('input6').value
-    const NoteBookType = document.getElementById('input7').value
+    const NoteBookIntroduction = document.getElementById('input7').value
+    const NoteBookType = document.getElementById('input6').value
 
     dispatch!({
       type: 'index/queryCrNoBook',
@@ -71,6 +66,18 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
         NoteBookType,
       }
     });
+
+    setVisible2(false)
+  }
+
+  const { data } = index
+  if(data && data.Status === '1') {
+    data.Status = null
+    Toast.success('创建成功')
+    setTimeout(() => {
+      history.push('/noteFolder')
+    }, 1000)
+    
   }
 
   return (

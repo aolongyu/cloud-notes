@@ -13,26 +13,21 @@ interface PageProps extends ConnectProps {
 const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  const Uid = userInfo && userInfo.Uid
   const Name = userInfo && userInfo.Name
-  console.log(userInfo, Name)
 
   useEffect(() => {
     createSocket()
     dispatch!({
-      type: 'noteFolder/queryNoteList',
+      type: 'noteFolder/queryNoteBookList',
       payload: {
-        Name
+        Uid
       }
     });
-    return () => {
-    };
   }, []);
 
-
-  // const { data } = noteFolder;
-
   const handleSearch = (msg: string) => {
-    console.log(msg)
+    
   }
 
   const handle = (NoteBookId: any) => {
@@ -45,13 +40,15 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
     });
   }
 
-  const test = [{ Id: '111', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }]
+  const { data } = noteFolder
+  console.log(data)
+  // const data = [{ Id: '111', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }]
 
   return (
     <div className={styles.container}>
-      <SearchBar placeholder="查找笔记本" maxLength={15} onCancel={(val) => { handleSearch(val) }} cancelText="查找" />
+      {/* <SearchBar placeholder="查找笔记本" maxLength={15} onCancel={(val) => { handleSearch(val) }} cancelText="查找" /> */}
       {
-        test.map(item => (
+        data && data.map(item => (
           <div key={item.Id} className={styles.card} onClick={() => { handle(item.Id) }}>
             <WingBlank size="lg">
               <WhiteSpace size="lg" />
@@ -66,17 +63,10 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
                 </Card.Body>
                 {/* <Card.Footer content="footer content" extra={<div>extra footer content</div>} /> */}
               </Card>
-              <WhiteSpace size="lg" />
             </WingBlank>
           </div>
         ))
       }
-      {/* <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
-      <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} />
-      <Card cardName={test.Name} cardIntro={test.Introduction} cardModifyTime={test.ThumbsUp} /> */}
-
-      --------------------上面是假数据---------------
-      {/* <Card cardName={data.Name} cardIntro={data.Introduction} cardModifyTime={data.ThumbsUp} /> */}
       <NoMore />
     </div>
   );

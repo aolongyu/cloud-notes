@@ -18,10 +18,10 @@ export async function queryRegist(msg: object): Promise<any> {
 }
 
 export async function queryNoteDetails(msg: object): Promise<any> {
-  return requestCloud('FindNote', msg)
+  return requestCloud('ViewNote', msg)
 }
 
-export async function queryNoteList(msg: object): Promise<any> {
+export async function queryNoteBookList(msg: object): Promise<any> {
   return requestCloud('getNList', msg)
 }
 
@@ -45,6 +45,30 @@ export async function queryCrNoBook(msg: object): Promise<any> {
   return requestCloud('CrNoBook', msg)
 }
 
-// export async function queryCrNoBook(msg: object): Promise<any> {
+export async function queryNoteList(msg: object): Promise<any> {
+  return requestCloud('FindNote', msg)
+}
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('ViewNote', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
 //   return requestCloud('CrNoBook', msg)
 // }

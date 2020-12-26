@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { NoteDetailsModelState, ConnectProps, connect } from 'alita';
 import NoMore from '@/components/noMore/index'
 import styles from './index.less';
@@ -8,21 +8,18 @@ interface PageProps extends ConnectProps {
 }
 
 const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => {
-  const { NoteBookId, Name } = location.query
-  // console.log(NoteBookId)
+  const { NoteId, Name } = location.query
 
   useEffect(() => {
     dispatch!({
       type: 'noteDetails/queryNoteDetails',
       payload: {
-        NoteBookId
+        NoteId
       }
     });
-    return () => {
-    };
   }, []);
 
-
+  const [readOnly, setReadOnly] = useState(true)
 
   // const { data } = noteDetails;
 
@@ -34,22 +31,51 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
     ThumbsUp: '23',
   }
 
+  const handleEdit = () => {
+    setReadOnly(false)
+    const element = document.getElementById('text')
+    const edit = document.getElementById('edit')
+    const save = document.getElementById('save')
+    element.style.backgroundColor = '#fff'
+    save.style.display = 'block'
+    edit.style.display = 'none'
+  }
+
+  const handleSave = () => {
+    setReadOnly(true)
+    const element = document.getElementById('text')
+    const edit = document.getElementById('edit')
+    const save = document.getElementById('save')
+    element.style.backgroundColor = 'transparent'
+    edit.style.display = 'block'
+    save.style.display = 'none'
+    dispatch!({
+      type: 'noteDetails/queryNoteDetails',
+      payload: {
+        NoteId
+      }
+    });
+   }
+
+  const handleShare = () => { }
+
   return (
     <div className={styles.container}>
       <div className={styles.noteTitle}>
-        <span className={styles.noteName}>{data.Name}</span>
-        <span className={styles.hot}>{data.ThumbsUp}</span>
+        <span className={styles.noteName}>{data && data.Name}</span>
+        <span className={styles.hot}>{data && data.ThumbsUp}</span>
       </div>
       <div className={styles.noteInfo}>
         <span className={styles.author}>{Name}</span>
       </div>
       <hr />
       <div className={styles.mainText}>
-        <span className={styles.text}>{data.Text}</span>
+        <textarea readOnly={readOnly} name="text" id="text" className={styles.text}>{data && data.Text}</textarea>
       </div>
       <div className={styles.rightFloat}>
-        <div className={styles.edit}></div>
-        <div className={styles.share}></div>
+        <div id="edit" className={styles.edit} onClick={handleEdit}></div>
+        <div id="save" className={styles.save} onClick={handleSave}></div>
+        <div id="share" className={styles.share} onClick={handleShare}></div>
       </div>
       <NoMore text='没有更多了' />
     </div>
