@@ -16,7 +16,7 @@ type LoginUserJson struct{
 }
 type Result struct{
 	Result int `gorm:"column:Result"`
-	//Mark int `gorm:"column:Mark"`
+	Id string `gorm:"column:id"`
 }
 type Status struct{
 	Status string  //返回的状态
@@ -38,8 +38,8 @@ func(T Login) Handle(request isface.IRequest){
 
 	fmt.Println("读取的数据库内容：",res)
 	returnres := LoginStatus{
-		Status: "0",
-		Uid:    "111",
+		Status: "",
+		Uid:    "",
 	}
 	//登录成功
 	if res.Result > 0 {
@@ -48,6 +48,7 @@ func(T Login) Handle(request isface.IRequest){
 		}else if res.Result == 2{
 			returnres.Status = "2"
 		}
+		returnres.Uid = string(res.Id)
 		data,_ := json.Marshal(returnres)
 		conn.SendMesg([]byte(""), data)
 	}else{//登录失败.+封禁+无此用户
