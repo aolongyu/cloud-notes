@@ -13,20 +13,21 @@ interface PageProps extends ConnectProps {
 const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-  const Name = userInfo && userInfo.Name && 'cdw'
-  // console.log(userInfo)
+  const Name = userInfo && userInfo.Name
+  console.log(userInfo, Name)
 
   useEffect(() => {
     createSocket()
+    dispatch!({
+      type: 'noteFolder/queryNoteList',
+      payload: {
+        Name
+      }
+    });
     return () => {
     };
   }, []);
-  dispatch!({
-    type: 'noteFolder/query',
-    payload: {
-      Name
-    }
-  });
+
 
   // const { data } = noteFolder;
 
@@ -36,21 +37,22 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
 
   const handle = (NoteBookId: any) => {
     router.push({
-      pathname: '/noteDetails',
+      pathname: '/noteList',
       query: {
         NoteBookId,
+        Name
       },
     });
   }
 
-  const test = [{ Id: 'Id', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }]
+  const test = [{ Id: '111', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }]
 
   return (
     <div className={styles.container}>
       <SearchBar placeholder="查找笔记本" maxLength={15} onCancel={(val) => { handleSearch(val) }} cancelText="查找" />
       {
         test.map(item => (
-          <div key={item.Id} className={styles.card} onClick={() => {handle(item.Id)}}>
+          <div key={item.Id} className={styles.card} onClick={() => { handle(item.Id) }}>
             <WingBlank size="lg">
               <WhiteSpace size="lg" />
               <Card>

@@ -1,5 +1,5 @@
 import { Reducer } from 'alita';
-import { queryFolder } from '@/services/api';
+import { queryNoteList } from '@/services/api';
 import { Effect } from '@/models/connect';
 
 export interface NoteFolderModelState {
@@ -10,7 +10,7 @@ export interface NoteFolderModelType {
   namespace: 'noteFolder';
   state: NoteFolderModelState;
   effects: {
-    query: Effect;
+    queryNoteList: Effect;
   };
   reducers: {
     save: Reducer<NoteFolderModelState>;
@@ -25,8 +25,8 @@ const NoteFolderModel: NoteFolderModelType = {
   },
 
   effects: {
-    *query({ payload }, { call, put }) {
-      yield call(queryFolder, payload);
+    *queryNoteList({ payload }, { call, put }) {
+      yield call(queryNoteList, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
 
