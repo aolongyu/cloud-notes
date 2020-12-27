@@ -17,7 +17,7 @@ func AddHandleInit(s isface.IServer) {
 	s.AddHandle("finduser",&FindUser{},"管理员查找用户",0)
 	s.AddHandle("closeuser",&CloseUserByid{},"封锁用户，根据ID",0)
 	s.AddHandle("deluser",&DeleteUserById{},"根据用户id删除用户",0)
-
+	s.AddHandle("fiusn",&FindUserName{},"模糊查找用户",0)
 
 	s.AddHandle("getNList",&GetNlist{},"获取笔记本列表",0)
 	s.AddHandle("CrNoBook",&CreateNoteBook{},"创建笔记本",0)
@@ -25,4 +25,7 @@ func AddHandleInit(s isface.IServer) {
 	s.AddHandle("FindNote",&FindNoteByUserName{},"根据id查找笔记",0)
 	s.AddHandle("AddToBook",&AddNoteToNoteBook{},"把笔记加入笔记本",0)
 	s.AddHandle("ViewNote",&ViewNote{},"根据笔记Id查看笔记",0)
+	s.AddHandle("CollnoBook",&CollectNoteBook{},"收藏笔记",0)
+	s.AddHandle("FiNoByid",&GetNoteListById{},"根据笔记本ID获得笔记",0)
+	s.AddHandle("NoBByName",&FindNoteBookByUName{},"根据用户名查找笔记本",0)
 }
