@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"isface"
 	"snet"
+	"time"
 )
 
 type FindUserName struct{
@@ -23,7 +24,7 @@ type FindUserNameJson struct{
 type FindUserNameGorm struct{
 	Name string `gorm:"column:name"`
 	Stats int `gorm:"column:stats"`
-	ModifiedTime string `gorm:"column:modified_time"`
+	ModifiedTime time.Time `gorm:"column:modified_time"`
 }
 
 
