@@ -57,8 +57,8 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
 
   return (<div className={styles.container}>
     <Tabs tabs={tabs} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={tabs.length > 3 ? 3.5 : tabs.length} />}>
-    <div className={styles.div1}>
-          <SearchBar placeholder="查找笔记" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
+      <div className={styles.div1}>
+        <SearchBar placeholder="查找笔记" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
           data && data.map((item: any) => (
             <div key={item.Customer_id} className={styles.box}>
@@ -81,7 +81,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
         }
       </div>
       <div className={styles.div2}>
-          <SearchBar placeholder="查找用户" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
+        <SearchBar placeholder="查找用户" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
           data && data.map((item: any) => (
             <div key={item.Customer_id} className={styles.box}>
@@ -105,7 +105,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
       </div>
 
       <div className={styles.div3}>
-          <SearchBar placeholder="用户ID" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
+        <SearchBar placeholder="用户ID" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
           data && data.map((item: any) => (
             <div key={item.Customer_id} className={styles.box}>

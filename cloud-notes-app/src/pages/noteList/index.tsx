@@ -23,7 +23,7 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
     dispatch!({
       type: 'noteList/queryNoteList',
       payload: {
-        id: NoteBookId
+        Id: NoteBookId
       }
     });
     return () => {
