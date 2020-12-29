@@ -57,13 +57,55 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
 
   return (<div className={styles.container}>
     <Tabs tabs={tabs} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={tabs.length > 3 ? 3.5 : tabs.length} />}>
-      <div className={styles.div1}>文章管理</div>
+    <div className={styles.div1}>
+          <SearchBar placeholder="查找笔记" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
+        {
+          data && data.map((item: any) => (
+            <div key={item.Customer_id} className={styles.box}>
+              <WhiteSpace size="lg" />
+              <Card className={styles.card}>
+                <Card.Header
+                  title={item.Customer_id}
+                  extra={<Button className={styles.czBtn} size="small" onClick={() => operation([
+                    { text: '发布违规内容', onPress: () => { handleCloseuser(item.Customer_id) } },
+                    { text: '被大量用户投诉', onPress: () => { handleCloseuser(item.Customer_id) } },
+                    { text: '其他违规', onPress: () => { handleCloseuser(item.Customer_id) } },
+                  ])}
+                  >操作</Button>}
+                />
+                <Card.Footer content={item.LoginName} extra={<div>{item.UserStats}</div>} />
+                <Card.Footer content={item.CustomerLogincol} extra={<div>{item.ModifiedTime}</div>} />
+              </Card>
+            </div>
+          ))
+        }
+      </div>
       <div className={styles.div2}>
-        用户管理
+          <SearchBar placeholder="查找用户" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
+        {
+          data && data.map((item: any) => (
+            <div key={item.Customer_id} className={styles.box}>
+              <WhiteSpace size="lg" />
+              <Card className={styles.card}>
+                <Card.Header
+                  title={item.Customer_id}
+                  extra={<Button className={styles.czBtn} size="small" onClick={() => operation([
+                    { text: '发布违规内容', onPress: () => { handleCloseuser(item.Customer_id) } },
+                    { text: '被大量用户投诉', onPress: () => { handleCloseuser(item.Customer_id) } },
+                    { text: '其他违规', onPress: () => { handleCloseuser(item.Customer_id) } },
+                  ])}
+                  >操作</Button>}
+                />
+                <Card.Footer content={item.LoginName} extra={<div>{item.UserStats}</div>} />
+                <Card.Footer content={item.CustomerLogincol} extra={<div>{item.ModifiedTime}</div>} />
+              </Card>
+            </div>
+          ))
+        }
       </div>
 
       <div className={styles.div3}>
-          <SearchBar placeholder="查找用户" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
+          <SearchBar placeholder="用户ID" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
           data && data.map((item: any) => (
             <div key={item.Customer_id} className={styles.box}>
