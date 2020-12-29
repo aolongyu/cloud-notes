@@ -35,7 +35,7 @@ func(T FindUserName)Handle(request isface.IRequest){
 
 	fmt.Println("findusername Handle 从客户端接收到消息：",recvData)
 
-	Data := make([]FindUserGorm,0)
+	Data := make([]FindUserNameGorm,0)
 
 	snet.SDB.Debug().Exec("call find_username(?,?,?)",recvData.PageNo,recvData.PageSize,recvData.Sx).Scan(&Data)
 
