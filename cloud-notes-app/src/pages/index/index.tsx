@@ -20,8 +20,6 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
   const [visible, setVisible] = useState(false)
   const [visible2, setVisible2] = useState(false)
 
-  // const { name } = index;
-
   const handle1 = () => {
     setVisible(true)
   }
@@ -31,11 +29,11 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
   }
 
   const handleSubmit1 = () => {
-    const Uid = '16' || JSON.parse(localStorage.getItem('userInfo')).Id
+    const Uid = JSON.parse(localStorage.getItem('userInfo')).Uid
     const NoteName = document.getElementById('input0').value
-    const NoteIntroduction = document.getElementById('input1').value
-    const NoteType = document.getElementById('input2').value
-    const NoteText = 'text'
+    const NoteIntroduction = document.getElementById('input2').value
+    const NoteType = document.getElementById('input1').value
+    const NoteText = '无'
 
     dispatch!({
       type: 'index/queryCrNote',
@@ -71,13 +69,13 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
   }
 
   const { data } = index
+
   if(data && data.Status === '1') {
     data.Status = null
     Toast.success('创建成功')
     setTimeout(() => {
       history.push('/noteFolder')
     }, 1000)
-    
   }
 
   return (
