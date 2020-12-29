@@ -21,8 +21,8 @@ type FindUserNameJson struct{
 }
 
 type FindUserNameGorm struct{
-	Name string `gorm:"column:customer_id"`
-	Stats int `gorm:"column:login_name"`
+	Name string `gorm:"column:name"`
+	Stats int `gorm:"column:stats"`
 	ModifiedTime string `gorm:"column:modified_time"`
 }
 
