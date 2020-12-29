@@ -17,12 +17,12 @@ type NoteListJson struct{
 
 func(T GetNoteListById)Handle(request isface.IRequest){
 	conn := request.GetConnection()
-	username := NoteListJson{}
-	json.Unmarshal(request.GetData(),&username)
+	Ida := NoteListJson{}
+	json.Unmarshal(request.GetData(),&Ida)
 
-	fmt.Println("Handle GetNoteListById   传来的信息:",username.Id)
+	fmt.Println("Handle GetNoteListById   传来的信息:  ",Ida.Id)
 	data := make([]NoteFindByUser,0)
-	snet.SDBNote.Debug().Raw("call notebook_note(?)",username.Id).Scan(&data)
+	snet.SDBNote.Debug().Raw("call notebook_note(?)",Ida.Id).Scan(&data)
 
 	SendData,_ := json.Marshal(data)
 	conn.SendMesg([]byte(""),SendData)
