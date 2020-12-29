@@ -30,7 +30,7 @@ export async function queryCreateNote(msg: object): Promise<any> {
 }
 
 export async function queryUser(msg: object): Promise<any> {
-  return requestCloud('finduser', msg)
+  return requestCloud('fiusn', msg)
 }
 
 export async function queryCloseuser(msg: object): Promise<any> {
@@ -46,19 +46,19 @@ export async function queryCrNoBook(msg: object): Promise<any> {
 }
 
 export async function queryNoteList(msg: object): Promise<any> {
-  return requestCloud('FindNote', msg)
+  return requestCloud('FiNoByid', msg)
 }
 
-// export async function queryNoteBookList(msg: object): Promise<any> {
-//   return requestCloud('ViewNote', msg)
-// }
+export async function queryUpdateNote(msg: object): Promise<any> {
+  return requestCloud('UpdateNote', msg)
+}
 
-// export async function queryNoteBookList(msg: object): Promise<any> {
-//   return requestCloud('CrNoBook', msg)
-// }
+export async function queryAddToBook(msg: object): Promise<any> {
+  return requestCloud('AddToBook', msg)
+}
 
-// export async function queryNoteBookList(msg: object): Promise<any> {
-//   return requestCloud('CrNoBook', msg)
+// export async function query(msg: object): Promise<any> {
+//   return requestCloud('fiusn', msg)
 // }
 
 // export async function queryNoteBookList(msg: object): Promise<any> {

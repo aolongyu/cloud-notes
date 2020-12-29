@@ -36,11 +36,10 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
 
   const handleClick = (Sx: string) => {
     dispatch!({
-      type: 'admin/queryUserById',
+      type: 'admin/queryUser',
       payload: {
         PageNo: 1,
         PageSize: 1,
-        I: 1,
         Sx
       }
     });
