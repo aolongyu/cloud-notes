@@ -39,7 +39,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
       type: 'admin/queryUser',
       payload: {
         PageNo: 1,
-        PageSize: 1,
+        PageSize: 99,
         Sx
       }
     });
@@ -54,6 +54,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
       }
     });
   }
+  console.log(data)
 
   return (<div className={styles.container}>
     <Tabs tabs={tabs} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={tabs.length > 3 ? 3.5 : tabs.length} />}>
@@ -103,7 +104,6 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
           ))
         }
       </div>
-
       <div className={styles.div3}>
         <SearchBar placeholder="用户ID" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
