@@ -20,9 +20,9 @@ func(T GetNoteListById)Handle(request isface.IRequest){
 	username := NoteListJson{}
 	json.Unmarshal(request.GetData(),&username)
 
-	fmt.Println("Handle GetNoteListById   传来的信息:",username)
+	fmt.Println("Handle GetNoteListById   传来的信息:",username.id)
 	data := make([]NoteFindByUser,0)
-	snet.SDBNote.Debug().Raw("call notebook_note(?)",username.id).Scan(&data)
+	snet.SDBNote.Debug().Exec("call notebook_note(?)",username.id).Scan(&data)
 
 	SendData,_ := json.Marshal(data)
 	conn.SendMesg([]byte(""),SendData)
