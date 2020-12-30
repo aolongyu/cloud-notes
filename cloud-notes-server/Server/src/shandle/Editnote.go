@@ -27,7 +27,7 @@ func(T EditNote)Handle(request isface.IRequest){
 
 	fmt.Println("Handle EditNote 传来的信息：",RecvData)
 
-	Line := snet.SDBNote.Debug().Exec("call editnote(?,?,?,?,?,?)",RecvData.Note_id,RecvData.Note_name,RecvData.Note_introduction,RecvData.Note_type,RecvData.Note_text).RowsAffected
+	Line := snet.SDBNote.Debug().Exec("call editnote(?,?,?,?,?)",RecvData.Note_id,RecvData.Note_name,RecvData.Note_introduction,RecvData.Note_type,RecvData.Note_text).RowsAffected
 
 	fmt.Println("Line : ",Line)
 	res := Status{}
