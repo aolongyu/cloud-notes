@@ -16,11 +16,11 @@ type ViewNoteJson struct{
 }
 
 type ViewNoteGorm struct {
-	Id int `gorm:"column:Id"`
+	Id int `gorm:"column:id"`
 	Name string	`gorm:"column:name"`
-	Introduction string	`gorm:"column:Introduction"`
-	Text string `gorm:"column:Text"`
-	ThumbsUp int	`gorm:"column:Thumbs_up"`
+	Introduction string	`gorm:"column:introduction"`
+	Text string `gorm:"column:text"`
+	ThumbsUp int	`gorm:"column:thumbs_up"`
 }
 
 func (T ViewNote)Handle(request isface.IRequest){
