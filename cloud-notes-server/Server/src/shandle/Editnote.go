@@ -13,7 +13,7 @@ type EditNote struct{
 
 type EditNoteJson struct{
 	Note_id int `json:"Note_id"`
-	Note_name string `json:"Note_id"`
+	Note_name string `json:"Note_name"`
 	Note_introduction string `json:"introduction"`
 	Note_type int `json:"Note_type"`
 	Note_text string `json:"Note_text"`
