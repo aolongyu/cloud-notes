@@ -50,7 +50,7 @@ export async function queryNoteList(msg: object): Promise<any> {
 }
 
 export async function queryUpdateNote(msg: object): Promise<any> {
-  return requestCloud('UpdateNote', msg)
+  return requestCloud('editnote', msg)
 }
 
 export async function queryAddToBook(msg: object): Promise<any> {
@@ -61,9 +61,9 @@ export async function queryDeleteNote(msg: object): Promise<any> {
   return requestCloud('delnote', msg)
 }
 
-// export async function queryNoteBookList(msg: object): Promise<any> {
-//   return requestCloud('CrNoBook', msg)
-// }
+export async function queryUpdateNoteBook(msg: object): Promise<any> {
+  return requestCloud('edNobook', msg)
+}
 
 // export async function queryNoteBookList(msg: object): Promise<any> {
 //   return requestCloud('CrNoBook', msg)

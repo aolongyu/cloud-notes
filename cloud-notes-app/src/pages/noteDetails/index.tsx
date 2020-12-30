@@ -9,6 +9,7 @@ interface PageProps extends ConnectProps {
 
 const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => {
   const { NoteId, Name } = location.query
+  const { data } = noteDetails;
 
   useEffect(() => {
     dispatch!({
@@ -17,21 +18,11 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
         id: Number(NoteId)
       }
     });
-    setPageNavBar({
-      pagePath: location.pathname,
-      navBar: {
-        onLeftClick: () => {
-          router.goBack()
-        }
-      },
-    });
   }, []);
 
   const [readOnly, setReadOnly] = useState(true)
 
-  const { data } = noteDetails;
   const msg = data && data[0]
-  console.log(msg)
 
   const handleEdit = () => {
     setReadOnly(false)
@@ -54,10 +45,14 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
     dispatch!({
       type: 'noteDetails/queryUpdateNote',
       payload: {
-        NoteId,
+        Note_id: Number(NoteId),
+        Note_name: msg.Name,
+        Note_introduction: msg.Introduction,
+        Note_type: 0,
+        Note_text: document.getElementById('text').value
       }
     });
-   }
+  }
 
   const handleShare = () => { }
 
@@ -69,6 +64,7 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
       </div>
       <div className={styles.noteInfo}>
         <span className={styles.author}>{Name}</span>
+        <div>{msg && msg.Introduction}</div>
       </div>
       <hr />
       <div className={styles.mainText}>

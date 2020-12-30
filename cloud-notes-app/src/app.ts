@@ -5,7 +5,8 @@ import {
   NavBarListItem,
   TabBarProps,
   TabBarListItem,
-  history
+  history,
+  router
 } from 'alita';
 
 import HomeGary from './assets/demoIcon/home.png';
@@ -80,7 +81,7 @@ const navBar: NavBarProps = {
   navList,
   fixed: true,
   onLeftClick: () => {
-    // router.goBack();
+    router.goBack();
   },
 };
 const tabList: TabBarListItem[] = [

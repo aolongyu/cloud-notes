@@ -54,7 +54,7 @@ const NoteListModel: NoteListModelType = {
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
       if(data.Status === '1') {
-        Toast.success('移动成功')
+        Toast.success('删除成功')
       }
       // yield put({
       //   type: 'save',
