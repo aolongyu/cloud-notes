@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { NoteDetailsModelState, ConnectProps, connect } from 'alita';
+import { NoteDetailsModelState, ConnectProps, connect, setPageNavBar, router } from 'alita';
 import NoMore from '@/components/noMore/index'
 import styles from './index.less';
 
@@ -14,8 +14,16 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
     dispatch!({
       type: 'noteDetails/queryNoteDetails',
       payload: {
-        NoteId
+        id: Number(NoteId)
       }
+    });
+    setPageNavBar({
+      pagePath: location.pathname,
+      navBar: {
+        onLeftClick: () => {
+          router.goBack()
+        }
+      },
     });
   }, []);
 
@@ -24,14 +32,6 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
   const { data } = noteDetails;
   const msg = data && data[0]
   console.log(msg)
-
-  // const data = {
-  //   Id: '',
-  //   Name: '软件工程',
-  //   Introduction: 'dsefdsffds',
-  //   Text: '前言：发现以前写的就像是笔记，哪像博客啊，这里再次修改。问题描述： 在固定宽度的p元素里（任何块级元素同理），长单词不自动换行，中文字符会自动换行，效果如：http://codepen.io/aliceluojuan/pen/rrxbpO产生原因：1.英文会将不包含空格、换行的连续文本认为是一个词，所以在默认情况下不换行;2.中文的话标点文字都是独立的，所以会自动换行;解决方案：在英文字不改变内容的情况下，通过设置p元素的前言：发现以前写的就像是笔记，哪像博客啊，这里再次修改。问题描述： 在固定宽度的p元素里（任何块级元素同理），长单词不自动换行，中文字符会自动换行，效果如：http://codepen.io/aliceluojuan/pen/rrxbpO产生原因：1.英文会将不包含空格、换行的连续文本认为是一个词，所以在默认情况下不换行;2.中文的话标点文字都是独立的，所以会自动换行;解决方案：在英文字不改变内容的情况下，通过设置p元素的前言：发现以前写的就像是笔记，哪像博客啊，这里再次修改。问题描述： 在固定宽度的p元素里（任何块级元素同理），长单词不自动换行，中文字符会自动换行，效果如：http://codepen.io/aliceluojuan/pen/rrxbpO产生原因：1.英文会将不包含空格、换行的连续文本认为是一个词，所以在默认情况下不换行;2.中文的话标点文字都是独立的，所以会自动换行;解决方案：在英文字不改变内容的情况下，通过设置p元素的前言：发现以前写的就像是笔记，哪像博客啊，这里再次修改。问题描述： 在固定宽度的p元素里（任何块级元素同理），长单词不自动换行，中文字符会自动换行，效果如：http://codepen.io/aliceluojuan/pen/rrxbpO产生原因：1.英文会将不包含空格、换行的连续文本认为是一个词，所以在默认情况下不换行;2.中文的话标点文字都是独立的，所以会自动换行;解决方案：在英文字不改变内容的情况下，通过设置p元素的',
-  //   ThumbsUp: '23',
-  // }
 
   const handleEdit = () => {
     setReadOnly(false)

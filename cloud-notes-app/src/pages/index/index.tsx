@@ -31,8 +31,8 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
   const handleSubmit1 = () => {
     const Uid = JSON.parse(localStorage.getItem('userInfo')).Uid
     const NoteName = document.getElementById('input0').value
-    const NoteIntroduction = document.getElementById('input2').value
-    const NoteType = document.getElementById('input1').value
+    const NoteIntroduction = document.getElementById('input1').value
+    // const Notebook_id = document.getElementById('input1').value
     const NoteText = '无'
 
     dispatch!({
@@ -41,7 +41,8 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
         Uid,
         NoteName,
         NoteIntroduction,
-        NoteType,
+        NoteType: '0',
+        Notebook_id: 10,
         NoteText
       }
     });
@@ -88,7 +89,7 @@ const IndexPage: FC<PageProps> = ({ index, dispatch }) => {
         closable
       >
         <List renderHeader={() => <div>输入笔记基本信息</div>} className="popup-list">
-          {['笔记名称', '笔记类型', '笔记说明'].map((i, index) => (
+          {['笔记名称', '笔记说明'].map((i, index) => (
             <List.Item key={index}>{i} <input id={`input${index}`} className={styles.input} type="text" /></List.Item>
           ))}
           <List.Item>

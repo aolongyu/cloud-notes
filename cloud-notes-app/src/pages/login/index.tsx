@@ -29,8 +29,6 @@ const LoginPage: FC<PageProps> = ({ login, dispatch }) => {
     
   }
 
-  // return <div className={styles.center}>Hello {name}</div>;
-
   const handleClick = () => {
     const Name = document.getElementById('name').value
     const Password = document.getElementById('password').value

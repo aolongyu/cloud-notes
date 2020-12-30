@@ -35,7 +35,8 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
       pathname: '/noteList',
       query: {
         NoteBookId,
-        Name
+        Name,
+        Uid
       },
     });
   }

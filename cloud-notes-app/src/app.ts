@@ -14,6 +14,7 @@ import ListGary from './assets/demoIcon/list.png';
 import ListBlue from './assets/demoIcon/list1.png';
 import SetGary from './assets/demoIcon/setting.png';
 import SetBlue from './assets/demoIcon/setting1.png';
+import { SnippetsOutlined } from '@ant-design/icons';
 
 // 请求中间件 就是发起请求和响应之后需要统一操作数据就写这
 // https://github.com/umijs/umi-request#example-1
@@ -95,8 +96,8 @@ const tabList: TabBarListItem[] = [
   {
     pagePath: '/noteFolder',
     text: '文件夹',
-    iconPath: SetGary,
-    selectedIconPath: SetBlue,
+    iconPath: ListGary,
+    selectedIconPath: ListBlue,
     title: '笔记文件夹',
     iconSize: '',
     badge: '',
