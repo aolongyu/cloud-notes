@@ -112,7 +112,7 @@ func (s *Server) Serve() {
 	////TODO要打开服务器的地方
 	var err error
 	defer SDB.Close()
-	SDB, err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_userdb?charset=utf8")
+	SDB, err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_userdb?charset=utf8&parseTime=true&loc=Local")
 	SDB.SingularTable(true)
 	if err != nil {
 		fmt.Println("打开数据库失败")
@@ -120,7 +120,7 @@ func (s *Server) Serve() {
 		//Logs.Error("数据库来链接失败")
 	}
 	fmt.Println("打开UserDb成功 :  ",SDB)
-	SDBactive,err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_activitydb?charset=utf8")
+	SDBactive,err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_activitydb?charset=utf8&parseTime=true&loc=Local")
 	SDBactive.SingularTable(true)
 
 	if err != nil {
@@ -129,7 +129,7 @@ func (s *Server) Serve() {
 		//Logs.Error("数据库来链接失败")
 	}
 	fmt.Println("打开Active成功:  ",SDBactive)
-	SDBNote,err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_notedb?charset=utf8")
+	SDBNote,err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/ybj_notedb?charset=utf8&parseTime=true&loc=Local")
 	SDBNote.SingularTable(true)
 
 	if err != nil {
