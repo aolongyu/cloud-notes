@@ -28,4 +28,7 @@ func AddHandleInit(s isface.IServer) {
 	s.AddHandle("CollnoBook",&CollectNoteBook{},"收藏笔记",0)
 	s.AddHandle("FiNoByid",&GetNoteListById{},"根据笔记本ID获得笔记",0)
 	s.AddHandle("NoBByName",&FindNoteBookByUName{},"根据用户名查找笔记本",0)
+	s.AddHandle("delnote",&DeleteNote{},"根据笔记id删除笔记",0)
+	s.AddHandle("editnote",&EditNote{},"修改笔记",0)
+	s.AddHandle("edNobook",&EditNoteBook{},"修改笔记本",0)
 }

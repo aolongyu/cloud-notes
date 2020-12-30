@@ -16,6 +16,7 @@ type ViewNoteJson struct{
 }
 
 type ViewNoteGorm struct {
+	Id int `gorm:"column:id"`
 	Name string	`gorm:"column:name"`
 	Introduction string	`gorm:"column:introduction"`
 	Text string `gorm:"column:text"`
@@ -27,10 +28,10 @@ func (T ViewNote)Handle(request isface.IRequest){
 	ViewNoteMessage := ViewNoteJson{}
 	json.Unmarshal(request.GetData(),&ViewNoteMessage)
 
-	fmt.Println("Handle viewNoteMessage   传来的信息:",ViewNoteMessage)
+	fmt.Println("Handle ViewNote   传来的信息:",ViewNoteMessage)
 
 	data := make([]ViewNoteGorm,0)
-	snet.SDBNote.Debug().Raw("call notebook_note(?)",ViewNoteMessage.Id).Scan(&data)
+	snet.SDBNote.Debug().Raw("call note_inform(?)",ViewNoteMessage.Id).Scan(&data)
 	SendData,_ := json.Marshal(data)
 
 	conn.SendMesg([]byte(""),SendData)
