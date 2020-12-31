@@ -1,0 +1,78 @@
+.container {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(to right, rgb(75, 211, 245), rgb(0, 153, 255));
+
+  .titleBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .titleLogo {
+      width: 140px;
+      height: 140px;
+      margin-top: 150px;
+    }
+
+    .titleText {
+      margin-top: 20px;
+      color: rgb(255, 255, 255);
+      font-size: 50px;
+    }
+  }
+
+  .inputBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 50px auto 50px;
+    padding-top: 70px;
+    padding-bottom: 90px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 18px;
+
+    .name {
+      width: 400px;
+      height: 50px;
+      margin-top: 20px;
+      border-bottom: 2px solid rgb(105, 105, 105);
+    }
+
+    .name:focus {
+      border-bottom: 4px solid rgb(0, 0, 0);
+    }
+
+    .password {
+      width: 400px;
+      height: 50px;
+      border-bottom: 2px solid rgb(105, 105, 105);
+    }
+
+    .password:focus {
+      border-bottom: 4px solid rgb(0, 0, 0);
+    }
+
+    .submitBtn {
+      width: 400px;
+      height: 60px;
+      margin-top: 30px;
+      background: linear-gradient(to right, rgb(75, 211, 245), rgb(0, 153, 255));
+      border-radius: 30px;
+    }
+    
+    .registText {
+      margin-top: 30px;
+      font-size: 19px;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+  }
+}

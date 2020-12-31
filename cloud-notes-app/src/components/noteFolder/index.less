@@ -1,0 +1,57 @@
+.container {
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  padding: 10px 20px 10px 30px;
+  background-color: rgb(214, 240, 255);
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px rgb(189, 189, 189);
+
+  .left {
+    float: left;
+
+    .folderImg {
+      width: 60px;
+      height: 110px;
+    }
+  }
+
+  .right {
+    float: right;
+    width: 560px;
+
+    .line1 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .line1Left {
+        font-size: 40px;
+      }
+
+      .line1Right {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .line2 {
+      .intro {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+.clearfix::after {
+  display: block;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  content: '';
+  zoom: 1;
+}
