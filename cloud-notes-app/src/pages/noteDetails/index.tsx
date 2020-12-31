@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { NoteDetailsModelState, ConnectProps, connect, setPageNavBar, router } from 'alita';
+import { NoteDetailsModelState, ConnectProps, connect, setPageNavBar, history } from 'alita';
 import NoMore from '@/components/noMore/index'
 import styles from './index.less';
 
@@ -11,6 +11,8 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
   const { NoteId, Name } = location.query
   const { data } = noteDetails;
 
+  console.log(`${location.pathname}${location.search}`)
+
   useEffect(() => {
     dispatch!({
       type: 'noteDetails/queryNoteDetails',
@@ -18,6 +20,9 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
         id: Number(NoteId)
       }
     });
+    setTimeout(() => {
+      history.replace(`${location.pathname}${location.search}`)
+    }, 1000)
   }, []);
 
   const [readOnly, setReadOnly] = useState(true)
@@ -52,8 +57,10 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
         Note_text: document.getElementById('text').value
       }
     });
+    setTimeout(() => {
+      history.replace('/noteDetails')
+    }, 500)
   }
-
   const handleShare = () => { }
 
   return (

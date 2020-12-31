@@ -93,11 +93,11 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
         closable
       >
         <List renderHeader={() => <div>修改笔记本信息</div>} className="popup-list">
-          {['笔记名称', '笔记笔记说明'].map((i, index) => (
+          {['笔记本名称', '笔记本说明'].map((i, index) => (
             <List.Item key={index}>{i} <input id={`input${index}`} className={styles.input} type="text" /></List.Item>
           ))}
           <List.Item>
-            <Button type="primary" onClick={handleSubmit}>创建笔记</Button>
+            <Button type="primary" onClick={handleSubmit}>修改笔记本</Button>
           </List.Item>
         </List>
       </Modal>
