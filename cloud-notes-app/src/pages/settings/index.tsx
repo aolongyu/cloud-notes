@@ -18,9 +18,7 @@ const SettingsPage: FC<PageProps> = ({ settings, dispatch, location }) => {
   }, []);
   // const { name } = settings;
 
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
-  const Name = userInfo.Name
-  const Uid = userInfo.Uid
+  const { Name, Uid } = JSON.parse(localStorage.getItem('userInfo'))
 
   const handleExit = () => {
     alert('提示', '确认退出吗？', [
@@ -31,9 +29,11 @@ const SettingsPage: FC<PageProps> = ({ settings, dispatch, location }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.line}><span className={styles.left}>用户ID: </span><span className={styles.right}>{Uid}</span></div>
-      <hr/>
-      <div className={styles.line}><span className={styles.left}>用户名: </span><span className={styles.right}>{Name}</span></div>
+      <div className={styles.msg}>
+        <div className={styles.line}><span className={styles.left}>用户ID: </span><span className={styles.right}>{Uid}</span></div>
+        <hr />
+        <div className={styles.line}><span className={styles.left}>用户名: </span><span className={styles.right}>{Name}</span></div>
+      </div>
       <input className={styles.exitBtn} type="button" value="退出" onClick={handleExit} />
     </div>
   );

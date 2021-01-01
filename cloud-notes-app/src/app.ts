@@ -68,6 +68,10 @@ const titleList: TitleListItem[] = [
     pagePath: '/admin',
     title: '管理',
   },
+  {
+    pagePath: '/noteSquare',
+    title: '笔记广场',
+  },
 ];
 const navList: NavBarListItem[] = [
   {
