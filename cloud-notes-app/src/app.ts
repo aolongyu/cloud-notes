@@ -5,7 +5,8 @@ import {
   NavBarListItem,
   TabBarProps,
   TabBarListItem,
-  history
+  history,
+  router
 } from 'alita';
 
 import HomeGary from './assets/demoIcon/home.png';
@@ -14,6 +15,7 @@ import ListGary from './assets/demoIcon/list.png';
 import ListBlue from './assets/demoIcon/list1.png';
 import SetGary from './assets/demoIcon/setting.png';
 import SetBlue from './assets/demoIcon/setting1.png';
+import { SnippetsOutlined } from '@ant-design/icons';
 
 // 请求中间件 就是发起请求和响应之后需要统一操作数据就写这
 // https://github.com/umijs/umi-request#example-1
@@ -66,6 +68,10 @@ const titleList: TitleListItem[] = [
     pagePath: '/admin',
     title: '管理',
   },
+  {
+    pagePath: '/noteSquare',
+    title: '笔记广场',
+  },
 ];
 const navList: NavBarListItem[] = [
   {
@@ -79,7 +85,7 @@ const navBar: NavBarProps = {
   navList,
   fixed: true,
   onLeftClick: () => {
-    // router.goBack();
+    router.goBack();
   },
 };
 const tabList: TabBarListItem[] = [
@@ -95,8 +101,8 @@ const tabList: TabBarListItem[] = [
   {
     pagePath: '/noteFolder',
     text: '文件夹',
-    iconPath: SetGary,
-    selectedIconPath: SetBlue,
+    iconPath: ListGary,
+    selectedIconPath: ListBlue,
     title: '笔记文件夹',
     iconSize: '',
     badge: '',

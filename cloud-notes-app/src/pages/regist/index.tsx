@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { RegistModelState, ConnectProps, connect, history } from 'alita';
+import { RegistModelState, ConnectProps, connect, history, setPageNavBar, router } from 'alita';
 import { Toast } from 'antd-mobile'
 import { createSocket } from '@/utils/websocket'
 import styles from './index.less';
@@ -8,12 +8,21 @@ interface PageProps extends ConnectProps {
   regist: RegistModelState;
 }
 
-const RegistPage: FC<PageProps> = ({ regist, dispatch }) => {
+const RegistPage: FC<PageProps> = ({ regist, dispatch, location }) => {
+
 
   useEffect(() => {
     createSocket()
     dispatch!({
       type: 'noteList/query',
+    });
+    setPageNavBar({
+      pagePath: location.pathname,
+      navBar: {
+        onLeftClick: () => {
+          router.push('/login');
+        }
+      },
     });
     return () => {
     };
@@ -54,8 +63,8 @@ const RegistPage: FC<PageProps> = ({ regist, dispatch }) => {
       <div className={styles.titleText}>注册</div>
       <div className={styles.registBox}>
         <input id='registName' className={styles.registName} placeholder='请输入用户名' type="text" />
-        <input id='registPassword1' className={styles.registPassword} placeholder='请输入密码' type="text" />
-        <input id='registPassword2' className={styles.registPassword} placeholder='请再次输入密码' type="text" />
+        <input id='registPassword1' type="password" className={styles.registPassword} placeholder='请输入密码' />
+        <input id='registPassword2' type="password" className={styles.registPassword} placeholder='请再次输入密码' />
         <input id='registSubmit' className={styles.registSubmit} onClick={handleClick} type="button" value="注册" />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { NoteListModelState, ConnectProps, connect, router } from 'alita';
+import { NoteListModelState, ConnectProps, connect, router, setPageNavBar } from 'alita';
 import { Modal, List, Button, WhiteSpace, WingBlank, Icon, Toast, Popover } from 'antd-mobile';
 import NoteBox from '@/components/noteBox/index'
 import NoMore from '@/components/noMore/index'
@@ -12,7 +12,7 @@ interface PageProps extends ConnectProps {
 
 const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
 
-  const { NoteBookId, Name } = location.query
+  const { NoteBookId, Name, Uid } = location.query
 
   const [visiblePop, setVisiblePop] = useState(false)
   const [nid, setNid] = useState(null)
@@ -23,8 +23,16 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
     dispatch!({
       type: 'noteList/queryNoteList',
       payload: {
-        Id: NoteBookId
+        Id: Number(NoteBookId)
       }
+    });
+    setPageNavBar({
+      pagePath: location.pathname,
+      navBar: {
+        onLeftClick: () => {
+          router.goBack()
+        }
+      },
     });
     return () => {
     };
@@ -53,9 +61,20 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
     });
   }
 
-  const onSelect = (mnid: any) => {
-    setVisiblePop(true)
-    setNid(mnid)
+  const onSelect = (e: any, mnid: any) => {
+    console.log(e.props.dataSeed)
+    if (e.props.dataSeed === '1') {
+      setVisiblePop(true)
+      setNid(mnid)
+    } else {
+      dispatch!({
+        type: 'noteList/queryDeleteNote',
+        payload: {
+          Sid: Uid,
+          Note_id: mnid
+        }
+      });
+    }
   };
   const prompt = Modal.prompt;
   // const data = [{ Id: '1232id', Name: 'nama', Introduction: 'intorintorintorintorintorintorintorintorintorintorintor', Text: 'text', ThumbsUp: 'up' }]

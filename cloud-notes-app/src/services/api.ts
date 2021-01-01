@@ -50,15 +50,47 @@ export async function queryNoteList(msg: object): Promise<any> {
 }
 
 export async function queryUpdateNote(msg: object): Promise<any> {
-  return requestCloud('UpdateNote', msg)
+  return requestCloud('editnote', msg)
 }
 
 export async function queryAddToBook(msg: object): Promise<any> {
   return requestCloud('AddToBook', msg)
 }
 
-// export async function query(msg: object): Promise<any> {
-//   return requestCloud('fiusn', msg)
+export async function queryDeleteNote(msg: object): Promise<any> {
+  return requestCloud('delnote', msg)
+}
+
+export async function queryUpdateNoteBook(msg: object): Promise<any> {
+  return requestCloud('edNobook', msg)
+}
+
+export async function queryAllNote(msg: object): Promise<any> {
+  return requestCloud('', msg)
+}
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
+// }
+
+// export async function queryNoteBookList(msg: object): Promise<any> {
+//   return requestCloud('CrNoBook', msg)
 // }
 
 // export async function queryNoteBookList(msg: object): Promise<any> {
