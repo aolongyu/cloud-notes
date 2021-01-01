@@ -31,4 +31,18 @@ func AddHandleInit(s isface.IServer) {
 	s.AddHandle("delnote",&DeleteNote{},"根据笔记id删除笔记",0)
 	s.AddHandle("editnote",&EditNote{},"修改笔记",0)
 	s.AddHandle("edNobook",&EditNoteBook{},"修改笔记本",0)
+	s.AddHandle("finbyuid",&FindByidDetail{},"获得详细笔记本得id",0)
+	s.AddHandle("getallnot",&GetAllNote{},"获得所有笔记信息",0)
+	s.AddHandle("thumnote",&ThumbsUpNote{},"给笔记点赞",0)
+	s.AddHandle("thumnobo",&ThumbsUpNoteBook{},"给笔记本点赞",0)
+	s.AddHandle("frcover",&FindRountOver{},"找被举报10次的笔记",0)
+	s.AddHandle("renote",&ReportNote{},"举报笔记",0)
+	s.AddHandle("renotebo",&ReportNoteNoteBook{},"举报笔记本",0)
+	s.AddHandle("conoadd",&CollectNoteBookAdd{},"收藏笔记进笔记本",0)
+	s.AddHandle("collnrev",&CollectNoteBookRemove{},"移除笔记本",0)
+	s.AddHandle("crecbo",&CreateCBook{},"创建收藏笔记本",0)
+	s.AddHandle("delcb",&DelCBook{},"删除删除的笔记",0)
+	//s.AddHandle("finalcb")
+	//s.AddHandle("fnicb")
+
 }
