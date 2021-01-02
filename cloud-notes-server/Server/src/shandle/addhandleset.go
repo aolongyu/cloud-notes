@@ -18,6 +18,13 @@ func AddHandleInit(s isface.IServer) {
 	s.AddHandle("closeuser",&CloseUserByid{},"封锁用户，根据ID",0)
 	s.AddHandle("deluser",&DeleteUserById{},"根据用户id删除用户",0)
 	s.AddHandle("fiusn",&FindUserName{},"模糊查找用户",0)
+	s.AddHandle("admtell",&AdminTell{},"管理员发布通知",0)
+	s.AddHandle("shinfor",&ShowInformation{},"查看所有通知",0)
+	s.AddHandle("resPas",&ResetPassword{},"重置用户密码为123",0)
+	s.AddHandle("noteclose",&Noteclose{},"取消笔记分享",0)
+	s.AddHandle("noboclose",&NoteBookclose{},"取消笔记本分享",0)
+	s.AddHandle("upimf",&UpdateInformation{},"修改通知信息",0)
+	s.AddHandle("updpwd",&UpdateUserImf{},"修改用户密码",0)
 
 	s.AddHandle("getNList",&GetNlist{},"获取笔记本列表",0)
 	s.AddHandle("CrNoBook",&CreateNoteBook{},"创建笔记本",0)
