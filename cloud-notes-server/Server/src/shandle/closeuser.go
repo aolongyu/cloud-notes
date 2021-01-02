@@ -24,7 +24,7 @@ func(T CloseUserByid)Handle(request isface.IRequest){
 
 	fmt.Println("Handle CloseUserByName 接收到信息：",recvData)
 
-	Line := snet.SDB.Debug().Exec("call close(?)",recvData.Tname).RowsAffected
+	Line := snet.SDB.Debug().Exec("call close_user(?)",recvData.Tname).RowsAffected
 
 	Data := Status{}
 
