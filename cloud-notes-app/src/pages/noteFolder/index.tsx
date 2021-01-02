@@ -60,6 +60,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
         notebook_type: 0
       }
     });
+    router.push('/noteFolder')
   }
 
   const handleSC = (index: number) => {

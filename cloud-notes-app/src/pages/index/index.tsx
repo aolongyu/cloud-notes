@@ -128,7 +128,7 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
         closable
       >
         <List renderHeader={() => <div>输入笔记基本信息</div>} className="popup-list">
-          {['笔记名称', '笔记说明'].map((i, index) => (
+          {['笔记名称: ', '笔记说明: '].map((i, index) => (
             <List.Item key={index}>{i} <input id={`input${index}`} className={styles.input} type="text" /></List.Item>
           ))}
           <List.Item>
@@ -144,9 +144,9 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
         closable
       >
         <List renderHeader={() => <div>输入笔记本信息</div>} className="popup-list">
-          <List.Item>笔记本名称<input id={`input5`} className={styles.input} type="text" /></List.Item>
-          <List.Item>笔记本说明<input id={`input7`} className={styles.input} type="text" /></List.Item>
-          <List.Item>笔记本类型
+          <List.Item>笔记本名称： <input id={`input5`} className={styles.input} type="text" /></List.Item>
+          <List.Item>笔记本说明： <input id={`input7`} className={styles.input} type="text" /></List.Item>
+          <List.Item>笔记本类型： 
             <PickerView
               onChange={handleChange}
               data={types}
