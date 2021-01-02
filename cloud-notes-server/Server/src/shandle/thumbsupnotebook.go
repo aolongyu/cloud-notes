@@ -12,7 +12,7 @@ type ThumbsUpNoteBook struct{
 }
 
 type ThumbsUpNoteBookJson struct{
-	Nid int `json:"nid"`
+	Nid int `json:"uid"`
 	Bid int `json:"bid"`
 }
 

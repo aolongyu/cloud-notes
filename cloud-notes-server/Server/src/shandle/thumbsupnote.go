@@ -12,8 +12,8 @@ type ThumbsUpNote struct{
 }
 
 type ThumbsUpNoteJson struct{
-	Nid int `json:"nid"`
-	Bid int `json:"bid"`
+	Nid int `json:"uid"`
+	Bid int `json:"nid"`
 }
 
 func(T ThumbsUpNote)Handle(request isface.IRequest){
