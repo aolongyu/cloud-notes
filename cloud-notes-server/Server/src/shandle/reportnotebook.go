@@ -12,8 +12,8 @@ type ReportNoteNoteBook struct{
 }
 
 type ReportNoteNoteBookJson struct{
-	uid int `json:"uid"`
-	bid int `json:"bid"`
+	Uid int `json:"uid"`
+	Bid int `json:"bid"`
 }
 
 func(T ReportNoteNoteBook)Handle(request isface.IRequest){
@@ -24,7 +24,7 @@ func(T ReportNoteNoteBook)Handle(request isface.IRequest){
 
 	fmt.Println("Handle ReportNoteNoteBook 传来的信息：",RecvData)
 
-	Line := snet.SDBNote.Debug().Exec("call report_notebook(?,?)",RecvData.uid,RecvData.bid).RowsAffected
+	Line := snet.SDBNote.Debug().Exec("call report_notebook(?,?)",RecvData.Uid,RecvData.Bid).RowsAffected
 
 	fmt.Println("Line : ",Line)
 	res := Status{}
