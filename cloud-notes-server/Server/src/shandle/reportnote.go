@@ -16,6 +16,10 @@ type ReportNoteJson struct{
 	Nid int `json:"nid"`
 }
 
+type StatusReoprt struct{
+	Result int `gorm:"column:@i"`
+}
+
 func(T ReportNote)Handle(request isface.IRequest){
 	conn := request.GetConnection()
 	RecvData := ReportNoteJson{}
@@ -23,12 +27,12 @@ func(T ReportNote)Handle(request isface.IRequest){
 
 
 	fmt.Println("Handle ReportNote 传来的信息：",RecvData)
+	Data := StatusReoprt{}
 
-	Line := snet.SDBNote.Debug().Exec("call report_note(?,?)",RecvData.Uid,RecvData.Nid).RowsAffected
+	snet.SDBNote.Debug().Exec("call report_note(?,?)",RecvData.Uid,RecvData.Nid).Scan(&Data)
 
-	fmt.Println("Line : ",Line)
 	res := Status{}
-	if Line > 0{
+	if Data.Result  == 0{
 		res.Status = "1"
 		SendData,_ := json.Marshal(res)
 		conn.SendMesg([]byte(""),SendData)
