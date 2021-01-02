@@ -40,7 +40,7 @@ const NoteSquarePage: FC<PageProps> = ({ noteSquare, dispatch }) => {
               }}
               platform="android"
             >
-              {item.Name}<Brief>{item.Introduction}</Brief>
+              ({item.Thumbs}) {item.Name} ({item.Uname})<Brief>{item.Introduction}</Brief>
             </Item>
           )
         }

@@ -14,7 +14,8 @@ const LookNotePage: FC<PageProps> = ({ lookNote, dispatch, location }) => {
 
   const { Id, Introduction, Name, Text, ThumbsUp, author } = location.query
 
-  const Uid = (JSON.parse(localStorage.getItem('userInfo'))).value
+  const { Uid } = (JSON.parse(localStorage.getItem('userInfo')))
+
   // 这里发起了初始化请求
   // useEffect(() => {
   //   dispatch!({
@@ -28,20 +29,20 @@ const LookNotePage: FC<PageProps> = ({ lookNote, dispatch, location }) => {
 
   const handleSC = (bid: any) => {
     dispatch!({
-      type: 'lookNote/queryZan',
+      type: 'lookNote/querySC',
       payload: {
-        noteid: 9,
-        bid: Number(bid)
+        noteid: Number(Id),
+        bid: 9
       }
     });
   }
 
   const handleZan = () => {
     dispatch!({
-      type: 'lookNote/querySC',
+      type: 'lookNote/queryZan',
       payload: {
-        nid: '',
-        bid: ''
+        uid: Number(Uid),
+        nid: Number(Id)
       }
     });
   }

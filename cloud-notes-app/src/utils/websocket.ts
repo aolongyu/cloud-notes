@@ -187,7 +187,7 @@ export const sendWSPush = (type: string, message: object | string | number | und
     if (message) {
       console.log(
         '%c%s',
-        'color: blue; background: #5DAC81;',
+        'color: white; background: green;',
         `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message))}`
       )
       Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))

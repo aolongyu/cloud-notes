@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
 import { queryZan, querySC, queryJBNote } from '@/services/api';
+import { Toast } from 'antd-mobile'
 import { Effect } from '@/models/connect';
 
 export interface LookNoteModelState {
@@ -31,6 +32,9 @@ const LookNoteModel: LookNoteModelType = {
       yield call(queryZan, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
+      if(data.Status === '1') {
+        Toast.success('操作成功')
+      }
       yield put({
         type: 'save',
         payload: { ...data },
