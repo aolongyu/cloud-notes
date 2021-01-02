@@ -21,9 +21,9 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
   const { data } = admin;
 
   const tabs = [
-    { title: '文章管理' },
-    { title: '用户管理' },
-    { title: '违规封号' }
+    { title: '文章管理', value: 0 },
+    { title: '用户管理', value: 1 },
+    { title: '违规封号', value: 2 }
   ];
 
   const handleClick = (Sx: string) => {
@@ -37,23 +37,45 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
     });
   }
 
-  const handleCloseuser = (Uid: any) => {
-    console.log(Uid)
+  const handleCloseuser = (Name: any) => {
+    console.log(Name)
     dispatch!({
       type: 'admin/queryCloseuser',
       payload: {
-        Uid
+        tname: Name
       }
     });
   }
   console.log(data)
 
+  const changeTab = (e) => {
+    console.log(e)
+    if (e.value === 0) {
+
+    } else if (e.value === 1) {
+      dispatch!({
+        type: 'admin/queryUser',
+        payload: {
+          PageNo: 1,
+          PageSize: 99,
+          Sx: ''
+        }
+      });
+    } else if (e.value === 2) {
+
+    }
+  }
+
+  const handleRePwd = (msg) => {
+    console.log(msg)
+  }
+
   return (<div className={styles.container}>
-    <Tabs tabs={tabs} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={tabs.length > 3 ? 3.5 : tabs.length} />}>
+    <Tabs tabs={tabs} onChange={changeTab} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={tabs.length > 3 ? 3.5 : tabs.length} />}>
       <div className={styles.div1}>
         <SearchBar placeholder="查找笔记" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
-          data && data.map((item: any) => (
+          data && data.map && data.map((item: any) => (
             <div key={item.Customer_id} className={styles.box}>
               <WhiteSpace size="lg" />
               <Card className={styles.card}>
@@ -76,16 +98,14 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
       <div className={styles.div2}>
         <SearchBar placeholder="查找用户" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
-          data && data.map((item: any) => (
+          data && data.map && data.map((item: any) => (
             <div key={item.Customer_id} className={styles.box}>
               <WhiteSpace size="lg" />
               <Card className={styles.card}>
                 <Card.Header
-                  title={item.Customer_id}
+                  title={item.Name}
                   extra={<Button className={styles.czBtn} size="small" onClick={() => operation([
-                    { text: '发布违规内容', onPress: () => { handleCloseuser(item.Customer_id) } },
-                    { text: '被大量用户投诉', onPress: () => { handleCloseuser(item.Customer_id) } },
-                    { text: '其他违规', onPress: () => { handleCloseuser(item.Customer_id) } },
+                    { text: '重置密码', onPress: () => { handleRePwd(item.Name) } },
                   ])}
                   >操作</Button>}
                 />
@@ -99,16 +119,16 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
       <div className={styles.div3}>
         <SearchBar placeholder="用户ID" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
-          data && data.map((item: any) => (
-            <div key={item.Customer_id} className={styles.box}>
+          data && data.map && data.map((item: any) => (
+            <div key={item.Name} className={styles.box}>
               <WhiteSpace size="lg" />
               <Card className={styles.card}>
                 <Card.Header
-                  title={item.Customer_id}
+                  title={<div><span>({item.Id}) </span>{item.Name}</div>}
                   extra={<Button className={styles.czBtn} size="small" onClick={() => operation([
-                    { text: '发布违规内容', onPress: () => { handleCloseuser(item.Customer_id) } },
-                    { text: '被大量用户投诉', onPress: () => { handleCloseuser(item.Customer_id) } },
-                    { text: '其他违规', onPress: () => { handleCloseuser(item.Customer_id) } },
+                    { text: '发布违规内容', onPress: () => { handleCloseuser(item.Name) } },
+                    { text: '被大量用户投诉', onPress: () => { handleCloseuser(item.Name) } },
+                    { text: '其他违规', onPress: () => { handleCloseuser(item.Name) } },
                   ])}
                   >操作</Button>}
                 />

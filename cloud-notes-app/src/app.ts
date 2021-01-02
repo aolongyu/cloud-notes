@@ -76,6 +76,10 @@ const titleList: TitleListItem[] = [
     pagePath: '/lookNote',
     title: '热门笔记',
   },
+  {
+    pagePath: '/editUserInfo',
+    title: '修改信息',
+  },
 ];
 const navList: NavBarListItem[] = [
   {

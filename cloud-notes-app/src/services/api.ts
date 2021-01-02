@@ -81,9 +81,9 @@ export async function queryJBNote(msg: object): Promise<any> {
   return requestCloud('renote', msg)
 }
 
-// export async function queryNoteBookList(msg: object): Promise<any> {
-//   return requestCloud('CrNoBook', msg)
-// }
+export async function queryUpdateUserInfo(msg: object): Promise<any> {
+  return requestCloud('updpwd', msg)
+}
 
 // export async function queryNoteBookList(msg: object): Promise<any> {
 //   return requestCloud('CrNoBook', msg)

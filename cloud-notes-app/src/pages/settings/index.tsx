@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { setPageNavBar, connect, SettingsModelState, ConnectProps, history } from 'alita';
+import { setPageNavBar, connect, SettingsModelState, ConnectProps, history, router } from 'alita';
 import { Modal } from 'antd-mobile';
 
 import styles from './index.less';
@@ -18,13 +18,24 @@ const SettingsPage: FC<PageProps> = ({ settings, dispatch, location }) => {
   }, []);
   // const { name } = settings;
 
-  const { Name, Uid } = JSON.parse(localStorage.getItem('userInfo'))
+  const { Name, Uid, Password } = JSON.parse(localStorage.getItem('userInfo'))
 
   const handleExit = () => {
     alert('提示', '确认退出吗？', [
       { text: '取消', onPress: () => { } },
       { text: '确定', onPress: () => { history.replace('/login'), localStorage.removeItem('userInfo') } },
     ])
+  }
+
+  const handleEdit = () => {
+    router.push({
+      pathname: 'editUserInfo',
+      query: {
+        Uid,
+        Name,
+        Password
+      }
+    })
   }
 
   return (
@@ -34,6 +45,7 @@ const SettingsPage: FC<PageProps> = ({ settings, dispatch, location }) => {
         <hr />
         <div className={styles.line}><span className={styles.left}>用户名: </span><span className={styles.right}>{Name}</span></div>
       </div>
+      <input className={styles.editBtn} type="button" value="修改信息" onClick={handleEdit} />
       <input className={styles.exitBtn} type="button" value="退出" onClick={handleExit} />
     </div>
   );
