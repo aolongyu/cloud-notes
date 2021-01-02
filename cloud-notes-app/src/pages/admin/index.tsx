@@ -14,6 +14,9 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
   // 这里发起了初始化请求
   useEffect(() => {
     createSocket()
+    dispatch!({
+      type: 'admin/queryAllNote',
+    })
     return () => {
     };
   }, []);
@@ -51,8 +54,10 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
   const changeTab = (e) => {
     console.log(e)
     if (e.value === 0) {
-
-    } else if (e.value === 1) {
+      dispatch!({
+        type: 'admin/queryAllNote',
+      })
+    } else {
       dispatch!({
         type: 'admin/queryUser',
         payload: {
@@ -60,9 +65,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
           PageSize: 99,
           Sx: ''
         }
-      });
-    } else if (e.value === 2) {
-
+      })
     }
   }
 
@@ -110,7 +113,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
                 <Card.Header
                   title={item.Name}
                   extra={<Button className={styles.czBtn} size="small" onClick={() => operation([
-                    { text: '重置密码', onPress: () => { handleRePwd(item.Name) } },
+                    { text: '重置密码', onPress: () => { handleRePwd(item.Id) } },
                   ])}
                   >操作</Button>}
                 />
