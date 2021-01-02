@@ -33,15 +33,12 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
 
   const { data } = noteList;
 
-  const noteBookData = [
-    { value: 13, label: '软件工程' },
-    { value: 14, label: '微机原理' },
-    { value: 15, label: '应用开发' },
-    { value: 16, label: '数据结构' },
-    { value: 17, label: '测试技术' },
-    { value: 18, label: '操作系统' },
-    { value: 19, label: '计算机网络' },
-  ];
+  let noteBookData = []
+  const noteFolder = JSON.parse(localStorage.getItem('noteFolder'))
+  console.log(noteFolder)
+  noteFolder.forEach((item: any) => {
+    noteBookData.push({value: item.Id, label: item.Name})
+  })
 
   const click = (index: number) => {
     console.log(data[index])

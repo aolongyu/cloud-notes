@@ -31,7 +31,7 @@ const NoteFolderModel: NoteFolderModelType = {
       yield call(queryNoteBookList, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
-
+      localStorage.setItem('noteFolder', JSON.stringify(data))
       yield put({
         type: 'save',
         payload: { data },

@@ -45,8 +45,6 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
   }
 
   const { data } = noteFolder
-  // console.log(data)
-  // const data = [{ Id: '111', Name: 'NameTest', Introduction: 'Introduction', ThumbsUp: 'ThumbsUp' }]
 
   const handleSubmit = () => {
     const Note_name = document.getElementById('input0').value
