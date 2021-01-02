@@ -12,8 +12,8 @@ type CollectNoteBookAdd struct{
 }
 //收藏笔记本ID
 type CollectNoteBookaddJson struct{
-	noteid int `json:"noteid"`
-	bid   int `json:"bid"`
+	Noteid int `json:"noteid"`
+	Bid   int `json:"bid"`
 }
 
 
@@ -25,7 +25,7 @@ func(T CollectNoteBookAdd)Handle(request isface.IRequest){
 
 	fmt.Println("Handle CollectNoteBookAdd 传来的信息：",RecvData)
 
-	Line := snet.SDBNote.Debug().Exec("call collectNoteBook_add(?,?)",RecvData.noteid,RecvData.bid).RowsAffected
+	Line := snet.SDBNote.Debug().Exec("call collectNoteBook_add(?,?)",RecvData.Noteid,RecvData.Bid).RowsAffected
 
 	fmt.Println("Line : ",Line)
 	res := Status{}
