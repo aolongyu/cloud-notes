@@ -13,6 +13,8 @@ type GetAllNote struct{
 
 
 type GetAllNoteGorm struct{
+	Text string `gorm:"column:text"`
+	Introduction string `gorm:"column:introduction"`
 	Id int   `gorm:"column:note_id"`
 	Name string	`gorm:"column:note_name"`
 	Uid string	`gorm:"column:uid"`
