@@ -57,7 +57,18 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
     });
     history.replace(`${location.pathname}${location.search}`)
   }
-  const handleShare = () => { }
+  const handleShare = () => {
+    dispatch!({
+      type: 'noteDetails/queryUpdateNote',
+      payload: {
+        Note_id: Number(Id),
+        Note_name: Name,
+        Note_introduction: Introduction,
+        Note_type: 1,
+        Note_text: document.getElementById('text').value
+      }
+    });
+  }
 
   return (
     <div className={styles.container}>

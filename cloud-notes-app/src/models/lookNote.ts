@@ -44,6 +44,9 @@ const LookNoteModel: LookNoteModelType = {
       yield call(querySC, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
+      if(data.Status === '1') {
+        Toast.success('收藏成功')
+      }
       yield put({
         type: 'save',
         payload: { ...data },
@@ -53,6 +56,9 @@ const LookNoteModel: LookNoteModelType = {
       yield call(queryJBNote, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
+      if(data.Status === '1') {
+        Toast.success('举报成功')
+      }
       yield put({
         type: 'save',
         payload: { ...data },

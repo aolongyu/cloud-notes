@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { NoteFolderModelState, ConnectProps, connect, router } from 'alita';
+import { NoteFolderModelState, ConnectProps, connect, router, history } from 'alita';
 import { Card, WingBlank, WhiteSpace, Icon, Modal, List, Button } from 'antd-mobile';
 import { FolderOpenTwoTone } from '@ant-design/icons'
 import NoMore from '@/components/noMore/index'
@@ -60,7 +60,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
         notebook_type: 0
       }
     });
-    router.push('/noteFolder')
+    history.push('/')
   }
 
   const handleSC = (index: number) => {

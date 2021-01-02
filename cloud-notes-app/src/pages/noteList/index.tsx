@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { NoteListModelState, ConnectProps, connect, router, setPageNavBar } from 'alita';
+import { NoteListModelState, ConnectProps, connect, router, setPageNavBar, history } from 'alita';
 import { Modal, List, Button, WhiteSpace, WingBlank, Icon, Toast, Popover, Radio } from 'antd-mobile';
 import NoteBox from '@/components/noteBox/index'
 import NoMore from '@/components/noMore/index'
@@ -29,16 +29,6 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
         Id: Number(NoteBookId)
       }
     });
-    setPageNavBar({
-      pagePath: location.pathname,
-      navBar: {
-        onLeftClick: () => {
-          router.goBack()
-        }
-      },
-    });
-    return () => {
-    };
   }, []);
 
   const { data } = noteList;
@@ -71,6 +61,9 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
         bid: Number(checked)
       }
     });
+    setTimeout(() => {
+      history.replace('/noteFolder')
+    }, 1000);
   }
 
   const onChange = (val: number) => {
@@ -91,8 +84,12 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
           Note_id: mnid
         }
       });
+      setTimeout(() => {
+        history.replace('/noteFolder')
+      }, 1000);
     }
-  };
+  }
+
   const prompt = Modal.prompt;
   // const data = [{ Id: '1232id', Name: 'nama', Introduction: 'intorintorintorintorintorintorintorintorintorintorintor', Text: 'text', ThumbsUp: 'up' }]
   return (
