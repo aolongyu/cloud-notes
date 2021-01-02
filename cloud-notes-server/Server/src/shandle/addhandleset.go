@@ -42,7 +42,7 @@ func AddHandleInit(s isface.IServer) {
 	s.AddHandle("collnrev",&CollectNoteBookRemove{},"移除笔记本",0)
 	s.AddHandle("crecbo",&CreateCBook{},"创建收藏笔记本",0)
 	s.AddHandle("delcb",&DelCBook{},"删除删除的笔记",0)
-	//s.AddHandle("finalcb")
-	//s.AddHandle("fnicb")
+	s.AddHandle("finalcb",&FindAllCollectBook{},"找出用户的全部收藏笔记本",0)
+	s.AddHandle("fnicb",&FindAllCollectInBook{},"找出收藏笔记本中的所有笔记",0)
 
 }
