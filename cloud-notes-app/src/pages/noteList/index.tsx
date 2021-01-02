@@ -66,8 +66,9 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
     dispatch!({
       type: 'noteList/queryAddToBook',
       payload: {
+        obid: Number(NoteBookId),
         nid: Number(nid),
-        bid: Number(bid)
+        bid: Number(checked)
       }
     });
   }
