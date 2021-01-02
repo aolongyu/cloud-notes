@@ -50,6 +50,7 @@ func (t *JSONTime) Scan(v interface{}) error {
 	return fmt.Errorf("can not convert %v to timestamp", v)
 }
 type FindUserNameGorm struct{
+	Id string `gorm:"column:id"`
 	Name string `gorm:"column:name"`
 	Stats int `gorm:"column:stats"`
 	ModifiedTime JSONTime `gorm:"column:modified_time"`
