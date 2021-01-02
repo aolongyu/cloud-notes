@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { queryUser, queryCloseuser } from '@/services/api';
+import { queryUser, queryCloseuser, queryRePwd } from '@/services/api';
 import { Effect } from '@/models/connect';
 
 export interface AdminModelState {
@@ -12,6 +12,7 @@ export interface AdminModelType {
   effects: {
     queryUser: Effect;
     queryCloseuser: Effect;
+    queryRePwd: Effect;
   };
   reducers: {
     save: Reducer<AdminModelState>;
@@ -37,6 +38,15 @@ const AdminModel: AdminModelType = {
     },
     *queryCloseuser({ payload }, { call, put }) {
       yield call(queryCloseuser, payload);
+      const data = JSON.parse(JSON.parse(window.cloud))
+      console.log('从服务端获取对象：', data)
+      yield put({
+        type: 'save',
+        payload: { data },
+      });
+    },
+    *queryRePwd({ payload }, { call, put }) {
+      yield call(queryRePwd, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
       yield put({

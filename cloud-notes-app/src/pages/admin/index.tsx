@@ -66,8 +66,13 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
     }
   }
 
-  const handleRePwd = (msg) => {
-    console.log(msg)
+  const handleRePwd = (Id: number) => {
+    dispatch!({
+      type: 'admin/queryRePwd',
+      payload: {
+        id: Number(Id)
+      }
+    });
   }
 
   return (<div className={styles.container}>
