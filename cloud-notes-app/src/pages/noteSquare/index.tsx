@@ -12,20 +12,17 @@ interface PageProps extends ConnectProps {
 }
 
 const NoteSquarePage: FC<PageProps> = ({ noteSquare, dispatch }) => {
+
+  const { Name } = JSON.parse(localStorage.getItem('userInfo'))
   // 这里发起了初始化请求
   useEffect(() => {
     dispatch!({
       type: 'noteSquare/queryAllNote',
     });
     return () => {
-      // 这里写一些需要消除副作用的代码
-      // 如: 声明周期中写在 componentWillUnmount
     };
   }, []);
-  // 注意，上面这里写空数组，表示初始化，如果需要监听某个字段变化再发起请求，可以在这里写明
-  // const { data } = noteSquare;
-
-  const data = [1,2,2,6,7,8]
+  const { data } = noteSquare;
 
   return (
     <div className={styles.container}>
@@ -35,15 +32,15 @@ const NoteSquarePage: FC<PageProps> = ({ noteSquare, dispatch }) => {
             <Item
               arrow="horizontal"
               multipleLine
-              onClick={() => { router.push({
-                pathname: 'noteDetails',
-                query: {
-                  noteId: ''
-                }
-              }) }}
+              onClick={() => {
+                router.push({
+                  pathname: 'lookNote',
+                  query: { ...item, author: Name }
+                })
+              }}
               platform="android"
             >
-              ListItem （Android）<Brief>There may have water ripple effect of <br /> material if you set the click event.</Brief>
+              {item.Name}<Brief>{item.Introduction}</Brief>
             </Item>
           )
         }

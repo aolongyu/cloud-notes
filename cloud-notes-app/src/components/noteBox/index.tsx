@@ -13,11 +13,12 @@ interface CardProps {
   Introduction?: string;
   Text: string;
   ThumbsUp: string;
-  click: () => {};
+  index: number
+  click: (index: number) => {};
   onSelect: () => {}
 }
 
-const NoteBox = ({ Id = '', Name = '', Introduction = '', Text = '', ThumbsUp = '', click,onSelect }: CardProps) => {
+const NoteBox = ({ Id = '', Name = '', Introduction = '', Text = '', ThumbsUp = '', click,onSelect, index }: CardProps) => {
 
   const [visible, setVisible] = useState(false)
   // const handleVisibleChange = (visible: boolean) => {
@@ -26,7 +27,7 @@ const NoteBox = ({ Id = '', Name = '', Introduction = '', Text = '', ThumbsUp = 
   
   return (
     <div className={styles.container}>
-      <div className={styles.name} onClick={() => { click(Id) }}>{Name}</div>
+      <div className={styles.name} onClick={() => { click(index) }}>{Name}</div>
       <span className={styles.intro}>{Introduction}</span>
       <div className={styles.up}>{ThumbsUp}</div>
       <Popover mask

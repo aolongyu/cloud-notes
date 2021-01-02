@@ -8,26 +8,24 @@ interface PageProps extends ConnectProps {
 }
 
 const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => {
-  const { NoteId, Name } = location.query
-  const { data } = noteDetails;
+  const { Id, Introduction, Name, Text, ThumbsUp, author } = location.query
 
-  console.log(`${location.pathname}${location.search}`)
+  // const { data } = noteDetails;
+
+  // console.log(`${location.pathname}${location.search}`)
 
   useEffect(() => {
-    dispatch!({
-      type: 'noteDetails/queryNoteDetails',
-      payload: {
-        id: Number(NoteId)
-      }
-    });
-    setTimeout(() => {
-      history.replace(`${location.pathname}${location.search}`)
-    }, 1000)
+    // dispatch!({
+    //   type: 'noteDetails/queryNoteDetails',
+    //   payload: {
+    //     id: Number(NoteId)
+    //   }
+    // });
   }, []);
 
   const [readOnly, setReadOnly] = useState(true)
 
-  const msg = data && data[0]
+  // const msg = data && data[0]
 
   const handleEdit = () => {
     setReadOnly(false)
@@ -50,32 +48,30 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
     dispatch!({
       type: 'noteDetails/queryUpdateNote',
       payload: {
-        Note_id: Number(NoteId),
-        Note_name: msg.Name,
-        Note_introduction: msg.Introduction,
+        Note_id: Number(Id),
+        Note_name: Name,
+        Note_introduction: Introduction,
         Note_type: 0,
         Note_text: document.getElementById('text').value
       }
     });
-    setTimeout(() => {
-      history.replace('/noteDetails')
-    }, 500)
+    history.replace(`${location.pathname}${location.search}`)
   }
   const handleShare = () => { }
 
   return (
     <div className={styles.container}>
       <div className={styles.noteTitle}>
-        <span className={styles.noteName}>{msg && msg.Name}</span>
-        <span className={styles.hot}>{msg && msg.ThumbsUp}</span>
+        <span className={styles.noteName}>{Name}</span>
+        <span className={styles.hot}>{ThumbsUp}</span>
       </div>
       <div className={styles.noteInfo}>
-        <span className={styles.author}>{Name}</span>
-        <div>{msg && msg.Introduction}</div>
+        <span className={styles.author}>{author}</span>
+        <div>{Introduction}</div>
       </div>
       <hr />
       <div className={styles.mainText}>
-        <textarea readOnly={readOnly} name="text" id="text" className={styles.text}>{msg && msg.Text}</textarea>
+        <textarea readOnly={readOnly} name="text" id="text" className={styles.text}>{Text}</textarea>
       </div>
       <div className={styles.rightFloat}>
         <div id="edit" className={styles.edit} onClick={handleEdit}></div>

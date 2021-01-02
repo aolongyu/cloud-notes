@@ -44,8 +44,8 @@ const NoteDetailsModel: NoteDetailsModelType = {
       }
       console.log('从服务端获取对象：', data)
       // yield put({
-        // type: 'save',
-        // payload: { data },
+      //   type: 'save',
+      //   payload: { data1 },
       // });
     },
   },

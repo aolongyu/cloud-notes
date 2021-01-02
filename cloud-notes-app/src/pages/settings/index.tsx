@@ -23,7 +23,7 @@ const SettingsPage: FC<PageProps> = ({ settings, dispatch, location }) => {
   const handleExit = () => {
     alert('提示', '确认退出吗？', [
       { text: '取消', onPress: () => { } },
-      { text: '确定', onPress: () => { history.replace('/login') } },
+      { text: '确定', onPress: () => { history.replace('/login'), localStorage.removeItem('userInfo') } },
     ])
   }
 

@@ -40,14 +40,12 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
 
   const { data } = noteList;
 
-  const click = (NoteId: any) => {
+  const click = (index: number) => {
+    console.log(data[index])
     router.push({
       pathname: '/noteDetails',
-      query: {
-        NoteId,
-        Name
-      },
-    });
+      query: { ...data[index], author: Name }
+    })
   }
 
   const handleSubmit = () => {
@@ -55,8 +53,8 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
     dispatch!({
       type: 'noteList/queryAddToBook',
       payload: {
-        nid,
-        bid
+        nid: Number(nid),
+        bid: Number(bid)
       }
     });
   }
@@ -81,7 +79,7 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
   return (
     <div className={styles.container}>
       {
-        data && data.map((item: any) => <NoteBox key={item.Id} {...item} click={click} onSelect={onSelect} />)
+        data && data.map((item: any, index: number) => <NoteBox key={item.Id} {...item} index={index} click={click} onSelect={onSelect} />)
       }
       <NoMore text='没有更多了' />
       <Modal
@@ -96,7 +94,7 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
             <List.Item key={index}>{i} <input id='inputbid' className={styles.input} type="text" /></List.Item>
           ))}
           <List.Item>
-            <Button type="primary" onClick={handleSubmit}>创建笔记</Button>
+            <Button type="primary" onClick={handleSubmit}>移动笔记</Button>
           </List.Item>
         </List>
       </Modal>

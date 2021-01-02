@@ -24,7 +24,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
     dispatch!({
       type: 'noteFolder/queryNoteBookList',
       payload: {
-        Uid
+        Uid: Number(Uid)
       }
     });
   }, []);
@@ -62,11 +62,34 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
     });
   }
 
+  const handleSC = () => {
+    router.push({
+      pathname: '/noteList',
+      query: {
+        NoteBookId: 9,
+        Name,
+        Uid
+      },
+    });
+  }
+
   return (
     <div className={styles.container}>
       {/* <SearchBar placeholder="查找笔记本" maxLength={15} onCancel={(val) => { handleSearch(val) }} cancelText="查找" /> */}
+      <div className={styles.card} onClick={handleSC}>
+        <WingBlank size="lg">
+          <WhiteSpace size="lg" />
+          <div className={styles.sc}>
+            <Card.Header
+              title="我的收藏"
+              thumb={<FolderOpenTwoTone />}
+              extra={<Icon type="right" />}
+            />
+          </div>
+        </WingBlank>
+      </div>
       {
-        data && data.map(item => (
+        data && data.map((item: any) => (
           <div key={item.Id} className={styles.card}>
             <WingBlank size="lg">
               <WhiteSpace size="lg" />

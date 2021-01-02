@@ -8,7 +8,7 @@
 import { sendWSPush } from '@/utils/websocket'
 
 // eslint-disable-next-line func-names
-const requestCloud = function (type: string, msg: object) {
+const requestCloud = function (type: string, msg: object | string | number | undefined | null) {
   return new Promise(resolve => {
     sendWSPush(type, msg)
     // eslint-disable-next-line no-restricted-globals

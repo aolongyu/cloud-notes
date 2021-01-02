@@ -173,22 +173,32 @@ export const createSocket = (url = mUrl) => {
 /**
  * 发送数据
  * @param {string} type 需要发送的数据
- * @param {object} message 需要发送的数据
+ * @param {object | string | number | undefined | null} message 需要发送的数据
  */
-export const sendWSPush = (type: string, message: object | string | number) => {
+export const sendWSPush = (type: string, message: object | string | number | undefined | null) => {
   // console.log(JSON.stringify(type + message))
   // console.log('Socket.readyState: ', Socket.readyState)
   if (Socket !== null && Socket.readyState === 3) {
     Socket.close()
     createSocket()
   } else if (Socket.readyState === 1) {
-    console.log(
-      '%c%s',
-      'color: white; background: #5DAC81;',
-      `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message))}`
-    )
+
     // console.log(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
-    Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
+    if (message) {
+      console.log(
+        '%c%s',
+        'color: blue; background: #5DAC81;',
+        `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message))}`
+      )
+      Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type) + JSON.stringify(message)))
+    } else {
+      console.log(
+        '%c%s',
+        'color: orange; background: #5DAC81;',
+        `向服务端发送message: ${strTo10Length(type) && JSON.stringify(strTo10Length(type))}`
+      )
+      Socket.send(strTo10Length(type) && JSON.stringify(strTo10Length(type)))
+    }
   } else if (Socket.readyState === 0) {
     connecting(message)
   }

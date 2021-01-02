@@ -66,20 +66,20 @@ export async function queryUpdateNoteBook(msg: object): Promise<any> {
 }
 
 export async function queryAllNote(msg: object): Promise<any> {
-  return requestCloud('', msg)
+  return requestCloud('getallnot', msg)
 }
 
-// export async function queryNoteBookList(msg: object): Promise<any> {
-//   return requestCloud('CrNoBook', msg)
-// }
+export async function queryZan(msg: object): Promise<any> {
+  return requestCloud('thumnote', msg)
+}
 
-// export async function queryNoteBookList(msg: object): Promise<any> {
-//   return requestCloud('CrNoBook', msg)
-// }
+export async function querySC(msg: object): Promise<any> {
+  return requestCloud('conoadd', msg)
+}
 
-// export async function queryNoteBookList(msg: object): Promise<any> {
-//   return requestCloud('CrNoBook', msg)
-// }
+export async function queryJBNote(msg: object): Promise<any> {
+  return requestCloud('renote', msg)
+}
 
 // export async function queryNoteBookList(msg: object): Promise<any> {
 //   return requestCloud('CrNoBook', msg)
