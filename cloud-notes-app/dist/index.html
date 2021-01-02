@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <meta content="telephone=no" name="format-detection" />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body,
+      #root {
+        width: 100%;
+      }
+      #root > div {
+        /* Status bar height on iOS 11.0 */
+        padding-top: constant(safe-area-inset-top);
+        padding-bottom: constant(safe-area-inset-bottom);
+        /* Status bar height on iOS 11+ */
+        padding-top: calc(env(safe-area-inset-top) * 2);
+        padding-bottom: calc(env(safe-area-inset-bottom) * 2);
+      }
+
+      .alita-layout-head {
+        top: calc(env(safe-area-inset-top) * 2) !important;
+      }
+      body {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      input {
+        border: none;
+        outline: none;
+      }
+      #root {
+        position: relative;
+        overflow: scroll;
+      }
+      textarea:disabled,
+      input:disabled {
+        background-color: transparent;
+      }
+    </style>
+    <link rel="stylesheet" href="/umi.7f5c59cd.css" />
+    <script>
+      window.routerBase = "/";
+    </script>
+    <script>
+      //! umi version: 3.2.25
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      window.console.log = () => {};
+      window.console.info = () => {};
+      window.console.warn = () => {};
+      window.console.error = () => {};
+    </script>
+    <script src="/umi.98de64c9.js"></script>
+  </body>
+</html>
