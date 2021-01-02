@@ -62,11 +62,11 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
     });
   }
 
-  const handleSC = () => {
+  const handleSC = (index: number) => {
     router.push({
       pathname: '/noteList',
       query: {
-        NoteBookId: 9,
+        NoteBookId: index,
         Name,
         Uid
       },
@@ -76,7 +76,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
   return (
     <div className={styles.container}>
       {/* <SearchBar placeholder="查找笔记本" maxLength={15} onCancel={(val) => { handleSearch(val) }} cancelText="查找" /> */}
-      <div className={styles.card} onClick={handleSC}>
+      <div className={styles.card} onClick={() => { handleSC(0) }}>
         <WingBlank size="lg">
           <WhiteSpace size="lg" />
           <div className={styles.sc}>
@@ -88,9 +88,21 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
           </div>
         </WingBlank>
       </div>
+      <div className={styles.card} onClick={() => { handleSC(1) }}>
+        <WingBlank size="lg">
+          <WhiteSpace size="lg" />
+          <div className={styles.sc}>
+            <Card.Header
+              title="默认笔记本"
+              thumb={<FolderOpenTwoTone />}
+              extra={<Icon type="right" />}
+            />
+          </div>
+        </WingBlank>
+      </div>
       {
         data && data.map((item: any) => (
-          <div key={item.Id} className={styles.card}>
+          <div key={item.Id} className={Number(item.Id) !== 0 ? styles.card : styles.none}>
             <WingBlank size="lg">
               <WhiteSpace size="lg" />
               <Card>

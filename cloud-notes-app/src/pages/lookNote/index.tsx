@@ -32,7 +32,7 @@ const LookNotePage: FC<PageProps> = ({ lookNote, dispatch, location }) => {
       type: 'lookNote/querySC',
       payload: {
         noteid: Number(Id),
-        bid: 9
+        bid: 2
       }
     });
   }
@@ -51,8 +51,8 @@ const LookNotePage: FC<PageProps> = ({ lookNote, dispatch, location }) => {
     dispatch!({
       type: 'lookNote/queryJBNote',
       payload: {
-        uid: '',
-        nid: ''
+        uid: Number(Uid),
+        nid: Number(Id)
       }
     });
   }

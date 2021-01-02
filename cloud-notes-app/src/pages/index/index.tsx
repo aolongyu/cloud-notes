@@ -35,7 +35,7 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
     router.push({
       pathname: '/noteSquare',
       query: {
-        Uid,
+        Uid: Number(Uid),
         Name
       }
     })
@@ -51,15 +51,14 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
     dispatch!({
       type: 'index/queryCrNote',
       payload: {
-        Uid,
+        Uid: Number(Uid),
         NoteName,
         NoteIntroduction,
-        NoteType: '0',
-        Notebook_id: 10,
+        NoteType: 0,
+        Notebook_id: 1,
         NoteText
       }
     });
-
     setVisible(false)
   }
 
@@ -72,7 +71,7 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
     dispatch!({
       type: 'index/queryCrNoBook',
       payload: {
-        Uid,
+        Uid: Number(Uid),
         NoteBookName,
         NoteBookIntroduction,
         NoteBookType: selectNumber,
