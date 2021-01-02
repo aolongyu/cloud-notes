@@ -13,11 +13,11 @@ type GetAllNote struct{
 
 
 type GetAllNoteGorm struct{
-	Id int   `gorm:"column:id"`
-	Name string	`gorm:"column:name"`
-	Introduction string	`gorm:"column:introduction"`
-	Text string `gorm:"column:text"`
-	ThumbsUp int	`gorm:"column:thumbs_up"`
+	Id int   `gorm:"column:note_id"`
+	Name string	`gorm:"column:note_name"`
+	Uid string	`gorm:"column:uid"`
+	Uname string `gorm:"column:uname"`
+	Thumbs int	`gorm:"column:thumbs"`
 }
 
 
@@ -25,7 +25,7 @@ func(T GetAllNote)Handle(request isface.IRequest){
 	conn := request.GetConnection()
 
 	fmt.Println("Handle GetAllNote   传来的信息:",)
-	data := make([]NoteFindByUser,0)
+	data := make([]GetAllNoteGorm,0)
 	snet.SDBNote.Debug().Raw("call get_all_note()").Scan(&data)
 
 	SendData,_ := json.Marshal(data)

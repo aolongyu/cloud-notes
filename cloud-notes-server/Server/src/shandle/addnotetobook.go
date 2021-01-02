@@ -13,8 +13,8 @@ type AddNoteToNoteBook struct{
 //把笔记加入笔记本
 type AddJson struct{
 	//把笔记加入笔记本，笔记id，笔记本id
-	nid int `json:"nid"`
-	bid int `json:"bid"`
+	Nid int `json:"nid"`
+	Bid int `json:"bid"`
 }
 
 func(T AddNoteToNoteBook)Handle(request isface.IRequest){
@@ -25,7 +25,7 @@ func(T AddNoteToNoteBook)Handle(request isface.IRequest){
 
 	fmt.Println("Handle Addnotetobook 传来的信息：",AddMessage)
 
-	Line := snet.SDBNote.Debug().Exec("call add_to_book(?,?)",AddMessage.bid,AddMessage.nid).RowsAffected
+	Line := snet.SDBNote.Debug().Exec("call add_to_book(?,?)",AddMessage.Nid,AddMessage.Bid).RowsAffected
 
 	returnres := Status{}
 	if(Line > 0){
