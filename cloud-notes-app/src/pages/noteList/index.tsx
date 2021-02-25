@@ -49,7 +49,6 @@ const NoteListPage: FC<PageProps> = ({ noteList, dispatch, location }) => {
   }
 
   const handleSubmit = () => {
-    // const bid = document.getElementById('inputbid').value
     dispatch!({
       type: 'noteList/queryAddToBook',
       payload: {

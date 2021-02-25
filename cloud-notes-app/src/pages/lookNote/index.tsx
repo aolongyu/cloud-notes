@@ -31,8 +31,8 @@ const LookNotePage: FC<PageProps> = ({ lookNote, dispatch, location }) => {
     dispatch!({
       type: 'lookNote/querySC',
       payload: {
-        noteid: Number(Id),
-        bid: 2
+        noteid: Number(Id), // 提供被收藏笔记本id
+        bid: 2  // 放到迷人笔记本当中
       }
     });
   }
@@ -41,8 +41,8 @@ const LookNotePage: FC<PageProps> = ({ lookNote, dispatch, location }) => {
     dispatch!({
       type: 'lookNote/queryZan',
       payload: {
-        uid: Number(Uid),
-        nid: Number(Id)
+        uid: Number(Uid), // 点赞用户本人id
+        nid: Number(Id) // 提供被点赞的笔记id
       }
     });
   }
@@ -51,8 +51,8 @@ const LookNotePage: FC<PageProps> = ({ lookNote, dispatch, location }) => {
     dispatch!({
       type: 'lookNote/queryJBNote',
       payload: {
-        uid: Number(Uid),
-        nid: Number(Id)
+        uid: Number(Uid), // 举报人id
+        nid: Number(Id) // 被举报笔记id
       }
     });
   }

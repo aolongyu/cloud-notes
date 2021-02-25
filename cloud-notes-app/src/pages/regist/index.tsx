@@ -45,7 +45,7 @@ const RegistPage: FC<PageProps> = ({ regist, dispatch, location }) => {
     const Name = document.getElementById('registName').value
     const Password = document.getElementById('registPassword1').value
     const Password2 = document.getElementById('registPassword2').value
-    if (Password === Password2) {
+    if (Password === Password2 && judgeIsTrue(Password)) {  // 判断输入的数据是否满足校验，如空格等特殊字符
       dispatch!({
         type: 'regist/query',
         payload: {

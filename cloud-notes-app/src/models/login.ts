@@ -31,8 +31,10 @@ const LoginModel: LoginModelType = {
       yield call(queryLogin, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
-      if(data.Status !== '0') {
+      // 登录结果处理
+      if(data.Status !== '0') { // data.Status为服务端返回来的登录状态
         Toast.success('登录成功', 1)
+        // 缓存当前登录用户的登录信息
         localStorage.setItem('userInfo', JSON.stringify({...payload, Uid: data.Uid}))
       } else {
         Toast.fail('登录失败', 1)

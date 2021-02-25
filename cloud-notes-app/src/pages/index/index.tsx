@@ -1,17 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
 import { IndexModelState, ConnectProps, connect, history, router } from 'alita';
-import { Modal, List, Button, WhiteSpace, WingBlank, Icon, Toast, PickerView } from 'antd-mobile';
+import { Modal, List, Button, WhiteSpace, WingBlank, Icon, Toast, PickerView, Radio } from 'antd-mobile';
 import { createSocket } from '@/utils/websocket'
 
 import styles from './index.less';
 
 const prompt = Modal.prompt;
+const RadioItem = Radio.RadioItem;
 
 interface PageProps extends ConnectProps {
   index: IndexModelState;
 }
 
 const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
+
   // 这里发起了初始化请求
   useEffect(() => {
     createSocket()
@@ -20,6 +22,7 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
   const [visible, setVisible] = useState(false)
   const [visible2, setVisible2] = useState(false)
   const [selectNumber, setSelectNumber] = useState('1')
+  const [checked, setChecked] = useState(1)
 
   const { Uid, Name } = JSON.parse(localStorage.getItem('userInfo'))
 
@@ -42,12 +45,13 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
   }
 
   const handleSubmit1 = () => {
+
+    // 创建笔记所需数据
     const Uid = JSON.parse(localStorage.getItem('userInfo')).Uid
     const NoteName = document.getElementById('input0').value
     const NoteIntroduction = document.getElementById('input1').value
-    // const Notebook_id = document.getElementById('input1').value
     const NoteText = '无'
-
+    // 向服务端发送请求创建笔记本请求，并提供相应数据
     dispatch!({
       type: 'index/queryCrNote',
       payload: {
@@ -59,15 +63,15 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
         NoteText
       }
     });
+    // 关闭创建笔记本弹窗
     setVisible(false)
   }
 
   const handleSubmit2 = () => {
+    // 提供创建笔记本所需的所有数据
     const Uid = JSON.parse(localStorage.getItem('userInfo')).Uid
     const NoteBookName = document.getElementById('input5').value
     const NoteBookIntroduction = document.getElementById('input7').value
-    // const NoteBookType = document.getElementById('input6').value
-
     dispatch!({
       type: 'index/queryCrNoBook',
       payload: {
@@ -76,16 +80,17 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
         NoteBookIntroduction,
         NoteBookType: selectNumber,
       }
-    });
-
+    })
     setVisible2(false)
   }
 
   const { data } = index
 
+  // 创建笔记本成功
   if (data && data.Status === '1') {
     data.Status = null
     Toast.success('创建成功')
+    // 页面跳转到笔记本列表
     setTimeout(() => {
       history.push('/noteFolder')
     }, 1000)
@@ -94,28 +99,29 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
   const types = [
     {
       label: '日记',
-      value: '1',
+      value: 1,
     },
     {
       label: '课程笔记',
-      value: '2',
+      value: 2,
     },
     {
       label: '随手笔记',
-      value: '3',
+      value: 3,
     },
     {
       label: '开心笔记',
-      value: '4',
+      value: 4,
     },
     {
       label: '快乐笔记',
-      value: '5',
+      value: 5,
     },
   ];
 
   const handleChange = (val: any) => {
-    setSelectNumber(val[0])
+    setChecked(val)
+    setSelectNumber(val)
   }
 
   return (
@@ -146,12 +152,18 @@ const IndexPage: FC<PageProps> = ({ index, dispatch, location }) => {
         <List renderHeader={() => <div>输入笔记本信息</div>} className="popup-list">
           <List.Item>笔记本名称： <input id={`input5`} className={styles.input} type="text" /></List.Item>
           <List.Item>笔记本说明： <input id={`input7`} className={styles.input} type="text" /></List.Item>
-          <List.Item>笔记本类型： 
-            <PickerView
+          <List.Item>笔记本类型：
+          {types.map(i => (
+            <RadioItem key={i.value} checked={checked === i.value} onChange={() => handleChange(i.value)}>
+              {i.label}
+            </RadioItem>
+          ))}
+            {/* <PickerView
               onChange={handleChange}
               data={types}
               cascade={false}
-            /></List.Item>
+            /> */}
+          </List.Item>
           <List.Item>
             <Button type="primary" onClick={handleSubmit2}>创建笔记本</Button>
           </List.Item>

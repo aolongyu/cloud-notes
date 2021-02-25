@@ -38,13 +38,16 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
   }
 
   const handleSave = () => {
+    // 将输入框变为不可编辑状态
     setReadOnly(true)
+    // 处理页面样式，隐藏保存按钮，出现编辑按钮
     const element = document.getElementById('text')
     const edit = document.getElementById('edit')
     const save = document.getElementById('save')
     element.style.backgroundColor = 'transparent'
     edit.style.display = 'block'
     save.style.display = 'none'
+    // 发送笔记最新状态数据，并向服务端请求
     dispatch!({
       type: 'noteDetails/queryUpdateNote',
       payload: {
@@ -55,6 +58,7 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
         Note_text: document.getElementById('text').value
       }
     });
+    // 编辑完成后，从新刷新笔记详情页面
     history.replace(`${location.pathname}${location.search}`)
   }
   const handleShare = () => {
@@ -64,7 +68,7 @@ const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => 
         Note_id: Number(Id),
         Note_name: Name,
         Note_introduction: Introduction,
-        Note_type: 1,
+        Note_type: 1, // 笔记类型变为1，表示为分享笔记
         Note_text: document.getElementById('text').value
       }
     });

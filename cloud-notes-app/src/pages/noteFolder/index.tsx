@@ -29,10 +29,6 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
     });
   }, []);
 
-  const handleSearch = (msg: string) => {
-
-  }
-
   const handle = (NoteBookId: any) => {
     router.push({
       pathname: '/noteList',
@@ -47,8 +43,11 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
   const { data } = noteFolder
 
   const handleSubmit = () => {
+    // 笔记本名称
     const Note_name = document.getElementById('input0').value
+    // 笔记本说明
     const Note_introduction = document.getElementById('input1').value
+    // 向服务端发起请求
     dispatch!({
       type: 'noteFolder/queryUpdateNoteBook',
       payload: {
@@ -57,7 +56,8 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
         introduction: Note_introduction,
         notebook_type: 0
       }
-    });
+    })
+    // 页面跳转
     history.push('/')
   }
 
@@ -75,7 +75,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
   return (
     <div className={styles.container}>
       {/* <SearchBar placeholder="查找笔记本" maxLength={15} onCancel={(val) => { handleSearch(val) }} cancelText="查找" /> */}
-      <div className={styles.card} onClick={() => { handleSC(0) }}>
+      <div className={styles.card} onClick={() => { handleSC(2) }}>
         <WingBlank size="lg">
           <WhiteSpace size="lg" />
           <div className={styles.sc}>
@@ -101,7 +101,7 @@ const NoteFolderPage: FC<PageProps> = ({ noteFolder, dispatch }) => {
       </div>
       {
         data && data.map((item: any) => (
-          <div key={item.Id} className={Number(item.Id) !== 0 ? styles.card : styles.none}>
+          <div key={item.Id} className={(Number(item.Id) !== 1) && (Number(item.Id) !== 2) ? styles.card : styles.none}>
             <WingBlank size="lg">
               <WhiteSpace size="lg" />
               <Card>

@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { AdminModelState, ConnectProps, connect } from 'alita';
+import { AdminModelState, ConnectProps, connect, setPageNavBar, history } from 'alita';
 import { Card, Modal, WhiteSpace, Tabs, Button, SearchBar } from 'antd-mobile';
 import { createSocket } from '@/utils/websocket'
 import styles from './index.less';
@@ -14,9 +14,25 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
   // 这里发起了初始化请求
   useEffect(() => {
     createSocket()
+    // dispatch!({
+    //   type: 'admin/queryAllNote',
+    // })
     dispatch!({
-      type: 'admin/queryAllNote',
-    })
+      type: 'admin/queryUser',
+      payload: {
+        PageNo: 1,
+        PageSize: 99,
+        Sx: ''
+      }
+    });
+    setPageNavBar({
+      pagePath: '/admin',
+      navBar: {
+        onLeftClick: () => {
+          history.replace('/login');
+        }
+      },
+    });
     return () => {
     };
   }, []);
@@ -24,7 +40,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
   const { data } = admin;
 
   const tabs = [
-    { title: '文章管理', value: 0 },
+    // { title: '文章管理', value: 0 },
     { title: '用户管理', value: 1 },
     { title: '违规封号', value: 2 }
   ];
@@ -80,7 +96,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
 
   return (<div className={styles.container}>
     <Tabs tabs={tabs} onChange={changeTab} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={tabs.length > 3 ? 3.5 : tabs.length} />}>
-      <div className={styles.div1}>
+      {/* <div className={styles.div1}>
         <SearchBar placeholder="查找笔记" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {
           data && data.map && data.map((item: any) => (
@@ -102,7 +118,7 @@ const AdminPage: FC<PageProps> = ({ admin, dispatch }) => {
             </div>
           ))
         }
-      </div>
+      </div> */}
       <div className={styles.div2}>
         <SearchBar placeholder="查找用户" maxLength={20} onCancel={(val) => handleClick(val)} cancelText="查找" />
         {

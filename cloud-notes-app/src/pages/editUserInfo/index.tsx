@@ -23,6 +23,7 @@ const EditUserInfoPage: FC<PageProps> = ({ editUserInfo, dispatch, location }) =
 
   const { data } = editUserInfo
 
+  // 判断当前用户是否变更信息成功
   if (String(data && data.Status) === '1') {
     Toast.success('修改成功，请从新登录', 1)
     setTimeout(() => {
@@ -33,10 +34,11 @@ const EditUserInfoPage: FC<PageProps> = ({ editUserInfo, dispatch, location }) =
   }
 
   const handleClick = () => {
+    // 获取新的密码
     const Password = document.getElementById('registPassword1').value
     const Password2 = document.getElementById('registPassword2').value
     if (Password === Password2) {
-      dispatch!({
+      dispatch!({ // 向服务端提供此用户的用户id以及信息用户密码
         type: 'editUserInfo/queryUpdateUserInfo',
         payload: {
           uid: Number(Uid),
