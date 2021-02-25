@@ -1,5 +1,5 @@
-import React, { FC, useEffect } from 'react';
-import { NoteDetailsModelState, ConnectProps, connect } from 'alita';
+import React, { FC, useEffect, useState } from 'react';
+import { NoteDetailsModelState, ConnectProps, connect, setPageNavBar, history } from 'alita';
 import NoMore from '@/components/noMore/index'
 import styles from './index.less';
 
@@ -7,36 +7,91 @@ interface PageProps extends ConnectProps {
   noteDetails: NoteDetailsModelState;
 }
 
-const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch }) => {
-  dispatch!({
-    type: 'noteDetails/query',
-  });
-  const { data } = noteDetails;
+const NoteDetailsPage: FC<PageProps> = ({ noteDetails, dispatch, location }) => {
+  const { Id, Introduction, Name, Text, ThumbsUp, author } = location.query
 
-  const test = {
-    noteName: '软件工程',
-    text: '前言：发现以前写的就像是笔记，哪像博客啊，这里再次修改。问题描述： 在固定宽度的p元素里（任何块级元素同理），长单词不自动换行，中文字符会自动换行，效果如：http://codepen.io/aliceluojuan/pen/rrxbpO产生原因：1.英文会将不包含空格、换行的连续文本认为是一个词，所以在默认情况下不换行;2.中文的话标点文字都是独立的，所以会自动换行;解决方案：在英文字不改变内容的情况下，通过设置p元素的前言：发现以前写的就像是笔记，哪像博客啊，这里再次修改。问题描述： 在固定宽度的p元素里（任何块级元素同理），长单词不自动换行，中文字符会自动换行，效果如：http://codepen.io/aliceluojuan/pen/rrxbpO产生原因：1.英文会将不包含空格、换行的连续文本认为是一个词，所以在默认情况下不换行;2.中文的话标点文字都是独立的，所以会自动换行;解决方案：在英文字不改变内容的情况下，通过设置p元素的前言：发现以前写的就像是笔记，哪像博客啊，这里再次修改。问题描述： 在固定宽度的p元素里（任何块级元素同理），长单词不自动换行，中文字符会自动换行，效果如：http://codepen.io/aliceluojuan/pen/rrxbpO产生原因：1.英文会将不包含空格、换行的连续文本认为是一个词，所以在默认情况下不换行;2.中文的话标点文字都是独立的，所以会自动换行;解决方案：在英文字不改变内容的情况下，通过设置p元素的前言：发现以前写的就像是笔记，哪像博客啊，这里再次修改。问题描述： 在固定宽度的p元素里（任何块级元素同理），长单词不自动换行，中文字符会自动换行，效果如：http://codepen.io/aliceluojuan/pen/rrxbpO产生原因：1.英文会将不包含空格、换行的连续文本认为是一个词，所以在默认情况下不换行;2.中文的话标点文字都是独立的，所以会自动换行;解决方案：在英文字不改变内容的情况下，通过设置p元素的',
-    hot: '23',
-    modifyDate: '2020.11.23'
+  // const { data } = noteDetails;
+
+  // console.log(`${location.pathname}${location.search}`)
+
+  useEffect(() => {
+    // dispatch!({
+    //   type: 'noteDetails/queryNoteDetails',
+    //   payload: {
+    //     id: Number(NoteId)
+    //   }
+    // });
+  }, []);
+
+  const [readOnly, setReadOnly] = useState(true)
+
+  // const msg = data && data[0]
+
+  const handleEdit = () => {
+    setReadOnly(false)
+    const element = document.getElementById('text')
+    const edit = document.getElementById('edit')
+    const save = document.getElementById('save')
+    element.style.backgroundColor = '#fff'
+    save.style.display = 'block'
+    edit.style.display = 'none'
+  }
+
+  const handleSave = () => {
+    // 将输入框变为不可编辑状态
+    setReadOnly(true)
+    // 处理页面样式，隐藏保存按钮，出现编辑按钮
+    const element = document.getElementById('text')
+    const edit = document.getElementById('edit')
+    const save = document.getElementById('save')
+    element.style.backgroundColor = 'transparent'
+    edit.style.display = 'block'
+    save.style.display = 'none'
+    // 发送笔记最新状态数据，并向服务端请求
+    dispatch!({
+      type: 'noteDetails/queryUpdateNote',
+      payload: {
+        Note_id: Number(Id),
+        Note_name: Name,
+        Note_introduction: Introduction,
+        Note_type: 0,
+        Note_text: document.getElementById('text').value
+      }
+    });
+    // 编辑完成后，从新刷新笔记详情页面
+    history.replace(`${location.pathname}${location.search}`)
+  }
+  const handleShare = () => {
+    dispatch!({
+      type: 'noteDetails/queryUpdateNote',
+      payload: {
+        Note_id: Number(Id),
+        Note_name: Name,
+        Note_introduction: Introduction,
+        Note_type: 1, // 笔记类型变为1，表示为分享笔记
+        Note_text: document.getElementById('text').value
+      }
+    });
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.noteTitle}>
-        <span className={styles.noteName}>{test.noteName}</span>
-        <span className={styles.hot}>{test.hot}</span>
+        <span className={styles.noteName}>{Name}</span>
+        <span className={styles.hot}>{ThumbsUp}</span>
       </div>
       <div className={styles.noteInfo}>
-        <span className={styles.author}>敖敖</span>
-        <span className={styles.modityDate}>{test.modifyDate}</span>
+        <span className={styles.author}>{author}</span>
+        <div>{Introduction}</div>
       </div>
-      <hr/>
+      <hr />
       <div className={styles.mainText}>
-        <span className={styles.text}>{test.text}</span>
+        <textarea readOnly={readOnly} name="text" id="text" className={styles.text}>{Text}</textarea>
       </div>
       <div className={styles.rightFloat}>
-        <div className={styles.edit}></div>
-        <div className={styles.share}></div>
+        <div id="edit" className={styles.edit} onClick={handleEdit}></div>
+        <div id="save" className={styles.save} onClick={handleSave}></div>
+        <div id="share" className={styles.share} onClick={handleShare}></div>
       </div>
       <NoMore text='没有更多了' />
     </div>

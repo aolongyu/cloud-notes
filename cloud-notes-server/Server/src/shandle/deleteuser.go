@@ -13,7 +13,7 @@ type DeleteUserById struct {
 
 func(T DeleteUserById)Handle(request isface.IRequest){
 	conn := request.GetConnection()
-	recvData := ViewNoteJson{}
+	recvData := CloseUserByidJson{}
 
 	json.Unmarshal(request.GetData(),&recvData)
 
@@ -21,7 +21,7 @@ func(T DeleteUserById)Handle(request isface.IRequest){
 
 	Data := Status{}
 
-	Line := snet.SDB.Debug().Raw("call delete_user(?)",recvData.Id).RowsAffected
+	Line := snet.SDB.Debug().Exec("call delete_user(?)",recvData.Tname).RowsAffected
 
 	if Line > 0{
 		Data.Status = "1"

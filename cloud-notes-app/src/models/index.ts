@@ -1,5 +1,5 @@
-import { Effect, Reducer } from 'alita';
-import { query } from '@/services/api';
+import { Effect, Reducer, history } from 'alita';
+import { queryCrNote, queryCrNoBook } from '@/services/api';
 export interface IndexModelState {
   name: string;
 }
@@ -8,7 +8,8 @@ export interface IndexModelType {
   namespace: 'index';
   state: IndexModelState;
   effects: {
-    query: Effect;
+    queryCrNote: Effect;
+    queryCrNoBook: Effect;
   };
   reducers: {
     save: Reducer<IndexModelState>;
@@ -23,12 +24,22 @@ const IndexModel: IndexModelType = {
   },
 
   effects: {
-    *query({ payload }, { call, put }) {
-      const data = yield call(query, payload);
-      // console.log(data);
+    *queryCrNote({ payload }, { call, put }) {
+      yield call(queryCrNote, payload);
+      const data = JSON.parse(JSON.parse(window.cloud))
+      console.log('从服务端获取对象：', data)
       yield put({
         type: 'save',
-        payload: { name: data.text },
+        payload: { data },
+      });
+    },
+    *queryCrNoBook({ payload }, { call, put }) {
+      yield call(queryCrNoBook, payload);
+      const data = JSON.parse(JSON.parse(window.cloud))
+      console.log('从服务端获取对象：', data)
+      yield put({
+        type: 'save',
+        payload: { data },
       });
     },
   },

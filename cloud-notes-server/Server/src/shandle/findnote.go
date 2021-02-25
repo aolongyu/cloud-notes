@@ -31,6 +31,4 @@ func(T FindNoteByUserName)Handle(request isface.IRequest){
 
 	SendData,_ := json.Marshal(data)
 	conn.SendMesg([]byte(""),SendData)
-
-
 }

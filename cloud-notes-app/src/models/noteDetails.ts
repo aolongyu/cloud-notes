@@ -1,6 +1,7 @@
 import { Reducer } from 'alita';
-import { queryNoteDetails } from '@/services/api';
+import { queryNoteDetails, queryUpdateNote } from '@/services/api';
 import { Effect } from '@/models/connect';
+import { Toast } from 'antd-mobile';
 
 export interface NoteDetailsModelState {
   name: string;
@@ -10,7 +11,8 @@ export interface NoteDetailsModelType {
   namespace: 'noteDetails';
   state: NoteDetailsModelState;
   effects: {
-    query: Effect;
+    queryNoteDetails: Effect;
+    queryUpdateNote: Effect;
   };
   reducers: {
     save: Reducer<NoteDetailsModelState>;
@@ -25,7 +27,7 @@ const NoteDetailsModel: NoteDetailsModelType = {
   },
 
   effects: {
-    *query({ payload }, { call, put }) {
+    *queryNoteDetails({ payload }, { call, put }) {
       yield call(queryNoteDetails, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
@@ -33,6 +35,18 @@ const NoteDetailsModel: NoteDetailsModelType = {
         type: 'save',
         payload: { data },
       });
+    },
+    *queryUpdateNote({ payload }, { call, put }) {
+      yield call(queryUpdateNote, payload);
+      const data = JSON.parse(JSON.parse(window.cloud))
+      if(data.Status === '1') {
+        Toast.success('修改成功')
+      }
+      console.log('从服务端获取对象：', data)
+      // yield put({
+      //   type: 'save',
+      //   payload: { data1 },
+      // });
     },
   },
   reducers: {

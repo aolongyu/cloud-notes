@@ -19,6 +19,7 @@ type CreateNoteJson struct{
 	NoteIntroduction string	`json:"NoteIntroduction"`
 	NodeType int	`json:"NodeType"`
 	NodeText string	`json:"NodeText"`
+	Notebook_id int `json:"Notebook_id"`
 }
 func (T CreateNote) Handle(request isface.IRequest){
 	conn := request.GetConnection()
@@ -28,7 +29,8 @@ func (T CreateNote) Handle(request isface.IRequest){
 
 	fmt.Println("Handle createnote 传来的信息：",CreateNoteMesg)
 
-	Line := snet.SDBNote.Debug().Raw("create_note(?,?,?,?,?)",CreateNoteMesg.Uid,CreateNoteMesg.NoteName,CreateNoteMesg.NoteIntroduction,CreateNoteMesg.NodeType,CreateNoteMesg.NodeText).RowsAffected
+	Line := snet.SDBNote.Debug().Exec("call create_note(?,?,?,?,?,?)",CreateNoteMesg.Uid,CreateNoteMesg.NoteName,CreateNoteMesg.NoteIntroduction,CreateNoteMesg.NodeType,CreateNoteMesg.NodeText,CreateNoteMesg.Notebook_id).RowsAffected
+
 	res := Status{}
 	if Line > 0{
 		res.Status = "1"

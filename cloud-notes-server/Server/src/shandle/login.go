@@ -15,11 +15,15 @@ type LoginUserJson struct{
 	Password string `json:"Password"`
 }
 type Result struct{
-	Result int `gorm:"column:Result"`
-	Mark int `gorm:"column:Mark"`
+	Result int `gorm:"column:result"`
+	Id string `gorm:"column:id"`
 }
 type Status struct{
 	Status string  //返回的状态
+}
+type LoginStatus struct{
+	Status string
+	Uid string
 }
 func(T Login) Handle(request isface.IRequest){
 	conn := request.GetConnection()
@@ -33,14 +37,20 @@ func(T Login) Handle(request isface.IRequest){
 	snet.SDB.Debug().Raw("call login(?,?)",Loginmessage.Name,Loginmessage.Password).Scan(&res)
 
 	fmt.Println("读取的数据库内容：",res)
-	returnres := Status{}
+	returnres := LoginStatus{
+		Status: "",
+		Uid:    "",
+	}
 	//登录成功
 	if res.Result > 0 {
-		if res.Mark == 1{
+		if res.Result == 1{
 			returnres.Status = "1"
-		}else if res.Mark == 2{
+			returnres.Uid = string(res.Id)
+		}else if res.Result == 2{
 			returnres.Status = "2"
+			returnres.Uid = string(res.Id)
 		}
+
 		data,_ := json.Marshal(returnres)
 		conn.SendMesg([]byte(""), data)
 	}else{//登录失败.+封禁+无此用户

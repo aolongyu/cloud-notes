@@ -1,6 +1,7 @@
 import { Reducer } from 'alita';
-import { queryFolder } from '@/services/api';
+import { queryNoteBookList, queryUpdateNoteBook } from '@/services/api';
 import { Effect } from '@/models/connect';
+import { Toast } from 'antd-mobile';
 
 export interface NoteFolderModelState {
   name: string;
@@ -10,7 +11,8 @@ export interface NoteFolderModelType {
   namespace: 'noteFolder';
   state: NoteFolderModelState;
   effects: {
-    query: Effect;
+    queryNoteBookList: Effect;
+    queryUpdateNoteBook: Effect;
   };
   reducers: {
     save: Reducer<NoteFolderModelState>;
@@ -25,15 +27,30 @@ const NoteFolderModel: NoteFolderModelType = {
   },
 
   effects: {
-    *query({ payload }, { call, put }) {
-      yield call(queryFolder, payload);
+    *queryNoteBookList({ payload }, { call, put }) {
+      yield call(queryNoteBookList, payload);
       const data = JSON.parse(JSON.parse(window.cloud))
       console.log('从服务端获取对象：', data)
-
+      localStorage.setItem('noteFolder', JSON.stringify(data))
       yield put({
         type: 'save',
         payload: { data },
       });
+    },
+    *queryUpdateNoteBook({ payload }, { call, put }) {
+      yield call(queryUpdateNoteBook, payload);
+      const data = JSON.parse(JSON.parse(window.cloud))
+      console.log('从服务端获取对象：', data)
+      if (data.Status === '1') {
+        Toast.success('修改笔记信息成功')
+      } else {
+        Toast.fail('修改笔记信息失败')
+      }
+
+      // yield put({
+      //   type: 'save',
+      //   payload: { data },
+      // });
     },
   },
   reducers: {

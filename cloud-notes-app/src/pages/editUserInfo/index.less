@@ -1,0 +1,53 @@
+.container {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(to right, rgb(75, 211, 245), rgb(0, 153, 255));
+  text-align: center;
+
+  .titleText {
+    // margin-top: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+  }
+
+  .registBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 50px auto 50px;
+    padding-top: 70px;
+    padding-bottom: 90px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 18px;
+
+    .registName {
+      width: 400px;
+      height: 50px;
+      margin-top: 20px;
+      border-bottom: 2px solid rgb(105, 105, 105);
+    }
+
+    .registName:focus {
+      border-bottom: 4px solid rgb(0, 0, 0);
+    }
+
+    .registPassword {
+      width: 400px;
+      height: 50px;
+      margin-top: 20px;
+      border-bottom: 2px solid rgb(105, 105, 105);
+    }
+
+    .registPassword:focus {
+      border-bottom: 4px solid rgb(0, 0, 0);
+    }
+
+    .registSubmit {
+      width: 400px;
+      height: 60px;
+      margin-top: 30px;
+      background: linear-gradient(to right, rgb(75, 211, 245), rgb(0, 153, 255));
+      border-radius: 30px;
+    }
+  }
+}
